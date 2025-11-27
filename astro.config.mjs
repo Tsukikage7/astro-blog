@@ -9,6 +9,7 @@ import rehypeKatex from "rehype-katex";
 import remarkMath from "remark-math";
 import rehypeExternalLinks from "rehype-external-links";
 import { fileURLToPath, URL } from "node:url";
+import os from "node:os";
 
 // 获取环境变量
 const NODE_ENV = process.env.NODE_ENV || 'development';
@@ -43,7 +44,7 @@ export default defineConfig({
     inlineStylesheets: "auto",
     assets: "_astro",
     // 启用并行构建以提升性能
-    concurrency: 4,
+    concurrency: Math.max(4, os.cpus().length - 1),
     // 分割代码以减少单个文件大小
     split: true
   },
@@ -99,9 +100,9 @@ export default defineConfig({
     // 图片优化配置
     domains: [],
     // 降低图片质量以加快构建速度
-    quality: isDevelopment ? 60 : 80,
+    quality: isDevelopment ? 50 : 75,
     // 支持的图片格式
-    formats: ["webp", "avif"],
+    formats: ["webp"],
     // 启用图片缓存以加速重复构建
     experimentalLayout: "constrained"
   },
