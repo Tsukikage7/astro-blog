@@ -1,0 +1,164 @@
+# ==========================================
+# Astro Blog - Git Ignore Configuration
+# ==========================================
+
+# -------------------- Astro Build --------------------
+# Astro build outputs
+dist/
+.astro/
+
+# Static site search index (Pagefind)
+dist/pagefind/
+
+# -------------------- Dependencies --------------------
+# Node modules
+node_modules/
+
+# Package manager files
+.pnpm-store/
+.npm/
+.yarn-integrity
+*.tgz
+
+# Lock file backups
+package-lock.json.backup
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# -------------------- Environment Variables --------------------
+# All environment files (except .env.example if you add one)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.test
+
+# -------------------- Build & Generated Files --------------------
+# Font analysis results (auto-generated)
+src/fonts/charset.txt
+src/fonts/unicodes.txt
+src/fonts/font-usage-report.json
+
+# Generated font subsets (auto-generated at build time)
+public/fonts/monaco-nerd/*.woff2
+
+# -------------------- IDE & Editors --------------------
+# VSCode
+.vscode/
+!.vscode/settings.json.example
+*.code-workspace
+
+# JetBrains IDEs (WebStorm, IntelliJ, etc.)
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+
+# Sublime Text
+*.sublime-workspace
+*.sublime-project
+
+# Cache files
+.eslintcache
+.stylelintcache
+.trae
+
+# -------------------- Operating System --------------------
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.directory
+.Trash-*
+
+# -------------------- Runtime & Temp --------------------
+# Logs
+logs/
+*.log
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# -------------------- Testing & Coverage --------------------
+# Test coverage
+coverage/
+.nyc_output/
+*.lcov
+
+# -------------------- Cache Directories --------------------
+# Various build tool caches
+.cache/
+.parcel-cache/
+.turbo/
+.next/
+.nuxt/
+.vuepress/dist
+
+# -------------------- Deployment --------------------
+# Vercel
+.vercel/
+
+# Netlify
+.netlify/
+
+# -------------------- Other --------------------
+# Serverless
+.serverless/
+
+# FuseBox
+.fusebox/
+
+# DynamoDB Local
+.dynamodb/
+
+# TernJS
+.tern-port
+
+# Merge conflict files
+*.orig
+*.merge_file_*
+
+# Miscellaneous
+jspm_packages/
+.node_repl_history
+
+.serena
+.bmad-core

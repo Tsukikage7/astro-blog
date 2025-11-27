@@ -1,0 +1,35 @@
+<!-- Background Component - No Images (Pure Color) -->
+<style>
+  html::before,
+  html::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    transition: opacity 0.25s ease-in-out;
+    pointer-events: none;
+  }
+
+  /* 亮色模式背景 - 使用 shadcn 的背景色 */
+  html::before {
+    background: hsl(var(--background));
+    opacity: 1;
+  }
+
+  html.dark::before {
+    opacity: 0;
+  }
+
+  /* 暗色模式背景 - 使用 shadcn 的背景色 */
+  html::after {
+    background: hsl(var(--background));
+    opacity: 0;
+  }
+
+  html.dark::after {
+    opacity: 1;
+  }
+</style>

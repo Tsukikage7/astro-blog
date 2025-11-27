@@ -1,0 +1,292 @@
+---
+import LiquidGlass from "@components/common/LiquidGlassLess.astro";
+import Social from "@components/common/Social.astro";
+import { getEntry } from "astro:content";
+import { getSiteStats, getTotalWordCount } from "@lib/contentParser";
+import GlassButton from "@components/ui/GlassButton.astro";
+import { SITE_INFO } from "@lib/config";
+
+// 静态底部菜单
+const footerMenus = [
+  { name: "首页", url: "/", target: "_self" },
+  { name: "博客", url: "/blog", target: "_self" },
+  { name: "关于", url: "/about", target: "_self" },
+  { name: "搜索", url: "/search", target: "_self" },
+  { name: "条款", url: "/terms", target: "_self" },
+];
+
+// 从content获取社交信息
+const socialEntry = await getEntry("social", "-index");
+const socialLinks = socialEntry?.data.platforms || {
+  mpwechat: "",
+  xhs: "",
+  github: "",
+  email: "",
+  instagram: "",
+  facebook: "",
+  twitter: "",
+  weibo: "",
+  rss: "",
+};
+
+
+// 获取统计数据
+const siteStatsData = await getSiteStats();
+
+// 本地模式：不统计全站浏览量，展示占位或从 content 统计文章数/字数
+let totalViews = "--";
+const statsData = {
+  totalWords: siteStatsData.totalWords,
+  runningDays: siteStatsData.runningDays,
+  totalViews: totalViews,
+  totalArticles: siteStatsData.articles.toString(),
+};
+---
+
+<footer
+  id="main-footer"
+  class="container px-3 lg:px-8 relative z-40 transition-all duration-300 fast-slow mt-8"
+>
+  <div class="mx-auto py-2 md:py-4">
+    <!-- 整体浮动容器 -->
+    <div
+      class="rounded-full pointer-events-auto transition-all duration-300 fast-slow"
+    >
+      <LiquidGlass
+        enableGlassEffect={false}
+        containerType="nav"
+        wrapperClass="px-6 py-2 rounded-full hover:bg-accent"
+        effectClass="rounded-full"
+        textClass="rounded-full"
+        tintClass="rounded-full"
+        shineClass="rounded-full"
+        animation="fadeDown"
+      >
+        <div class="">
+          <!-- 收缩状态：只显示重要信息 -->
+          <div
+            id="footer-collapsed"
+            class="flex items-center justify-between md:flex-row flex-col gap-2 md:gap-0"
+          >
+            <!-- 左侧：版权信息 -->
+            <div
+              class="text-sm md:text-base text-txt-light dark:text-darkmode-txt-light text-center md:text-left"
+            >
+              © {new Date().getFullYear()} ·
+              <span class="hidden md:inline">保留所有权利 ·</span>
+              <a
+                href={SITE_INFO.URL}
+                class="hover:text-orange-500 transition-colors"
+              >
+                {SITE_INFO.SITE_NAME}
+              </a>
+            </div>
+            <!-- 右侧：社交链接 -->
+            <div class="hidden md:flex md:items-center md:scale-100">
+              <Social links={socialLinks} />
+              <!-- 返回顶部按钮 -->
+              <GlassButton
+                id="back-to-top-footer"
+                variant="info"
+                size="sm"
+                className="flex items-center gap-2  py-1 text-xs md:text-sm font-medium mx-1 w-0 opacity-0 overflow-hidden pointer-events-none transition-all duration-300 ease-in-out"
+                aria-label="返回顶部"
+              >
+                <svg
+                  class="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+                </svg>
+                <span>Top</span>
+              </GlassButton>
+            </div>
+          </div>
+
+          <!-- 展开状态：显示所有信息 -->
+          <div
+            id="footer-expanded"
+            class="opacity-0 max-h-0 transition-all duration-300 fast-slow overflow-hidden"
+          >
+            <div class="z-50 flex flex-row justify-between items-center">
+              <!-- 导航菜单 -->
+              <div class="hidden md:block">
+                <ul
+                  class="flex flex-wrap justify-center items-center gap-1 md:gap-2"
+                >
+                  {
+                    footerMenus.map((menu) => (
+                      <li class="relative">
+                        <a
+                          href={menu.url}
+                          target={menu.target}
+                          class="block px-2 py-1 md:px-3 md:py-2 text-xs md:text-sm font-medium text-txt-p transition-all duration-300 dark:text-darkmode-txt-p rounded-lg relative z-10 hover:text-orange-500 hover:bg-white/10"
+                        >
+                          {menu.name}
+                        </a>
+                      </li>
+                    ))
+                  }
+                </ul>
+              </div>
+
+              <!-- 统计数据和返回顶部 -->
+              <div class="text-center hidden md:flex md:items-center md:gap-2">
+                <div
+                  class="flex flex-wrap items-center justify-center gap-x-1 gap-y-1 md:gap-x-2 text-xs md:text-sm text-txt-light dark:text-darkmode-txt-light"
+                >
+                  <!-- 浏览量已取消显示 -->
+                   ·
+                  <span>{statsData.totalArticles} 文章</span>
+                   ·
+                  <span>全站 {statsData.totalWords} 字</span>
+                   ·
+                  <span>运行 {statsData.runningDays} 天</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </LiquidGlass>
+    </div>
+  </div>
+</footer>
+
+<!-- Footer 滚动控制脚本 -->
+<script>
+  function initFooterScroll() {
+    const footer = document.getElementById("main-footer");
+    const collapsedContent = document.getElementById("footer-collapsed");
+    const expandedContent = document.getElementById("footer-expanded");
+
+    if (!footer || !collapsedContent || !expandedContent) return;
+
+    let isExpanded = false;
+
+    function checkScrollPosition() {
+      const scrollTop =
+        window.pageYOffset || document.documentElement.scrollTop;
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+
+      // 判断是否滚动到底部（允许一些误差）
+      const isAtBottom = scrollTop + windowHeight >= documentHeight - 50;
+
+      if (isAtBottom && !isExpanded && expandedContent) {
+        // 展开footer
+        expandedContent.style.opacity = "1";
+        // 根据屏幕尺寸设置不同的最大高度
+        expandedContent.style.maxHeight = "200px";
+        // expandedContent?.classList.add("-mt-10");
+        isExpanded = true;
+      } else if (!isAtBottom && isExpanded && expandedContent) {
+        // 收缩footer
+        expandedContent.style.opacity = "0";
+        expandedContent.style.maxHeight = "0";
+        // expandedContent.classList.remove("-mt-10");
+        isExpanded = false;
+      }
+    }
+
+    // 节流函数
+    let ticking = false;
+    function throttledScroll() {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          checkScrollPosition();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }
+
+    // 监听滚动事件
+    window.addEventListener("scroll", throttledScroll, { passive: true });
+
+    // 初始检查
+    checkScrollPosition();
+  }
+
+  // 返回顶部功能
+  function initBackToTop() {
+    const backToTopBtn = document.getElementById("back-to-top-footer");
+    if (!backToTopBtn) return;
+
+    backToTopBtn.style.padding = "0";
+    let isButtonVisible = false;
+
+    // 点击事件
+    backToTopBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    });
+
+    // 控制按钮显示/隐藏
+    function toggleBackToTopButton() {
+      if (!backToTopBtn) return;
+
+      const scrollTop =
+        window.pageYOffset || document.documentElement.scrollTop;
+      const shouldShow = scrollTop > 300; // 滚动超过300px时显示
+
+      if (shouldShow && !isButtonVisible) {
+        // 显示按钮
+        backToTopBtn.style.width = "auto";
+        backToTopBtn.style.opacity = "1";
+        backToTopBtn.style.padding = "0.6rem";
+        backToTopBtn.style.display = "visible";
+        backToTopBtn.style.pointerEvents = "auto";
+        isButtonVisible = true;
+      } else if (!shouldShow && isButtonVisible) {
+        // 隐藏按钮
+        backToTopBtn.style.width = "0";
+        backToTopBtn.style.opacity = "0";
+        backToTopBtn.style.padding = "0";
+        backToTopBtn.style.display = "hidden";
+        backToTopBtn.style.pointerEvents = "none";
+        isButtonVisible = false;
+      }
+    }
+
+    // 节流滚动监听
+    let ticking = false;
+    function throttledBackToTopScroll() {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          toggleBackToTopButton();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }
+
+    // 监听滚动事件
+    window.addEventListener("scroll", throttledBackToTopScroll, {
+      passive: true,
+    });
+
+    // 初始检查
+    toggleBackToTopButton();
+  }
+
+  // 页面加载完成后初始化
+  document.addEventListener("DOMContentLoaded", () => {
+    initFooterScroll();
+    initBackToTop();
+  });
+
+  // Astro 页面切换后重新初始化
+  document.addEventListener("astro:page-load", () => {
+    initFooterScroll();
+    initBackToTop();
+  });
+</script>

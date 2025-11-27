@@ -1,0 +1,36 @@
+// Markdown Content
+.content {
+  // Base
+  @apply prose max-w-none intersect:animate-fadeUp;
+  @apply prose-headings:mb-[.3em] prose-headings:mt-[.6em];
+  @apply prose-h1:text-h1-sm md:prose-h1:text-h1;
+  @apply prose-h2:text-h2-sm md:prose-h2:text-h2;
+  @apply prose-h3:text-h3-sm md:prose-h3:text-h3;
+  @apply prose-p:text-lg prose-p:text-foreground;
+  @apply prose-a:text-foreground prose-a:underline hover:prose-a:text-primary;
+  @apply prose-img:max-w-full prose-img:rounded;
+  @apply prose-hr:border-border prose-hr:my-4;
+  @apply prose-strong:text-foreground;
+  @apply prose-pre:rounded-lg prose-pre:bg-muted;
+  // Code
+  @apply prose-code:px-1 prose-code:text-foreground;
+  // Blockquote
+  @apply prose-blockquote:rounded-lg prose-blockquote:border prose-blockquote:border-l-8 prose-blockquote:px-4 prose-blockquote:py-0 prose-blockquote:font-secondary prose-blockquote:text-2xl prose-blockquote:not-italic;
+  @apply prose-blockquote:bg-muted prose-blockquote:border-border prose-blockquote:text-muted-foreground;
+  @apply prose-blockquote:prose-p:m-0;
+  // Table
+  @apply prose-table:relative prose-table:overflow-hidden prose-table:rounded-lg prose-table:before:rounded-lg prose-table:before:absolute prose-table:before:left-0 prose-table:before:top-0 prose-table:before:h-full prose-table:before:w-full prose-table:before:border prose-table:before:content-[""] prose-table:before:border-border;
+  @apply prose-thead:border-border prose-thead:bg-muted;
+  @apply prose-th:relative prose-th:z-10 prose-th:px-4 prose-th:py-2 prose-th:text-foreground;
+  @apply prose-tr:border-border;
+  @apply prose-td:relative prose-td:z-10 prose-td:px-3 prose-td:py-2 prose-td:text-foreground;
+  // Lists
+  @apply prose-li:text-foreground;
+  @apply prose-li:marker:text-primary prose-li:marker:inset-2;
+
+  li {
+    p {
+      @apply m-0; // in .mdx files, li elements can contain <p> tags
+    }
+  }
+}

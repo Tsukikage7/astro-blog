@@ -1,0 +1,127 @@
+// shadcn/ui 基础样式
+// Zinc 配色方案
+
+@layer base {
+  :root {
+    // 亮色模式 - 清爽的白色系配色
+    --background: 0 0% 100%;             // 纯白背景
+    --foreground: 222 47% 11%;           // 深蓝灰文字
+
+    --card: 0 0% 100%;                   // 纯白卡片
+    --card-foreground: 222 47% 11%;      // 深蓝灰文字
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    --primary: 222 47% 11%;              // 深蓝灰主色
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;          // 极浅蓝灰次要色
+    --secondary-foreground: 222 47% 11%;
+
+    --muted: 210 40% 96.1%;              // 极浅蓝灰柔和色
+    --muted-foreground: 215 16% 47%;     // 中灰文字
+
+    --accent: 210 40% 96.1%;             // 极浅蓝灰强调色
+    --accent-foreground: 222 47% 11%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214 32% 91%;               // 浅灰边框
+    --input: 214 32% 91%;
+    --ring: 222 84% 5%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
+
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
+  }
+}
+
+// shadcn 卡片样式
+.card {
+  @apply rounded-lg border bg-card text-card-foreground;
+  @apply shadow-sm hover:shadow-md transition-shadow duration-300;
+}
+
+// 按钮样式
+.btn {
+  @apply inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors;
+  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2;
+  @apply disabled:opacity-50 disabled:pointer-events-none;
+}
+
+.btn-primary {
+  @apply bg-primary text-primary-foreground hover:bg-primary/90;
+}
+
+.btn-secondary {
+  @apply bg-secondary text-secondary-foreground hover:bg-secondary/80;
+}
+
+.btn-outline {
+  @apply border border-input bg-background hover:bg-accent hover:text-accent-foreground;
+}
+
+// 输入框样式
+.input {
+  @apply flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm;
+  @apply ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium;
+  @apply placeholder:text-muted-foreground;
+  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2;
+  @apply disabled:cursor-not-allowed disabled:opacity-50;
+}
+
+// 替换旧的 glass 样式为 shadcn 卡片样式
+.glass,
+.glass-t,
+.glass-l,
+.glass-t-borderless {
+  @apply bg-card text-card-foreground border border-border rounded-lg;
+  @apply shadow-sm hover:shadow-md transition-all duration-200;
+
+  // 移除所有毛玻璃效果
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  background-opacity: 1;
+}
+
+.glass.dock {
+  @apply p-4 rounded-xl;
+  @apply shadow-md hover:shadow-lg hover:scale-[0.995];
+  @apply transition-all duration-300;
+}
+
+.glass.button {
+  @apply px-6 py-2 rounded-full;
+  @apply shadow-sm hover:shadow-md hover:scale-105;
+  @apply transition-all duration-300;
+}

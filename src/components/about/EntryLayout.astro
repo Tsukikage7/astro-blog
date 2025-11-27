@@ -1,0 +1,113 @@
+---
+import BaseLayout from "@components/base/BaseLayout.astro";
+import { markdownify } from "@lib/textConverter";
+import type { AboutEntry } from "@/types";
+import { render } from "astro:content";
+import LiquidGlassLess from "@components/common/LiquidGlassLess.astro";
+import { Image } from "astro:assets";
+
+interface Props {
+  entry: AboutEntry;
+}
+
+const { entry } = Astro.props;
+const { title, description, image, imageAlt } = entry.data;
+const { Content } = await render(entry);
+
+// 获取图片的 src 用于 meta 标签
+const imageSrc = image ? (typeof image === 'string' ? image : image.src) : undefined;
+---
+
+<BaseLayout title={title} description={description} image={imageSrc}>
+  <section class="container px-3 lg:px-8 py-8">
+    <!-- 头像和标题区域 -->
+    <div class="mb-8 text-center">
+      {
+        image && (
+          <div class="mb-6 flex justify-center">
+            <div class="relative group">
+              {/* 渐变背景光晕 */}
+              <div class="absolute -inset-4 bg-gradient-to-r from-orange-500 via-indigo-500 to-green-500 rounded-full blur-2xl opacity-40 group-hover:opacity-60 transition duration-500 animate-pulse"></div>
+
+              {/* 头像 */}
+              {typeof image === 'string' ? (
+                <img
+                  class="relative w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-white/20 shadow-2xl transform group-hover:scale-105 transition-all duration-300 bg-white/10 backdrop-blur-sm object-cover"
+                  src={image}
+                  alt={imageAlt || "Avatar"}
+                  width="160"
+                  height="160"
+                  loading="eager"
+                />
+              ) : (
+                <Image
+                  class="relative w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-white/20 shadow-2xl transform group-hover:scale-105 transition-all duration-300 bg-white/10 backdrop-blur-sm object-cover"
+                  src={image}
+                  alt={imageAlt || "Avatar"}
+                  width={160}
+                  height={160}
+                  loading="eager"
+                />
+              )}
+            </div>
+          </div>
+        )
+      }
+      <h1
+        set:html={markdownify(title)}
+        class="text-4xl md:text-5xl font-bold text-txt-p dark:text-darkmode-txt-p mb-4"
+      />
+      <p class="text-lg text-txt-s dark:text-darkmode-txt-s max-w-2xl mx-auto">
+        {description}
+      </p>
+    </div>
+
+    <!-- 内容区域 -->
+    <div class="max-w-4xl mx-auto">
+      <LiquidGlassLess
+        heavy
+        textClass="p-6 md:p-10"
+        wrapperClass="markdown-content"
+      >
+        <div class="prose prose-lg dark:prose-invert max-w-none">
+          <Content />
+        </div>
+      </LiquidGlassLess>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* 自定义 markdown 内容样式 */
+  :global(.markdown-content h4) {
+    @apply text-2xl font-bold mb-4 mt-8 text-txt-p dark:text-darkmode-txt-p;
+  }
+
+  :global(.markdown-content ul) {
+    @apply space-y-2;
+  }
+
+  :global(.markdown-content li) {
+    @apply text-txt-s dark:text-darkmode-txt-s;
+  }
+
+  :global(.markdown-content hr) {
+    @apply my-8 border-white/10;
+  }
+
+  :global(.markdown-content blockquote) {
+    @apply border-l-4 border-orange-500 pl-4 italic text-txt-s dark:text-darkmode-txt-s my-6;
+  }
+
+  :global(.markdown-content a) {
+    @apply text-orange-500 hover:text-orange-600 transition-colors;
+  }
+
+  :global(.markdown-content strong) {
+    @apply text-txt-p dark:text-darkmode-txt-p font-semibold;
+  }
+
+  :global(.markdown-content p) {
+    @apply mb-4 leading-relaxed text-txt-p dark:text-darkmode-txt-p;
+  }
+</style>

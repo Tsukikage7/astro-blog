@@ -1,0 +1,58 @@
+<div id="tcomment" class="markdown-content"></div>
+
+<script define:vars={{
+  twikooEnvId: import.meta.env.PUBLIC_TWIKOO_ENV_ID || ""
+}}>
+  document.addEventListener("astro:page-load", () => {
+    function loadTwikoo() {
+      const commentsContainer = document.getElementById("tcomment");
+      if (commentsContainer) {
+        if (!twikooEnvId) {
+          showError("留言模块未加载，Twikoo envId 未配置。");
+          return;
+        }
+        const script = document.createElement("script");
+        script.src =
+          "https://cdn.jsdelivr.net/npm/twikoo@1.6.44/dist/twikoo.min.js";
+        script.async = true;
+        script.onload = () => {
+          if (typeof twikoo === 'undefined') {
+            showError("Twikoo 脚本加载失败，请检查网络连接。");
+            return;
+          }
+
+          twikoo.init({
+            envId: twikooEnvId,
+            el: '#tcomment',
+          }).then(() => {
+            console.log('Twikoo 评论系统初始化成功');
+          }).catch((error) => {
+            console.error('Twikoo 初始化失败:', error);
+            showError(`评论系统初始化失败: ${error.message || '请检查 Twikoo 服务器配置'}`);
+          });
+        };
+
+        script.onerror = () => {
+          showError("Twikoo 脚本加载失败，请检查网络连接。");
+        };
+        document.body.appendChild(script);
+      }
+    }
+
+    function showError(msg){
+      const list = document.getElementById("tcomment");
+      if(!list) return;
+      list.removeAttribute('aria-busy');
+      list.innerHTML = `
+        <div class="py-4">
+          <div class="text-center text-red-600 dark:text-red-400">
+            ${msg || "评论获取失败，请稍后重试。"}
+          </div>
+        </div>
+      `;
+      const btn = document.getElementById("rc-retry-btn");
+      if(btn){ btn.addEventListener("click", load, { once: true }); }
+    }
+    loadTwikoo();
+  });
+</script>

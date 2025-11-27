@@ -1,0 +1,60 @@
+---
+import { getSiteStats } from "@lib/contentParser";
+import LiquidGlassLess from "./LiquidGlassLess.astro";
+import { SITE_INFO } from "@lib/config";
+
+// 获取静态模式下的统计数据
+const siteStats = await getSiteStats();
+---
+
+<!-- 作者信息 -->
+<LiquidGlassLess
+  heavy
+  wrapperClass="dock rounded-lg p-4 my-2 mb-4"
+  animation="fadeLeft"
+>
+  <div class="intersect:animate-fadeLeft">
+    <div class="mb-4 text-center justify-items-center">
+      <div class="relative group mb-1">
+        <div class="absolute -inset-1 bg-gradient-to-r from-orange-500 via-indigo-500 to-green-500 rounded-full blur opacity-30 group-hover:opacity-50 transition duration-300" />
+        <a href="/page/about">
+          <img
+            class="relative  w-20 h-20 rounded-full border-4 border-white/30 shadow-xl transform group-hover:scale-105 transition-all duration-300"
+            src={SITE_INFO.AUTHOR_AVATAR}
+            alt="Tsukikage的头像"
+            width="112"
+            height="112"
+            loading="lazy"
+            decoding="async"
+          />
+        </a>
+      </div>
+      <h1
+        class="text-xl lg:text-xl font-bold text-txt-p dark:text-darkmode-txt-p mb-2"
+      >
+        Tsukikage
+      </h1>
+      <div
+        class="w-20 h-1 bg-gradient-to-r from-orange-500 to-indigo-500 mx-auto lg:mx-0 rounded-full mb-4"
+        style="margin:auto;"
+      >
+      </div>
+    </div>
+    <div class="flex flex-row justify-between px-4">
+      <div class="flex flex-col items-center">
+        <div>分类</div>
+        <div>{siteStats.categories}</div>
+      </div>
+
+      <div class="flex flex-col items-center">
+        <div>标签</div>
+        <div>{siteStats.tags}</div>
+      </div>
+
+      <div class="flex flex-col items-center">
+        <div>文章</div>
+        <div>{siteStats.articles}</div>
+      </div>
+    </div>
+  </div>
+</LiquidGlassLess>

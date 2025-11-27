@@ -1,0 +1,74 @@
+---
+/**
+ * 服务端浏览量统计组件
+ * 使用不蒜子(busuanzi)统计服务
+ */
+import { FaRegEye } from "react-icons/fa";
+
+const { slug, className = "" } = Astro.props as {
+  slug: string;
+  className?: string;
+};
+---
+
+<span
+  id="busuanzi_container_page_pv"
+  class={`inline-flex items-center gap-1 ${className}`}
+  style="display:none"
+>
+  <FaRegEye className="text-base" />
+  <span id="busuanzi_value_page_pv" class="tabular-nums">--</span>
+  <span>次阅读</span>
+</span>
+
+<script>
+  // 加载不蒜子统计脚本
+  function loadBusuanzi() {
+    // 检查是否已加载
+    if (window.busuanzi) {
+      // 已加载,显示容器
+      showContainer();
+      return;
+    }
+
+    // 动态加载不蒜子脚本
+    const script = document.createElement("script");
+    script.async = true;
+    script.src = "//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js";
+
+    script.onload = () => {
+      console.log("不蒜子统计加载成功");
+      showContainer();
+    };
+
+    script.onerror = () => {
+      console.error("不蒜子统计加载失败");
+      // 加载失败时隐藏容器
+      const container = document.getElementById("busuanzi_container_page_pv");
+      if (container) {
+        container.style.display = "none";
+      }
+    };
+
+    document.body.appendChild(script);
+  }
+
+  function showContainer() {
+    // 等待不蒜子初始化完成
+    setTimeout(() => {
+      const container = document.getElementById("busuanzi_container_page_pv");
+      const value = document.getElementById("busuanzi_value_page_pv");
+
+      if (container && value && value.textContent !== "--") {
+        container.style.display = "inline-flex";
+      } else if (container && value) {
+        // 数据还未加载,继续等待
+        setTimeout(showContainer, 500);
+      }
+    }, 100);
+  }
+
+  // 页面加载时初始化
+  document.addEventListener("DOMContentLoaded", loadBusuanzi);
+  document.addEventListener("astro:page-load", loadBusuanzi);
+</script>
