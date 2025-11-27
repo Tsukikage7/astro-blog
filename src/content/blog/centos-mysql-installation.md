@@ -24,13 +24,13 @@ hideToc: false
 
 ### 1. 打开终端并备份当前的软件源列表
 
-  ```Shell
+  ```bash
 sudo cp /etc/apt/sources.list /etc/apt/sources.list.backup
   ```
 
 ### 2. 使用以下命令打开 `/etc/apt/sources.list` 文件
 
-  ```Shell
+  ```bash
 sudo vim /etc/apt/sources.list
   ```
 
@@ -56,7 +56,7 @@ deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-security main restric
 
 ### 5. 使用以下命令更新软件包列表
 
-  ```Shell
+  ```bash
 sudo apt-get update
   ```
 
@@ -64,7 +64,7 @@ sudo apt-get update
 
 ### 1. 使用以下命令安装 MySQL : 
 
-  ```Shell
+  ```bash
 sudo apt-get install mysql-server
   ```
 
@@ -72,13 +72,13 @@ sudo apt-get install mysql-server
 
 ### 2. 安装完成后,使用以下命令启动 MySQL 服务: 
 
-  ```Shell
+  ```bash
 sudo systemctl start mysql
   ```
 
 ### 3. 使用以下命令检查 MySQL 服务是否已启动
 
-  ```Shell
+  ```bash
 sudo systemctl status mysql
   ```
 
@@ -88,7 +88,7 @@ sudo systemctl status mysql
 
 ### 1. 打开终端并使用以下命令登录到 MySQL 
 
-  ```Shell
+  ```bash
 sudo mysql -u root -p
   ```
 
@@ -96,7 +96,7 @@ sudo mysql -u root -p
 
 ### 2. 使用以下命令修改 root 用户的密码
 
-  ```SQL
+  ```sql
 alter USER 'root'@'localhost' identified with mysql_native_password by 'root';
   ```
 
@@ -104,7 +104,7 @@ alter USER 'root'@'localhost' identified with mysql_native_password by 'root';
 
 ### 3. 使用以下命令允许从所有远程 IP 访问 MySQL 的用户
 
-  ```SQL
+  ```sql
 create user 'root'@'%' identified with mysql_native_password by 'root';
 grant all privileges on *.* to 'root'@'%';
   ```
@@ -115,12 +115,12 @@ grant all privileges on *.* to 'root'@'%';
 
 ### 4. 使用以下命令刷新 MySQL 权限
 
-  ```SQL
+  ```sql
 flush privileges;
   ```
 
 ### 5. 使用以下命令退出 MySQL
 
-  ```SQL
+  ```sql
 exit;
   ```
