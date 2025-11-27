@@ -39,7 +39,7 @@ const SearchPage = ({ searchList }: Props) => {
     const searchStr = searchUrl.get("q");
     if (searchStr) setInputVal(searchStr);
 
-    // 优化：使用requestAnimationFrame替代setTimeout，提升性能
+    
     requestAnimationFrame(() => {
       if (inputRef.current) {
         inputRef.current.selectionStart = inputRef.current.selectionEnd =

@@ -13,12 +13,6 @@ const entryIndex = (await getIndex("blog")) as BlogEntry;
 const allPosts = (await getEntries("blog", sortByDate)) as BlogEntry[];
 const allBlogCount = allPosts.length;
 
-// // 从content collections获取所有已发布的博客文章
-// const allPosts = await getCollection("blog", ({ data }) => {
-//   return data.status === "published" && !data.draft;
-// });
-
-// 提取所有分类
 let allTaxa: string[] = [];
 allPosts.forEach((post) => {
   const cat = post.data.categories;
@@ -27,7 +21,6 @@ allPosts.forEach((post) => {
   }
 });
 
-// 获取唯一分类列表并排序
 const taxa = [...new Set(allTaxa)].sort((a, b) => a.localeCompare(b));
 ---
 

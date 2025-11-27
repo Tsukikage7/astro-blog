@@ -1,13 +1,13 @@
-<!-- Customized from https://github.com/heidkaemper/tailwindcss-intersect -->
+
 
 <script is:inline>
   const Observer = {
     observer: null,
-    delayBetweenAnimations: 100, // ms
+    delayBetweenAnimations: 100, 
     animationCounter: 0,
 
     start() {
-      // 优化：合并选择器，减少DOM查询次数
+      
       const selector = '[class*="intersect"]';
       const elements = Array.from(document.querySelectorAll(selector));
 
@@ -28,7 +28,7 @@
         el._intersectionThreshold = getThreshold(el);
       });
 
-      // 优化：批量处理DOM更新，减少重排重绘
+      
       const callback = (entries) => {
         const updates = [];
         
@@ -78,7 +78,7 @@
           }
         });
 
-        // 优化：单次requestAnimationFrame批量执行所有DOM更新
+        
         if (updates.length > 0) {
           requestAnimationFrame(() => {
             updates.forEach(update => update());

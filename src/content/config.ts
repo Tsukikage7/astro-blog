@@ -1,10 +1,6 @@
 import { defineCollection, reference, z } from "astro:content";
 import { glob } from "astro/loaders";
 
-// May also need to update /src/types/index.d.ts when updating this file
-// When updating the set of searchable collections, update collectionList in /src/pages/search.astro
-
-// 基础内容结构
 const baseContent = z.object({
   title: z.string(),
   description: z.string().optional(),
@@ -13,7 +9,6 @@ const baseContent = z.object({
   updatedAt: z.date().optional(),
 });
 
-// 社交媒体链接结构
 const social = z.object({
   discord: z.string().optional(),
   email: z.string().optional(),
@@ -31,7 +26,6 @@ const social = z.object({
   rss: z.string().optional(),
 });
 
-// 关于页面集合
 const about = defineCollection({
   loader: glob({ pattern: "-index.{md,mdx}", base: "./src/content/about" }),
   schema: ({ image }) =>
@@ -62,13 +56,12 @@ const about = defineCollection({
     }),
 });
 
-// 博客文章集合
 const blog = defineCollection({
   loader: glob({ pattern: "**\/[^_]*.{md,mdx}", base: "./src/content/blog" }),
   schema: ({ image }) =>
     baseContent.extend({
       featuredImg: z.string().optional(),
-      // 支持本地图片（image()）或外部 URL（string）
+      
       image: z.union([image(), z.string()]).optional(),
       imageAlt: z.string().default(""),
       author: z.string().optional(),
@@ -84,7 +77,6 @@ const blog = defineCollection({
     }),
 });
 
-// 分类集合
 const categories = defineCollection({
   loader: glob({
     pattern: "**\/[^_]*.{md,mdx}",
@@ -101,7 +93,6 @@ const categories = defineCollection({
     }),
 });
 
-// 标签集合
 const tags = defineCollection({
   loader: glob({ pattern: "**\/[^_]*.{md,mdx}", base: "./src/content/tags" }),
   schema: baseContent.extend({
@@ -109,12 +100,11 @@ const tags = defineCollection({
   }),
 });
 
-// 动态/笔记集合
 const notes = defineCollection({
   loader: glob({ pattern: "**\/[^_]*.{md,mdx}", base: "./src/content/notes" }),
   schema: ({ image }) =>
     baseContent.extend({
-      // 支持多张图片
+      
       images: z
         .array(
           z.object({
@@ -123,7 +113,7 @@ const notes = defineCollection({
           }),
         )
         .optional(),
-      // 保留单张图片字段以兼容现有内容
+      
       image: image().optional(),
       imageAlt: z.string().default(""),
       tags: z.array(z.string()).optional(),
@@ -132,7 +122,6 @@ const notes = defineCollection({
     }),
 });
 
-// 页面集合
 const pages = defineCollection({
   loader: glob({ pattern: "**\/[^_]*.{md,mdx}", base: "./src/content/pages" }),
   schema: ({ image }) =>
@@ -144,7 +133,6 @@ const pages = defineCollection({
     }),
 });
 
-// 首页集合
 const home = defineCollection({
   loader: glob({ pattern: "-index.{md,mdx}", base: "./src/content/home" }),
   schema: ({ image }) =>
@@ -176,7 +164,6 @@ const home = defineCollection({
     }),
 });
 
-// 搜索配置集合
 const search = defineCollection({
   loader: glob({ pattern: "-index.{md,mdx}", base: "./src/content/search" }),
   schema: baseContent.extend({
@@ -193,7 +180,6 @@ const search = defineCollection({
   }),
 });
 
-// 社交媒体配置集合
 const socialConfig = defineCollection({
   loader: glob({ pattern: "-index.{md,mdx}", base: "./src/content/social" }),
   schema: baseContent.extend({
@@ -208,7 +194,7 @@ const terms = defineCollection({
   loader: glob({ pattern: "-index.{md,mdx}", base: "./src/content/terms" }),
   schema: baseContent,
 });
-// Export collections
+
 export const collections = {
   about,
   blog,

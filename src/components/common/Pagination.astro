@@ -7,7 +7,7 @@ type Props = {
   pageIndex?: number;
   pageCount?: number;
   pageIDs?: string[];
-  basePath?: string; // 自定义基础路径，用于嵌套分页
+  basePath?: string; 
 };
 
 const {
@@ -23,17 +23,16 @@ for (let i = 1; i <= pageCount; i++) {
   pageList.push(i);
 }
 
-// 生成分页链接的函数
 const getPageLink = (page: number): string => {
   if (basePath) {
-    // 使用自定义基础路径（用于嵌套分页）
+    
     return `${basePath}/${page}`;
   } else if (pageIDs && pageIDs.length > 0) {
-    // 使用 pageIDs 模式
+    
     const pageID = pageIDs[page - 1];
     return pageID ? `/${collection}/${pageID}` : `/${collection}`;
   } else {
-    // 使用数字分页模式
+    
     if (page === 1) {
       return `/${collection}`;
     } else {
@@ -45,7 +44,6 @@ const getPageLink = (page: number): string => {
 let prevPage: string | null;
 let nextPage: string | null;
 
-// 使用统一的链接生成函数
 if (pageIndex > 1) {
   prevPage = getPageLink(pageIndex - 1);
 } else {
@@ -63,7 +61,7 @@ if (pageIndex < pageCount) {
   pageCount >= 1 && (
     <nav class="flex items-center justify-center pb-2">
       <LiquidGlass containerClass="rounded-md p-2 mx-2 space-x-2" >
-        {/* previous */}
+        {}
         {prevPage ? (
           <a
             href={prevPage}
@@ -80,7 +78,7 @@ if (pageIndex < pageCount) {
             <FaArrowLeft className="inline-block" />
           </span>
         )}
-        {/* page index */}
+        {}
         {pageIDs ? (
           <div
             aria-current="page"
@@ -109,7 +107,7 @@ if (pageIndex < pageCount) {
           )
         )}
 
-        {/* next page */}
+        {}
         {nextPage ? (
           <a
             href={nextPage}

@@ -1,22 +1,19 @@
 import { slug } from "github-slugger";
 import { marked } from "marked";
 
-// 配置marked选项，支持更丰富的Markdown功能
 marked.use({
   mangle: false,
-  headerIds: false, // 启用标题ID，便于目录跳转
-  gfm: true, // 启用GitHub风格的Markdown
-  breaks: true, // 支持换行符转换为<br>
+  headerIds: false, 
+  gfm: true, 
+  breaks: true, 
   pedantic: false,
   sanitize: false,
   smartLists: true,
   smartypants: false,
 });
 
-// 自定义渲染器，增强功能
 const renderer = new marked.Renderer();
 
-// 自定义标题渲染，添加锚点ID
 renderer.heading = function(text: string, level: number) {
   const escapedText = slug(text);
   return `<h${level} id="${escapedText}">
@@ -24,7 +21,6 @@ renderer.heading = function(text: string, level: number) {
   </h${level}>`;
 };
 
-// 自定义代码块渲染，添加语言标识和复制按钮
 renderer.code = function(code: string, language: string | undefined) {
   const validLang = language && language !== '' ? language : 'text';
   return `<div class="code-block-wrapper">
@@ -41,7 +37,6 @@ renderer.code = function(code: string, language: string | undefined) {
   </div>`;
 };
 
-// 自定义表格渲染，添加响应式样式
 renderer.table = function(header: string, body: string) {
   return `<div class="table-wrapper">
     <table class="markdown-table">
@@ -51,16 +46,14 @@ renderer.table = function(header: string, body: string) {
   </div>`;
 };
 
-// 自定义链接渲染，外部链接添加target="_blank"
 renderer.link = function(href: string, title: string | null, text: string) {
-  // 在服务端渲染时，简单判断是否为外部链接
+  
   const isExternal = href.startsWith('http://') || href.startsWith('https://');
   const target = isExternal ? ' target="_blank" rel="noopener noreferrer"' : '';
   const titleAttr = title ? ` title="${title}"` : '';
   return `<a href="${href}"${titleAttr}${target}>${text}</a>`;
 };
 
-// 自定义图片渲染，添加懒加载和响应式
 renderer.image = function(href: string, title: string | null, text: string) {
   const titleAttr = title ? ` title="${title}"` : '';
   return `<figure class="markdown-image">
@@ -69,30 +62,23 @@ renderer.image = function(href: string, title: string | null, text: string) {
   </figure>`;
 };
 
-// 自定义引用块渲染
 renderer.blockquote = function(quote: string) {
   return `<blockquote class="markdown-blockquote">${quote}</blockquote>`;
 };
 
 marked.setOptions({ renderer });
 
-// slugify
 export const slugify = (content: string) => {
   if (!content) return '';
   return slug(content.toString());
 };
 
-// markdownify
 export const markdownify = async (content: string, div?: boolean) => {
   const options = { renderer };
-  // content = await extractImageUrls(content);
+  
   return div ? marked.parse(content, options) : marked.parseInline(content, options);
 };
 
-/**
- * 将文章内容中的图片地址,替换为"/_image?href=http://xxx.com"格式
- * 地址形如：`![上传界面](https://mmbiz.qpic.cn/mmbiz_png/iblROEu41FIHTtPeEX2Aic9T4lzVGX4eNtibP1Eg8vjvpficwz5DrUtS5Iib5cAploCOgIrv7SkxF2t8HasphOlEfqQ/640?wx_fmt=png&from=appmsg&tp=webp&wxfrom=5&wx_lazy=1)`
- */
 async function extractImageUrls(content: string): Promise<string> {
   const regex = /!\[.*?\]\((.*?)\)/g;
   const matches = content.match(regex);
@@ -109,11 +95,6 @@ async function extractImageUrls(content: string): Promise<string> {
   return content;
 }
 
-/**
- * 将图片转化为/_image?href=http://xxxx.com格式
- * @param url - 原始图片URL
- * @returns 转换后的URL
- */
 function transformImageUrl(url: string): string {
   if (url.indexOf("/_image?href=") !== -1) {
     return url;
@@ -121,7 +102,6 @@ function transformImageUrl(url: string): string {
   return `/_image?href=${encodeURI(url)}`;
 }
 
-// hyphen to space, uppercase only first letter in each word
 export const upperHumanize = (content: string | undefined) => {
   if (!content) return '';
   return content
@@ -130,7 +110,6 @@ export const upperHumanize = (content: string | undefined) => {
     .replace(/(^\w{1})|(\s{1}\w{1})/g, (match) => match.toUpperCase());
 };
 
-// hyphen to space, lowercase all letters
 export const lowerHumanize = (content: string | undefined) => {
   if (!content) return '';
   return content
@@ -138,7 +117,6 @@ export const lowerHumanize = (content: string | undefined) => {
     .replace(/-/g, " ");
 };
 
-// plainify
 export const plainify = (content: string) => {
   const parseMarkdown = marked.parse(content);
   const filterBrackets = parseMarkdown.replace(/<\/?[^>]+(>|$)/gm, "");
@@ -147,7 +125,6 @@ export const plainify = (content: string) => {
   return stripHTML;
 };
 
-// strip entities for plainify
 const htmlEntityDecoder = (htmlWithEntities: string) => {
   let entityList: { [key: string]: string } = {
     "&nbsp;": " ",

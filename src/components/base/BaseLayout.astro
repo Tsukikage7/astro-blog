@@ -10,7 +10,6 @@ import { Tooltips } from "astro-tooltips";
 import { SITE_INFO, MUSIC_PLAYER_CONFIG } from "@lib/config";
 import { isDevelopment } from "@lib/env";
 
-// types for frontmatters
 export interface Props {
   title?: string;
   description?: string | null;
@@ -22,13 +21,10 @@ export interface Props {
 
 const { title, description, image, noindex, canonical, keywords } = Astro.props;
 
-// 获取基础设置
 let basicSettings: any = {};
 let seoSettings: any = {};
 let customSettings: any = {};
 
-// 基础设置变量
-// console.log("网站基础信息：", basicSettings);
 const siteTitle = SITE_INFO.SITE_NAME;
 const siteSubTitle = SITE_INFO.SUBNAME;
 const siteImage = SITE_INFO.LOGO_IMAGE || "/favicon.ico";
@@ -36,14 +32,12 @@ const baseUrl = SITE_INFO.URL || "/";
 const siteKeywords = basicSettings?.site_keywords || "";
 const siteTagline = basicSettings?.site_tagline || "";
 
-// SEO设置变量
 const metaTitle = seoSettings?.seo_meta_title || "";
 const metaDescription = description || SITE_INFO.DESCRIPTION;
 const metaKeywords = keywords || SITE_INFO.KEY_WORDS;
 const googleAnalyticsId = SITE_INFO.GOOGLE_ANALYTICS_ID || "";
 const baiduAnalyticsId = SITE_INFO.BAIDU_ANALYTICS_ID || "";
 
-// 自定义代码设置变量
 const customHeaderCode = customSettings?.custom_header_code || "";
 const customFooterCode = customSettings?.custom_footer_code || "";
 ---
@@ -51,7 +45,7 @@ const customFooterCode = customSettings?.custom_footer_code || "";
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- favicon -->
+    
     <link
       rel="logo-192x192"
       sizes="180x180"
@@ -71,7 +65,7 @@ const customFooterCode = customSettings?.custom_footer_code || "";
     />
 
     <link rel="sitemap" href="/sitemap-index.xml" />
-    <!-- RSS Feed -->
+    
     <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/rss.xml" />
 
     <meta name="theme-name" content="pages" />
@@ -138,9 +132,9 @@ const customFooterCode = customSettings?.custom_footer_code || "";
     />
     <meta name="twitter:card" content="summary_large_image" />
 
-    <!-- DNS预连接和预取优化 -->
-    <!-- <link rel="preconnect" href="https://fontsapi.zeoseven.com" crossorigin /> -->
-    <!-- <link rel="preconnect" href="https://fontsapi-storage.zeoseven.com" crossorigin> -->
+    
+    
+    
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
     <link
@@ -150,11 +144,11 @@ const customFooterCode = customSettings?.custom_footer_code || "";
     />
     <link rel="preconnect" href="https://hm.baidu.com" crossorigin />
 
-    <!-- 预取关键资源 -->
-    <link rel="dns-prefetch" href="//fonts.googleapis.com" />
-    <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+    
+    <link rel="dns-prefetch" href="
+    <link rel="dns-prefetch" href="
 
-    <!-- Katex -->
+    
     <link
       rel="preload"
       as="style"
@@ -173,17 +167,17 @@ const customFooterCode = customSettings?.custom_footer_code || "";
         referrerpolicy="no-referrer"
       />
     </noscript>
-    <!-- 预加载关键脚本 -->
+    
     <link
       rel="preload"
       as="script"
       href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"
-      integrity="sha512-LQNxIMR5rXv7o+b1l8+N1EZMfhG7iFZ9HhnbJkTp4zjNr5Wvst75AqUeFDxeRUa7l5vEDyUiAip//r+EFLLCyA=="
+      integrity="sha512-LQNxIMR5rXv7o+b1l8+N1EZMfhG7iFZ9HhnbJkTp4zjNr5Wvst75AqUeFDxeRUa7l5vEDyUiAip
       crossorigin="anonymous"
     />
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"
-      integrity="sha512-LQNxIMR5rXv7o+b1l8+N1EZMfhG7iFZ9HhnbJkTp4zjNr5Wvst75AqUeFDxeRUa7l5vEDyUiAip//r+EFLLCyA=="
+      integrity="sha512-LQNxIMR5rXv7o+b1l8+N1EZMfhG7iFZ9HhnbJkTp4zjNr5Wvst75AqUeFDxeRUa7l5vEDyUiAip
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
       defer></script>
@@ -198,11 +192,11 @@ const customFooterCode = customSettings?.custom_footer_code || "";
       integrity="sha384-dZ/hSVfTPHuzXyECOYCetAvMd0cgqWxN5Fh+mwo86PV4GdU9xgQ/MNzh/YM/lotR"
       crossorigin="anonymous"
       defer></script>
-    <!-- https://docs.astro.build/en/guides/view-transitions -->
+    
     <ClientRouter fallback="swap" />
     <Tooltips interactive={false} delay={[100, 50]} />
 
-    <!-- Google Analytics - 仅在生产环境加载 -->
+    
     {
       !isDevelopment() && googleAnalyticsId && (
         <>
@@ -222,7 +216,7 @@ const customFooterCode = customSettings?.custom_footer_code || "";
       )
     }
 
-    <!-- 百度统计 - 仅在生产环境加载 -->
+    
     {
       !isDevelopment() && baiduAnalyticsId && (
         <script
@@ -239,12 +233,12 @@ const customFooterCode = customSettings?.custom_footer_code || "";
       )
     }
     <meta name="baidu-site-verification" content="codeva-RmOcCYpW8H" />
-    <!-- 自定义头部代码 -->
+    
     {customHeaderCode && <Fragment set:html={customHeaderCode} />}
 
-    <!-- 页面切换动画样式 -->
+    
     <style>
-      /* 页面切换加载动画 - shadcn/ui 风格 */
+      
       .page-loading {
         position: fixed;
         top: 0;
@@ -270,7 +264,7 @@ const customFooterCode = customSettings?.custom_footer_code || "";
         visibility: visible;
       }
 
-      /* 加载动画容器 - shadcn/ui 风格 */
+      
       .loading-container {
         display: flex;
         flex-direction: column;
@@ -279,7 +273,7 @@ const customFooterCode = customSettings?.custom_footer_code || "";
         padding: 1.5rem;
       }
 
-      /* Spinner - shadcn/ui 官方样式 */
+      
       .loading-spinner {
         width: 2rem;
         height: 2rem;
@@ -287,7 +281,7 @@ const customFooterCode = customSettings?.custom_footer_code || "";
         animation: spin 1s linear infinite;
       }
 
-      /* 加载文字 - shadcn/ui 风格 */
+      
       .loading-text {
         font-size: 0.875rem;
         font-weight: 500;
@@ -301,7 +295,7 @@ const customFooterCode = customSettings?.custom_footer_code || "";
         }
       }
 
-      /* 页面过渡动画 */
+      
       html {
         view-transition-name: root;
       }
@@ -338,10 +332,10 @@ const customFooterCode = customSettings?.custom_footer_code || "";
       }
     </style>
 
-    <!-- Supabase 已移除：不再加载全局客户端 -->
+    
   </head>
   <body>
-    <!-- SVG 滤镜定义 - 必须在使用前定义 -->
+    
     <svg style="position: absolute; width: 0; height: 0; pointer-events: none;">
       <defs>
         <filter
@@ -358,7 +352,7 @@ const customFooterCode = customSettings?.custom_footer_code || "";
             numOctaves="1"
             seed="17"
             result="turbulence"></feTurbulence>
-          <!-- Liked Seeds: 5, 14, 17 -->
+          
 
           <feComponentTransfer in="turbulence" result="mapped">
             <feFuncR type="gamma" amplitude="1" exponent="10" offset="0.5"
@@ -402,10 +396,10 @@ const customFooterCode = customSettings?.custom_footer_code || "";
       </defs>
     </svg>
 
-    <!-- 页面加载动画 - shadcn/ui 风格 -->
+    
     <div class="page-loading">
       <div class="loading-container">
-        <!-- Spinner - shadcn/ui 官方样式 -->
+        
         <svg
           class="loading-spinner"
           xmlns="http://www.w3.org/2000/svg"
@@ -431,10 +425,10 @@ const customFooterCode = customSettings?.custom_footer_code || "";
     </main>
     <Footer />
     {MUSIC_PLAYER_CONFIG.ENABLED && <MusicPlayer />}
-    <!-- <ObserverScript /> -->
-    <!-- KaTeX 初始化脚本 -->
+    
+    
     <script>
-      // 安全的 KaTeX 渲染函数
+      
       function renderMathSafely() {
         if (
           typeof (window as any).renderMathInElement !== "undefined" &&
@@ -456,13 +450,13 @@ const customFooterCode = customSettings?.custom_footer_code || "";
         }
       }
 
-      // 页面加载完成后渲染
+      
       document.addEventListener("DOMContentLoaded", renderMathSafely);
 
-      // Astro 页面切换后重新渲染
+      
       document.addEventListener("astro:page-load", renderMathSafely);
 
-      // 兼容性：如果 DOMContentLoaded 已经触发
+      
       if (document.readyState === "loading") {
         document.addEventListener("DOMContentLoaded", renderMathSafely);
       } else {
@@ -470,12 +464,12 @@ const customFooterCode = customSettings?.custom_footer_code || "";
       }
     </script>
 
-    <!-- 页面跳转等待动画脚本 -->
+    
     <script>
-      // 页面加载动画控制
+      
       let loadingTimeout: NodeJS.Timeout | null = null;
 
-      // 随机加载文案
+      
       const loadingTexts = [
         "✨ 魔法正在施展中...",
         "🌈 彩虹桥搭建中...",
@@ -503,7 +497,7 @@ const customFooterCode = customSettings?.custom_footer_code || "";
       }
 
       function showPageLoading(delay = 0) {
-        // 清除之前的延迟隐藏
+        
         if (loadingTimeout) {
           clearTimeout(loadingTimeout);
           loadingTimeout = null;
@@ -511,18 +505,18 @@ const customFooterCode = customSettings?.custom_footer_code || "";
 
         const loadingElement = document.querySelector(".page-loading");
         if (loadingElement) {
-          // 更新加载文案
+          
           updateLoadingText();
 
           if (delay > 0) {
-            // 优化：使用requestAnimationFrame替代setTimeout
+            
             requestAnimationFrame(() => {
               setTimeout(() => {
                 loadingElement.classList.add("active");
               }, delay);
             });
           } else {
-            // 优化：使用requestAnimationFrame确保在下一帧执行
+            
             requestAnimationFrame(() => {
               loadingElement.classList.add("active");
             });
@@ -533,7 +527,7 @@ const customFooterCode = customSettings?.custom_footer_code || "";
       function hidePageLoading(delay = 100) {
         const loadingElement = document.querySelector(".page-loading");
         if (loadingElement) {
-          // 优化：使用requestAnimationFrame优化动画性能
+          
           loadingTimeout = setTimeout(() => {
             requestAnimationFrame(() => {
               loadingElement.classList.remove("active");
@@ -543,7 +537,7 @@ const customFooterCode = customSettings?.custom_footer_code || "";
         }
       }
 
-      // 检查是否为快速导航（避免闪烁）
+      
       function isQuickNavigation() {
         return (
           document.readyState === "complete" ||
@@ -551,19 +545,19 @@ const customFooterCode = customSettings?.custom_footer_code || "";
         );
       }
 
-      // 监听页面开始加载事件
+      
       document.addEventListener("astro:before-preparation", () => {
-        // 对于快速导航，稍微延迟显示动画以避免闪烁
+        
         const delay = isQuickNavigation() ? 150 : 0;
         showPageLoading(delay);
       });
 
-      // 监听页面加载完成事件
+      
       document.addEventListener("astro:page-load", () => {
         hidePageLoading();
       });
 
-      // 监听所有链接点击事件
+      
       document.addEventListener("click", (e) => {
         const target = e.target as HTMLElement;
         const link = target.closest("a");
@@ -572,9 +566,9 @@ const customFooterCode = customSettings?.custom_footer_code || "";
           const url = new URL(link.href);
           const currentUrl = new URL(window.location.href);
 
-          // 如果是同域名的链接且不是锚点链接
+          
           if (url.origin === currentUrl.origin && !url.hash) {
-            // 检查是否是下载链接或特殊链接
+            
             const isDownload =
               link.hasAttribute("download") ||
               link.href.match(/\.(pdf|doc|docx|zip|rar|exe|dmg)$/i);
@@ -583,7 +577,7 @@ const customFooterCode = customSettings?.custom_footer_code || "";
             const isTel = link.href.startsWith("tel:");
             const isAnchor = link.getAttribute("href")?.startsWith("#");
 
-            // 只对普通的内部页面链接显示加载动画
+            
             if (
               !isDownload &&
               !isExternal &&
@@ -591,7 +585,7 @@ const customFooterCode = customSettings?.custom_footer_code || "";
               !isTel &&
               !isAnchor
             ) {
-              // 检查是否是相同页面的链接
+              
               if (url.pathname !== currentUrl.pathname) {
                 showPageLoading();
               }
@@ -600,12 +594,12 @@ const customFooterCode = customSettings?.custom_footer_code || "";
         }
       });
 
-      // 监听浏览器前进后退按钮
+      
       window.addEventListener("popstate", () => {
         showPageLoading();
       });
 
-      // 监听表单提交（如搜索表单）
+      
       document.addEventListener("submit", (e) => {
         const form = e.target as HTMLFormElement;
         if (form && form.method.toLowerCase() === "get") {
@@ -613,20 +607,20 @@ const customFooterCode = customSettings?.custom_footer_code || "";
         }
       });
 
-      // 页面初始加载时隐藏加载动画
+      
       document.addEventListener("DOMContentLoaded", () => {
         hidePageLoading();
       });
 
-      // 如果页面已经加载完成（处理缓存情况）
+      
       if (document.readyState === "complete") {
         hidePageLoading();
       }
 
-      // 返回顶部功能已集成到Footer组件中
+      
     </script>
 
-    <!-- 自定义底部代码 -->
+    
     {customFooterCode && <Fragment set:html={customFooterCode} />}
   </body>
 </html>

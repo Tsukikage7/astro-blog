@@ -15,7 +15,7 @@ export const getTaxa = async (collection: CollectionKey, name: string) => {
     }
   }
   const taxonomy = [...new Set(taxonomies)];
-  taxonomy.sort((a, b) => a.localeCompare(b)); // alphabetize
+  taxonomy.sort((a, b) => a.localeCompare(b)); 
   return taxonomy;
 };
 
@@ -34,7 +34,6 @@ export const getTaxaMultiset = async (collection: CollectionKey, name: string) =
   return taxonomies;
 };
 
-// 获取分类统计数据（包含文章数量）
 export const getTaxaWithCount = async (collection: CollectionKey, name: string) => {
   const entries = await getEntries(collection);
   const taxonomyStats = new Map<string, number>();
@@ -43,13 +42,13 @@ export const getTaxaWithCount = async (collection: CollectionKey, name: string) 
     const taxonomyValue = entry.data[name];
     if (taxonomyValue) {
       if (Array.isArray(taxonomyValue)) {
-        // 处理数组格式的分类/标签
+        
         taxonomyValue.forEach((item: string) => {
           const key = item.toString();
           taxonomyStats.set(key, (taxonomyStats.get(key) || 0) + 1);
         });
       } else {
-        // 处理单个分类格式
+        
         const key = taxonomyValue.toString();
         taxonomyStats.set(key, (taxonomyStats.get(key) || 0) + 1);
       }

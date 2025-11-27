@@ -13,7 +13,7 @@ interface Props {
   pageIndex: number;
   pageCount: number;
   allNotesCount?: number;
-  basePath?: string; // 自定义分页基础路径
+  basePath?: string; 
 }
 
 const {
@@ -44,7 +44,7 @@ const { title, description } = entryIndex
     <section class="">
       <div class="flex" style="padding:0px;">
         <div class="row px-0 mx-0 w-full grid grid-cols-1 lg:grid-cols-4 gap-6">
-          <!-- notes posts -->
+          
           <div class="lg:col-span-3 p-0">
             {
               entries.length > 0 ? (
@@ -72,7 +72,7 @@ const { title, description } = entryIndex
               basePath={basePath}
             />
           </div>
-          <!-- sidebar -->
+          
           <div
             class="lg:col-span-1 lg:flex max-h-static_sidemenu sticky p-0 lg:pl-5 top-[4rem]"
           >

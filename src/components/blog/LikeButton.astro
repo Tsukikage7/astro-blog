@@ -26,7 +26,7 @@ const heartIcon = `<svg class="heart-icon w-4 h-4" fill="none" stroke="currentCo
     animation: pulse 2s infinite;
   }
 
-  /* 点赞状态样式 */
+  
   :global(.glass-button.liked) {
     background: rgba(239, 68, 68, 0.25) !important;
     border-color: rgba(248, 113, 113, 0.5) !important;
@@ -56,7 +56,7 @@ const heartIcon = `<svg class="heart-icon w-4 h-4" fill="none" stroke="currentCo
     filter: drop-shadow(0 0 8px rgba(220, 38, 38, 0.7)) !important;
   }
 
-  /* 深色模式适配 */
+  
   .dark {
     :global(.glass-button.liked) {
       background: rgba(239, 68, 68, 0.3) !important;
@@ -94,7 +94,7 @@ const heartIcon = `<svg class="heart-icon w-4 h-4" fill="none" stroke="currentCo
 </style>
 
 <script type="module" define:vars={{ slug }}>
-  // 本地模式：仅使用 localStorage 记录本设备的点赞状态与计数（0/1）
+  
   const slugValue = slug;
   const likeBtn = document.getElementById("like-btn");
   const likeCount = document.getElementById("like-count");
@@ -140,13 +140,13 @@ const heartIcon = `<svg class="heart-icon w-4 h-4" fill="none" stroke="currentCo
 
     if (isLiking) {
       isLiked = true;
-      currentLikes = 1; // 本设备计数
+      currentLikes = 1; 
     } else {
       isLiked = false;
       currentLikes = 0;
     }
 
-    // 更新本地存储
+    
     try {
       if (isLiked) {
         localStorage.setItem(LIKE_KEY, "true");

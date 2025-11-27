@@ -8,7 +8,7 @@ import "../../styles/markdown.scss";
 import { SITE_INFO } from "@lib/config";
 import LiquidGlassLess from "@components/common/LiquidGlassLess.astro";
 import Comment from "@components/base/Comment.astro";
-// 已移除点赞功能组件
+
 import ShareButton from "@components/blog/ShareButton.astro";
 import RecommendedReadCard from "@components/blog/RecommendedReadCard.astro";
 import type { BlogEntry } from "@/types";
@@ -21,7 +21,6 @@ const { entry } = Astro.props;
 const isDraft = entry.data.draft;
 const { title, description, image, hideToc, updatedAt, author } = entry.data;
 
-// 从Astro的render()结果中获取处理好的headings
 const { headings } = await render(entry);
 
 const descriptionLenth = 200;
@@ -33,9 +32,8 @@ const actuallyHideToc =
   globalHideToc ||
   headings.filter((heading) => heading.depth <= tocDepth).length === 0;
 
-// 简化布局类计算
-const articleClass = "w-full lg:w-3/4 xl:w-4/5"; //因为侧边栏还有推荐阅读，所以不需要根据toc是否隐藏来计算宽度
-// const articleClass = actuallyHideToc ? "w-full" : "w-full lg:w-3/4 xl:w-4/5";
+const articleClass = "w-full lg:w-3/4 xl:w-4/5"; 
+
 const tocClass = actuallyHideToc
   ? "hidden"
   : "hidden md:flex md:w-1/4 lg:w-1/5";
@@ -44,7 +42,6 @@ const entryDescription =
   description ||
   (entry.body ? plainify(entry.body.slice(0, descriptionLenth)) : "");
 
-// 获取推荐文章
 const allBlogPosts = (await getCollection("blog", ({ data,filePath }) => {
   if(filePath?.includes("-index.md")){
     return false;
@@ -52,25 +49,23 @@ const allBlogPosts = (await getCollection("blog", ({ data,filePath }) => {
   return data.status === "published" && !data.draft;
 })) as BlogEntry[];
 
-// 过滤掉当前文章并获取推荐文章
 const currentTags = entry.data.tags || [];
 const currentCategories = entry.data.categories || [];
 
-// 基于标签和分类相似性推荐文章
 const recommendedPosts = allBlogPosts
-  .filter((post) => post.id !== entry.id) // 排除当前文章
+  .filter((post) => post.id !== entry.id) 
   .map((post) => {
     let score = 0;
     const postTags = post.data.tags || [];
     const postCategories = post.data.categories || [];
 
-    // 标签匹配得分
+    
     const tagMatches = postTags.filter((tag) =>
       currentTags.includes(tag),
     ).length;
     score += tagMatches * 2;
 
-    // 分类匹配得分
+    
     const categoryMatches = postCategories.filter((cat) =>
       currentCategories.includes(cat),
     ).length;
@@ -79,7 +74,7 @@ const recommendedPosts = allBlogPosts
     return { post, score };
   })
   .sort((a, b) => {
-    // 先按相似度排序，再按发布时间排序
+    
     if (b.score !== a.score) {
       return b.score - a.score;
     }
@@ -91,12 +86,12 @@ const recommendedPosts = allBlogPosts
     );
     return dateB.getTime() - dateA.getTime();
   })
-  .slice(0, 5) // 限制为5篇推荐文章
+  .slice(0, 5) 
   .map((item) => item.post);
 ---
 
 <BaseLayout title={title} description={entryDescription} image={image?.src}>
-  <!-- 草稿提示 -->
+  
   {
     isDraft && isDev && (
       <section class="flex container px-3 lg:px-8">
@@ -151,10 +146,10 @@ const recommendedPosts = allBlogPosts
             <slot />
           </div>
         </LiquidGlassLess>
-        <!-- 文章信息区 -->
-        <!-- 文章底部信息卡片 -->
+        
+        
         <div class="relative mt-16">
-          <!-- 作者头像 - 超出顶部 -->
+          
           <div
             class="left_centor -top-12 transform -translate-x-1/2 z-10 animate-fadeUp"
           >
@@ -179,19 +174,17 @@ const recommendedPosts = allBlogPosts
             wrapperClass="dock rounded-2xl pt-16 pb-8 px-8"
             textClass="intersect-no-queue"
           >
-            <!-- 作者信息 -->
+            
             <div class="text-center m-6">
               <div
                 class="font-bold text-2xl text-txt-p dark:text-darkmode-txt-p mb-1"
               >
                 {author || "Tsukikage"}
               </div>
-              <!-- <div class="text-sm text-txt-s dark:text-darkmode-txt-s opacity-80">
-                文章作者
-              </div> -->
+              
             </div>
 
-            <!-- 互动按钮区域（已移除点赞） -->
+            
             <div class="flex items-center justify-center gap-4 mb-2">
               <ShareButton
                 title={title}
@@ -201,15 +194,15 @@ const recommendedPosts = allBlogPosts
               />
             </div>
 
-            <!-- 分割线 -->
+            
             <div
               class="w-full h-px bg-gradient-to-r from-transparent via-white/20 to-transparent mb-2"
             >
             </div>
 
-            <!-- 文章信息 -->
+            
             <div class="space-y-4 text-center">
-              <!-- 版权信息 -->
+              
               <div
                 class="text-xs text-txt-p dark:text-darkmode-txt-p opacity-75 leading-relaxed"
               >
@@ -286,13 +279,13 @@ const recommendedPosts = allBlogPosts
       </article>
     </div>
 
-    <!--sidebar -->
+    
     <div
       class="flex-col h-full sticky top-[4rem] ml-4 space-y-4 hidden lg:flex lg:w-1/4 xl:w-1/5"
     >
       <TableOfContents headings={headings} tocDepth={tocDepth} />
 
-      <!-- 推荐阅读模块 -->
+      
       {
         recommendedPosts.length > 0 && (
           <LiquidGlassLess

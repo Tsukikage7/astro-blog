@@ -22,11 +22,10 @@ interface Props {
 const { entry }: Props = Astro.props;
 const { title, description, createdAt, categories, tags, image, imageAlt } =
   entry.data;
-const descriptionLength = 100; // 列表页描述稍短
+const descriptionLength = 100; 
 
-// 检查是否有自定义图片（支持 Astro Image 对象和外部 URL 字符串）
 const hasCustomImage = !!(image && (typeof image === "string" || (typeof image === "object" && "src" in image)));
-// console.log("图片：", image);
+
 const displayImageAlt = imageAlt || `${title} - 默认图片`;
 
 const entryDate = createdAt ? formatDate(createdAt) : null;
@@ -34,18 +33,15 @@ const entryReadingTime = readingTime(entry.body!, 1);
 const entryDescription = description?.substring(0, descriptionLength) || "";
 ---
 
-<!-- 列表页专用卡片：固定高度，优化布局 --><!-- <div class="p-1 h-full rounded-lg"> --><!-- <div class="liquidGlass-effect intersect:animate-fadeUp rounded-lg"></div>
-    <div class="liquidGlass-tint intersect:animate-fadeUp rounded-lg"></div>
-    <div class="liquidGlass-shine intersect:animate-fadeUp rounded-lg"></div> -->
 <LiquidGlass
   heavy
   wrapperClass="dock rounded-lg h-36 md:h-52 my-2 pl-0 hover:scale-[1.01]"
   textClass="h-full"
   animation="fadeRight"
 >
-  <!-- 水平布局：左侧图片，右侧内容 -->
+  
   <div class="flex h-full">
-    <!-- 左侧图片区域：固定宽度，图片自适应填充 -->
+    
     <div
       class="relative w-32 md:w-64 h-full flex-shrink-0 overflow-hidden rounded-[25px] group"
     >
@@ -60,7 +56,7 @@ const entryDescription = description?.substring(0, descriptionLength) || "";
               quality={40}
               fetchpriority="high"
             />
-            <!-- 图片遮罩层 -->
+            
             <div
               class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 rounded-lg group-hover:rounded-xl transition-opacity duration-300"
             >
@@ -77,11 +73,11 @@ const entryDescription = description?.substring(0, descriptionLength) || "";
       </a>
     </div>
 
-    <!-- 右侧内容区域：自适应宽度 -->
+    
     <div class="flex-1 py-1 px-3 md:px-6 flex flex-col justify-between min-w-0">
-      <!-- 上半部分：标题和元信息 -->
+      
       <div class="flex-1">
-        <!-- 文章标题：限制行数 -->
+        
         <h4
           class="mb-2 text-xl font-bold text-gray-900 !line-clamp-2 leading-tight"
         >
@@ -93,7 +89,7 @@ const entryDescription = description?.substring(0, descriptionLength) || "";
           </a>
         </h4>
 
-        <!-- 元信息：紧凑布局 -->
+        
         <div class="flex flex-wrap items-center gap-2 mb-2">
           {
             categories && (
@@ -140,7 +136,7 @@ const entryDescription = description?.substring(0, descriptionLength) || "";
           }
         </div>
 
-        <!-- 文章描述：限制行数 -->
+        
         <p
           class="!line-clamp-2 leading-relaxed text-txt-light dark:text-darkmode-txt-light hidden md:flex text-sm md:text-base"
         >
@@ -148,7 +144,7 @@ const entryDescription = description?.substring(0, descriptionLength) || "";
         </p>
       </div>
 
-      <!-- 下半部分：阅读更多按钮 -->
+      
       <div class="mt-2 pt-2 hidden md:flex">
         <a
           href={`/blog/${entry.id}`}
@@ -172,4 +168,4 @@ const entryDescription = description?.substring(0, descriptionLength) || "";
     </div>
   </div>
 </LiquidGlass>
-<!-- </div> -->
+

@@ -19,7 +19,7 @@ export async function getStaticPaths({ paginate }: any) {
 }
 const entriesPerPage = getPageSize("notes");
 const entries = (await getEntries("notes", sortByDate)) as NotesEntry[];
-// 从 Astro.props 中获取分页数据
+
 const { page, entryIndex, tags, allNotesCount } = Astro.props;
 const { currentPage, data: currentEntries } = page;
 const pageCount: number = Math.ceil(entries.length / entriesPerPage);

@@ -25,7 +25,7 @@ const displayEntries = entries.slice(0, limit);
       displayEntries.map((entry, index) => {
         const { title, description, createdAt, mood, location } = entry.data;
         const entryDate = createdAt ? formatDate(createdAt) : null;
-        // 安全地获取内容预览，确保entry.body存在
+        
         const contentPreview = entry.body
           ? plainify(entry.body).slice(0, 100) +
             (plainify(entry.body).length > 100 ? "..." : "")
@@ -38,8 +38,8 @@ const displayEntries = entries.slice(0, limit);
             style={`animation-delay: ${index * 200}ms`}
           >
             <div class="flex items-start space-x-2">
-              {/* 优先级指示器 */}
-              {/* <div class="flex-shrink-0 w-2 h-2 rounded-full mt-2 bg-green-500" /> */}
+              {}
+              {}
               <a
                 href={`/notes/${slugify(entry.data.title)}`}
                 class="hover:text-primary transition-colors duration-0"
@@ -48,12 +48,10 @@ const displayEntries = entries.slice(0, limit);
                   <span class="font-normal text-txt-p dark:text-darkmode-txt-p mb-1 line-clamp-1">
                     {title}
                   </span>
-                  { //内容预览
-                  /* <p class="text-sm text-txt-light dark:text-darkmode-txt-light line-clamp-2 leading-relaxed mb-2">
-                    {description || contentPreview}
-                  </p> */}
+                  { 
+                  }
 
-                  {/* 元数据区域 */}
+                  {}
                   <div class="flex flex-wrap items-center gap-2 mb-1">
                     {entryDate && (
                       <time class="text-xs text-txt-light dark:text-darkmode-txt-light opacity-70 flex items-center">
@@ -85,7 +83,7 @@ const displayEntries = entries.slice(0, limit);
     }
   </div>
 
-  {/* 查看更多链接 */}
+  {}
   <div class="mt-4 text-center">
     <a
       href="/notes"

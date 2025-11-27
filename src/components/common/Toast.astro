@@ -1,11 +1,11 @@
 ---
-// 通用提示组件 - 玻璃质感设计
+
 export interface Props {
   title?: string;
   content: string;
   type?: 'success' | 'info' | 'warning' | 'error';
   position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left' | 'top-center' | 'bottom-center';
-  duration?: number; // 显示时长（毫秒），0 表示不自动消失
+  duration?: number; 
   showIcon?: boolean;
   closable?: boolean;
 }
@@ -20,7 +20,6 @@ const {
   closable = true
 } = Astro.props;
 
-// 根据类型设置颜色和图标
 const typeConfig = {
   success: {
     bgColor: 'from-emerald-400/20 to-green-500/20',
@@ -50,7 +49,6 @@ const typeConfig = {
 
 const config = typeConfig[type];
 
-// 位置样式
 const positionClasses = {
   'top-right': 'top-4 right-4',
   'top-left': 'top-4 left-4',
@@ -75,10 +73,10 @@ const positionClasses = {
     hover:scale-105 hover:shadow-3xl
     animate-slide-in
   `}>
-    <!-- 装饰性光效 -->
+    
     <div class="absolute inset-0 rounded-2xl bg-gradient-to-r from-white/10 to-transparent opacity-50"></div>
     
-    <!-- 关闭按钮 -->
+    
     {closable && (
       <button 
         class="absolute top-2 right-2 w-6 h-6 rounded-full bg-white/20 hover:bg-white/30 transition-colors duration-200 flex items-center justify-center text-gray-600 hover:text-gray-800"
@@ -88,9 +86,9 @@ const positionClasses = {
       </button>
     )}
     
-    <!-- 内容区域 -->
+    
     <div class="flex items-start gap-3 relative z-10">
-      <!-- 图标 -->
+      
       {showIcon && (
         <div class={`
           flex-shrink-0 w-8 h-8 rounded-full 
@@ -104,7 +102,7 @@ const positionClasses = {
         </div>
       )}
       
-      <!-- 文本内容 -->
+      
       <div class="flex-1 min-w-0">
         {title && (
           <h4 class={`font-semibold text-sm ${config.textColor} mb-1 leading-tight`}>
@@ -117,7 +115,7 @@ const positionClasses = {
       </div>
     </div>
     
-    <!-- 进度条（如果有自动消失时间） -->
+    
     {duration > 0 && (
       <div class="absolute bottom-0 left-0 right-0 h-1 bg-white/20 rounded-b-2xl overflow-hidden">
         <div class={`h-full bg-gradient-to-r ${config.bgColor} animate-progress`} style={`animation-duration: ${duration}ms`}></div>
@@ -127,7 +125,7 @@ const positionClasses = {
 </div>
 
 <style>
-  /* 滑入动画 */
+  
   @keyframes slide-in {
     from {
       opacity: 0;
@@ -139,7 +137,7 @@ const positionClasses = {
     }
   }
   
-  /* 进度条动画 */
+  
   @keyframes progress {
     from {
       width: 100%;
@@ -157,11 +155,11 @@ const positionClasses = {
     animation: progress linear;
   }
   
-  /* 玻璃质感增强 - 已移除 */
-
-  /* 悬停效果 */
   
-  /* 响应式调整 */
+
+  
+  
+  
   @media (max-width: 640px) {
     .toast-container {
       left: 1rem !important;
@@ -177,7 +175,7 @@ const positionClasses = {
 </style>
 
 <script>
-  // 自动消失逻辑
+  
   document.addEventListener('DOMContentLoaded', function() {
     const toasts = document.querySelectorAll('.toast-container');
     
@@ -187,7 +185,7 @@ const positionClasses = {
       
       if (duration > 0) {
         setTimeout(() => {
-          // 添加淡出动画
+          
           const content = toast.querySelector('.toast-content') as HTMLElement;
           if (content) {
             content.style.transform = 'translateY(-20px) scale(0.95)';

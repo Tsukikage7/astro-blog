@@ -19,12 +19,11 @@ const { title, description, createdAt, categories, tags, image, imageAlt } =
 
 const descriptionLength = 200;
 
-// 检查是否有自定义图片（支持 Astro Image 对象和外部 URL 字符串）
 const hasCustomImage = !!(image && (typeof image === "string" || (typeof image === "object" && "src" in image)));
 const displayImageAlt = imageAlt || `${title} - 默认图片`;
 
 const entryDate = createdAt ? formatDate(createdAt) : null;
-const entryReadingTime = readingTime(entry.body!, 1); // 使用默认复杂度1
+const entryReadingTime = readingTime(entry.body!, 1); 
 const entryDescription =
   description || plainify(entry.body!.slice(0, descriptionLength));
 ---
@@ -36,7 +35,7 @@ const entryDescription =
     class="flex flex-col h-full rounded-[25px] 
     hover:scale-[1.02] transition-all duration-300  hover:shadow-xl"
   >
-    <!-- 特色图片展示 -->
+    
     <div class="relative w-full aspect-[7/3] overflow-hidden rounded-t-[24px]">
       <a href={`/blog/${entry.id}`} class="block w-full h-full">
         {hasCustomImage ? (
@@ -49,7 +48,7 @@ const entryDescription =
               quality={50}
               fetchpriority="high"
             />
-            <!-- 简化的渐变遮罩 -->
+            
             <div
               class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-40 group-hover:opacity-20 transition-opacity duration-300"
             >
@@ -66,9 +65,9 @@ const entryDescription =
       </a>
     </div>
 
-    <!-- 内容区域 -->
+    
     <div class="p-5">
-      <!-- 文章标题 -->
+      
       <h4
         class="mb-2 text-lg font-bold text-txt-p dark:text-darkmode-txt-p line-clamp-1 leading-tight"
       >
@@ -80,7 +79,7 @@ const entryDescription =
         </a>
       </h4>
 
-      <!-- 元信息 -->
+      
       <div class="flex flex-wrap items-center gap-2 mb-3 text-xs">
         {
           categories && (
@@ -112,14 +111,14 @@ const entryDescription =
         }
       </div>
 
-      <!-- 文章描述 -->
+      
       <p
         class="text-txt-light dark:text-darkmode-txt-light line-clamp-2 leading-relaxed text-sm mb-4"
       >
         {entryDescription}
       </p>
 
-      <!-- 阅读更多链接 -->
+      
       <a
         href={`/blog/${entry.id}`}
         class="inline-flex items-center text-primary hover:text-primary-dark text-md font-medium transition-colors duration-200 group/link"

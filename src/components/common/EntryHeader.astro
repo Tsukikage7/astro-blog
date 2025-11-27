@@ -89,7 +89,7 @@ tags?.sort((a: string, b: string) => a.localeCompare(b));
         wrapperClass={`${image && showImage ? "dock mb-4 !p-0 overflow-hidden" : "dock mb-4 overflow-hidden"}`}
         textClass={`${image && showImage ? "" : "border border-white/10 dark:border-white/5"}`}
       >
-        {/* 背景图片层 */}
+        {}
         {image && showImage && (
           <div class="absolute inset-0">
             {typeof image === "string" ? (
@@ -111,12 +111,12 @@ tags?.sort((a: string, b: string) => a.localeCompare(b));
                 loading="eager"
               />
             )}
-            {/* 渐变遮罩层，确保文字可读性 */}
+            {}
             <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-black/0" />
           </div>
         )}
 
-        {/* 内容层 */}
+        {}
         <div
           class={`relative z-10 ${
             image && showImage

@@ -4,9 +4,7 @@ import { markdownify } from "@lib/textConverter";
 import { Image } from "astro:assets";
 import LiquidGlass from "@/components/common/LiquidGlassLess.astro";
 import { getCollection, type CollectionEntry, render } from "astro:content";
-// import "../../styles/markdown.scss";
 
-// 页面类型定义
 interface Page {
   id?: number;
   title: string;
@@ -24,7 +22,7 @@ interface Page {
 
 export async function getStaticPaths() {
   const blogEntries = await getCollection("pages", ({ data }) => {
-    // 仅为非草稿的文章生成页面
+    
     return data.draft !== true;
   });
   const paths = blogEntries.map((entry) => ({
@@ -55,7 +53,7 @@ const { Content } = await render(entry);
           <div
             class="rounded-lg p-8 intersect:animate-fadeUp opacity-0 intersect-no-queue"
           >
-            <!-- 特色图片 -->
+            
             {
               entry.data.image && (
                 <div class="mb-8 text-center">
@@ -71,7 +69,7 @@ const { Content } = await render(entry);
               )
             }
 
-            <!-- 页面标题 -->
+            
             <header class="mb-8 text-center">
               <h1 set:html={markdownify(entry.data.title)} class="h2 mb-4" />
               {
@@ -82,7 +80,7 @@ const { Content } = await render(entry);
                 )
               }
 
-              <!-- 页面元信息 -->
+              
               <div
                 class="flex flex-wrap justify-center items-center gap-4 mt-6 text-sm text-gray-500 dark:text-gray-400"
               >
@@ -103,7 +101,7 @@ const { Content } = await render(entry);
               </div>
             </header>
 
-            <!-- 页面内容 -->
+            
             <article class="prose prose-lg dark:prose-invert max-w-none">
               <div class="markdown-content">
                 <Content />

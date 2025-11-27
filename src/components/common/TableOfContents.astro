@@ -36,12 +36,12 @@ const toc = heirarchy.filter((heading) => heading.depth <= tocDepth);
 }
 
 <style>
-  /* 为所有标题元素添加滚动偏移量，避免被固定头部遮挡 */
+  
   :global(h1, h2, h3, h4, h5, h6) {
-    scroll-margin-top: 8rem; /* 增加到8rem以确保有足够的偏移量 */
+    scroll-margin-top: 8rem; 
   }
   
-  /* 目录链接样式优化 */
+  
   [data-toc-link] {
     cursor: pointer;
     transition: color 0.2s ease;
@@ -53,23 +53,23 @@ const toc = heirarchy.filter((heading) => heading.depth <= tocDepth);
 </style>
 
 <script>
-  // 计算头部实际高度的函数
+  
   function getHeaderHeight(): number {
     const header = document.querySelector('header');
     if (header) {
       const headerHeight = header.offsetHeight;
-      console.log('Header height:', headerHeight); // 调试信息
-      return headerHeight + 32; // 增加更多缓冲区
+      console.log('Header height:', headerHeight); 
+      return headerHeight + 32; 
     }
-    return 140; // 增加默认值
+    return 140; 
   }
 
-  // 平滑滚动到锚点位置并添加偏移量
+  
   function setupTocLinks() {
     const tocLinks = document.querySelectorAll('[data-toc-link]');
     
     tocLinks.forEach(link => {
-      // 移除之前的事件监听器（如果存在）
+      
       const newLink = link.cloneNode(true);
       link.parentNode?.replaceChild(newLink, link);
       
@@ -83,15 +83,15 @@ const toc = heirarchy.filter((heading) => heading.depth <= tocDepth);
         const targetElement = document.getElementById(targetId);
         
         if (targetElement) {
-          // 获取元素相对于视口的位置
+          
           const rect = targetElement.getBoundingClientRect();
           const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
           const headerHeight = getHeaderHeight();
           
-          // 计算目标滚动位置：当前滚动位置 + 元素距离视口顶部的距离 - 头部高度
+          
           const targetScrollTop = currentScrollTop + rect.top - headerHeight;
           
-          // 调试信息
+          
           console.log('Target element:', targetElement);
           console.log('Element rect.top:', rect.top);
           console.log('Current scroll top:', currentScrollTop);
@@ -103,16 +103,16 @@ const toc = heirarchy.filter((heading) => heading.depth <= tocDepth);
             behavior: 'smooth'
           });
           
-          // 更新URL hash
+          
           history.pushState(null, "", `#${targetId}`);
         }
       });
     });
   }
 
-  // 页面加载完成后设置
+  
   document.addEventListener('DOMContentLoaded', setupTocLinks);
   
-  // 处理页面切换后的重新绑定
+  
   document.addEventListener('astro:page-load', setupTocLinks);
 </script>

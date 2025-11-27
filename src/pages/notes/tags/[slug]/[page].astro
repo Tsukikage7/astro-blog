@@ -6,11 +6,11 @@ import { getPageSize } from "@lib/config";
 import type { NotesEntry } from "@/types";
 
 console.log("进入slug页面");
-// 生成所有分类页面的静态路径和分页
+
 export async function getStaticPaths() {
   const allPosts = await getCollection("notes");
 
-  // 收集所有标签及其文章
+  
   const tagPosts = new Map<string, any[]>();
   allPosts.forEach((post: any) => {
     const postTags = post.data.tags;
@@ -28,7 +28,7 @@ export async function getStaticPaths() {
   const paths: any[] = [];
   const entriesPerPage = getPageSize("notes");
 
-  // 为每个标签生成分页路径
+  
   tagPosts.forEach((posts, tagSlug) => {
     const tagName = posts[0].tagName;
     const sortedPosts = posts
@@ -42,7 +42,7 @@ export async function getStaticPaths() {
 
     const pageCount = Math.ceil(sortedPosts.length / entriesPerPage);
 
-    // 生成每一页的路径
+    
     for (let i = 1; i <= pageCount; i++) {
       const startIndex = (i - 1) * entriesPerPage;
       const endIndex = startIndex + entriesPerPage;
@@ -70,10 +70,10 @@ export async function getStaticPaths() {
 const { tagName, tagPosts, currentPageIndex, pageCount, totalArticleCount } =
   Astro.props;
 const { slug, page } = Astro.params;
-// 转换为组件需要的格式
+
 const entries: NotesEntry[] = tagPosts.map((post: any) => ({
   id: post.id,
-  // slug: post.id,
+  
   collection: "notes",
   body: post.body,
   data: {
@@ -95,7 +95,6 @@ const entries: NotesEntry[] = tagPosts.map((post: any) => ({
   },
 }));
 
-// 从notes获取所有标签数据
 const allNotePosts = await getCollection("notes");
 const tagStats = new Map<string, number>();
 allNotePosts.forEach((post) => {
@@ -112,7 +111,6 @@ const tags = Array.from(tagStats.keys())
   }))
   .sort((a, b) => a.name.localeCompare(b.name));
 
-// 创建entryIndex对象
 const entryIndex: NotesEntry = {
   id: "notes-tag",
   collection: "notes" as const,

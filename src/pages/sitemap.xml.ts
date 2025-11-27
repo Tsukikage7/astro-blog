@@ -2,23 +2,22 @@ import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
 import { getSiteUrl } from '../lib/config';
 
-// 动态生成sitemap.xml
 export const GET: APIRoute = async ({ request }) => {
   try {
-    // 使用配置的网站URL，在生产环境使用正确的域名
+    
     const siteUrl = getSiteUrl();
     
-    // 获取所有内容集合
+    
     const [blogPosts, pages, notes] = await Promise.all([
       getCollection('blog', ({data, filePath}) => !data.draft && !filePath?.endsWith('-index.md')),
       getCollection('pages', ({data, filePath}) => !data.draft && !filePath?.endsWith('-index.md')),
       getCollection('notes', ({data, filePath}) => !data.draft && !filePath?.endsWith('-index.md'))
     ]);
 
-    // 生成URL条目
+    
     const urls: string[] = [];
 
-    // 添加首页
+    
     urls.push(`
   <url>
     <loc>${siteUrl}/</loc>
@@ -27,7 +26,7 @@ export const GET: APIRoute = async ({ request }) => {
     <priority>1.0</priority>
   </url>`);
 
-    // 添加博客文章
+    
     blogPosts.forEach(post => {
       const lastmod = post.data.updatedAt || post.data.createdAt || new Date();
       urls.push(`
@@ -39,7 +38,7 @@ export const GET: APIRoute = async ({ request }) => {
   </url>`);
     });
 
-    // 添加页面
+    
     pages.forEach(page => {
       const lastmod = page.data.updatedAt || page.data.createdAt || new Date();
       urls.push(`
@@ -51,7 +50,7 @@ export const GET: APIRoute = async ({ request }) => {
   </url>`);
     });
 
-    // 添加笔记
+    
     notes.forEach(note => {
       const lastmod = note.data.updatedAt || note.data.createdAt || new Date();
       urls.push(`
@@ -63,7 +62,7 @@ export const GET: APIRoute = async ({ request }) => {
   </url>`);
     });
 
-    // 生成完整的sitemap XML
+    
     const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls.join('')}
 </urlset>`;
@@ -78,7 +77,7 @@ export const GET: APIRoute = async ({ request }) => {
   } catch (error) {
     console.error('Error generating sitemap:', error);
     
-    // 返回基础sitemap作为fallback
+    
     const fallbackSitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
@@ -93,7 +92,7 @@ export const GET: APIRoute = async ({ request }) => {
       status: 200,
       headers: {
         'Content-Type': 'application/xml; charset=utf-8',
-        'Cache-Control': 'public, max-age=300' // 错误情况下缓存时间较短
+        'Cache-Control': 'public, max-age=300' 
       }
     });
   }

@@ -21,7 +21,7 @@ import Button from "@components/common/Button.astro";
             <br class="hidden sm:inline" />不妨返回首页继续探索吧。
           </p>
 
-          <!-- 撒花层：在鼠标悬停时从鼠标位置向四周撒出枫叶并自由落体 -->
+          
           <div id="leaf-layer" class="leaf-layer absolute inset-0 pointer-events-auto z-30"></div>
         </div>
       </div>
@@ -33,7 +33,7 @@ import Button from "@components/common/Button.astro";
       contain: layout style paint;
       overflow: hidden;
       touch-action: none;
-      /* 透明覆盖层，接收指针但不显示 */
+      
       background: transparent;
     }
     :global(.leaf-confetti) {
@@ -50,7 +50,7 @@ import Button from "@components/common/Button.astro";
       line-height: 1;
     }
 
-    /* 低动效偏好：尊重用户设置，禁用动画 */
+    
     @media (prefers-reduced-motion: reduce) {
       #confetti-area { pointer-events: none; }
     }
@@ -61,14 +61,14 @@ import Button from "@components/common/Button.astro";
     const layer = document.getElementById('leaf-layer');
     const prefersReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // 物理参数（像素单位）
-    const GRAVITY = 300;          // px/s^2 重力加速度（降低，让树叶慢飘）
-    const DRAG = 1.2;             // 阻尼系数（近似空气阻力）
-    const WIND_NOISE = 40;        // 水平风扰动（px/s）
+    
+    const GRAVITY = 300;          
+    const DRAG = 1.2;             
+    const WIND_NOISE = 40;        
 
-    const BURST_COUNT = 1;       // 每次爆发数量（减少）
-    const TRAIL_COUNT = 2;        // 移动时跟随数量（减少）
-    const MAX_PARTICLES = 60;    // 上限以保证性能
+    const BURST_COUNT = 1;       
+    const TRAIL_COUNT = 2;        
+    const MAX_PARTICLES = 60;    
 
     const particles = new Set();
     let rafId = null;
@@ -80,7 +80,7 @@ import Button from "@components/common/Button.astro";
       if (particles.size >= MAX_PARTICLES) return;
       const el = document.createElement('span');
       el.className = 'leaf-confetti';
-      // 关键：内联定位样式，避免 Astro 样式作用域导致的选择器失效
+      
       el.style.position = 'absolute';
       el.style.top = `${y}px`;
       el.style.left = `${x}px`;
@@ -97,13 +97,13 @@ import Button from "@components/common/Button.astro";
       glyph.style.fontSize = `${size}px`;
       glyph.style.opacity = String(alpha);
 
-      // 初始速度：向四周随机抛射
+      
       const speed = rand(50, 200);
       const angle = rand(0, Math.PI * 2);
-      let vx = Math.cos(angle) * speed; // px/s
-      let vy = Math.sin(angle) * speed; // px/s（可能向上或向下）
+      let vx = Math.cos(angle) * speed; 
+      let vy = Math.sin(angle) * speed; 
 
-      // 旋转速度（度/秒）
+      
       let rot = rand(-90, 90);
       let vrot = rand(-180, 180);
 
@@ -112,37 +112,37 @@ import Button from "@components/common/Button.astro";
         last: performance.now(),
       };
       particles.add(state);
-      // 初始定位到鼠标位置（旋转）
+      
       el.style.transform = `rotate(${rot}deg)`;
     }
 
     function step(ts) {
       if (particles.size === 0) { rafId = null; return; }
       for (const p of particles) {
-        const dt = clamp((ts - p.last) / 1000, 0, 0.05); // 限制最大步长防止卡顿跳变
+        const dt = clamp((ts - p.last) / 1000, 0, 0.05); 
         p.last = ts;
 
-        // 空气阻力（简化为阻尼） + 轻微风噪声
+        
         p.vx += rand(-WIND_NOISE, WIND_NOISE) * dt;
         p.vx *= (1 - DRAG * dt * 0.25);
         p.vy *= (1 - DRAG * dt * 0.15);
 
-        // 重力加速度（降低）
+        
         p.vy += GRAVITY * dt;
 
-        // 位置更新
+        
         p.x += p.vx * dt;
         p.y += p.vy * dt;
         p.rot += p.vrot * dt;
 
-        // 渲染到样式（用 left/top 定位，transform 仅做旋转）
+        
         p.el.style.left = `${p.x}px`;
         p.el.style.top = `${p.y}px`;
         p.el.style.transform = `rotate(${p.rot}deg)`;
 
         const w = layer.clientWidth;
         const h = layer.clientHeight;
-        // 超出边界后移除
+        
         if (p.y > h + 80 || p.x < -80 || p.x > w + 80) {
           p.el.remove();
           particles.delete(p);
@@ -155,7 +155,7 @@ import Button from "@components/common/Button.astro";
       if (rafId == null) rafId = requestAnimationFrame(step);
     }
 
-    // 使用 pointer 事件的 offset 坐标（绑定覆盖层时更稳定）
+    
     function getLocalPos(e) {
       let x = e.offsetX;
       let y = e.offsetY;
@@ -175,7 +175,7 @@ import Button from "@components/common/Button.astro";
       ensureLoop();
     }
 
-    // 事件：进入时爆发、移动时少量跟随（绑定覆盖层 + pointer capture）
+    
     let lastTrail = 0;
     layer.addEventListener('pointerenter', (e) => {
       const { x, y } = getLocalPos(e);
@@ -183,7 +183,7 @@ import Button from "@components/common/Button.astro";
     });
     layer.addEventListener('pointermove', (e) => {
       const now = performance.now();
-      if (now - lastTrail > 60) { // 更高频率地触发，但数量更少
+      if (now - lastTrail > 60) { 
         lastTrail = now;
         const { x, y } = getLocalPos(e);
         spawnBurst(x, y, TRAIL_COUNT);
@@ -196,7 +196,7 @@ import Button from "@components/common/Button.astro";
       try { layer.releasePointerCapture(e.pointerId); } catch {}
     });
 
-    // Astro 路由切换时清理
+    
     document.addEventListener('astro:page-load', () => {
       for (const p of particles) { p.el.remove(); }
       particles.clear();

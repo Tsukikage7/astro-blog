@@ -3,11 +3,9 @@ import { getSiteStats } from "@lib/contentParser";
 import LiquidGlassLess from "./LiquidGlassLess.astro";
 import { SITE_INFO } from "@lib/config";
 
-// 获取静态模式下的统计数据
 const siteStats = await getSiteStats();
 ---
 
-<!-- 作者信息 -->
 <LiquidGlassLess
   heavy
   wrapperClass="dock rounded-lg p-4 my-2 mb-4"

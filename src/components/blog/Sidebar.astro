@@ -1,11 +1,9 @@
 ---
 import { lowerHumanize, slugify } from "@lib/textConverter";
 import { FaRegFolder, FaHashtag } from "react-icons/fa";
-// 移除 ScrollArea 导入
+
 import AuthorSidebar from "@components/common/authorSidebar.astro";
 import LiquidGlassLess from "@components/common/LiquidGlassLess.astro";
-
-// AuthorImg 已经是 ImageMetadata 类型
 
 interface CategoryWithCount {
   name: string;
@@ -23,9 +21,9 @@ const { tags, categories }: Props = Astro.props;
 ---
 
 <div class="h-full w-full overflow-y-auto">
-  <!-- 作者信息 -->
+  
   <AuthorSidebar />
-  <!-- categories -->
+  
 
   <LiquidGlassLess
     heavy
@@ -33,7 +31,7 @@ const { tags, categories }: Props = Astro.props;
     animation="fadeLeft"
   >
     <div class="intersect:animate-fadeLeft">
-      <!-- <div> -->
+      
       <h4 class="mb-2 text-base md:text-lg">
         <a href="/blog/categories">
           <FaRegFolder className={"mr-1 -mt-1.5 inline-block"} />
@@ -44,7 +42,7 @@ const { tags, categories }: Props = Astro.props;
       <ul class="space-y-3">
         {
           categories.map((category) => {
-            // 判断是否为带有count的分类对象
+            
             const isCountCategory =
               typeof category === "object" &&
               "name" in category &&
@@ -76,7 +74,7 @@ const { tags, categories }: Props = Astro.props;
     </div>
   </LiquidGlassLess>
 
-  <!-- tags -->
+  
   <LiquidGlassLess
     heavy
     wrapperClass=" dock !p-6 mt-2 mb-4"

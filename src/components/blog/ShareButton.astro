@@ -29,7 +29,6 @@ const shareIcon = `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBo
   分享
 </GlassButton>
 
-<!-- 提示消息 -->
 <div id="share-toast" class="share-toast hidden">链接已复制到剪贴板！</div>
 
 <style>
@@ -83,14 +82,14 @@ const shareIcon = `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBo
   const shareBtn = document.getElementById("share-btn");
   const shareToast = document.getElementById("share-toast");
 
-  // 复制到剪贴板函数
+  
   async function copyToClipboard(text) {
     try {
       if (navigator.clipboard && window.isSecureContext) {
         await navigator.clipboard.writeText(text);
         return true;
       } else {
-        // 降级方案
+        
         const textArea = document.createElement("textarea");
         textArea.value = text;
         textArea.style.position = "fixed";
@@ -109,7 +108,7 @@ const shareIcon = `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBo
     }
   }
 
-  // 显示提示消息
+  
   function showToast() {
     shareToast.classList.remove("hidden", "hide");
     shareToast.classList.add("show");
@@ -123,7 +122,7 @@ const shareIcon = `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBo
     }, 2000);
   }
 
-  // 分享按钮点击事件
+  
   shareBtn.addEventListener("click", async () => {
     if (shareBtn.disabled) return;
 
@@ -143,19 +142,19 @@ const shareIcon = `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBo
     }
   });
 
-  // 初始化函数
+  
   function init() {
-    // 分享按钮初始化完成
+    
   }
 
-  // Astro 页面导航事件监听
+  
   document.addEventListener("astro:page-load", init);
 
-  // 兼容首次加载和传统页面跳转
+  
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", init);
   } else {
-    // 立即执行初始化
+    
     init();
   }
 </script>

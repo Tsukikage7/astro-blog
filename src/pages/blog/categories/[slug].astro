@@ -5,13 +5,12 @@ import { slugify } from "@lib/textConverter";
 import { getPageSize } from "@lib/config";
 import type { BlogEntry } from "@/types";
 
-// 生成所有分类页面的静态路径和分页
 export async function getStaticPaths() {
   const allPosts = await getCollection("blog", ({ data }) => {
     return data.status === "published" && !data.draft;
   });
 
-  // 收集所有分类及其文章
+  
   const categoryPosts = new Map<string, any[]>();
   allPosts.forEach((post: any) => {
     const postCategories = post.data.categories;
@@ -28,7 +27,7 @@ export async function getStaticPaths() {
   const paths: any[] = [];
   const entriesPerPage = getPageSize("blog");
 
-  // 为每个分类生成分页路径
+  
   categoryPosts.forEach((posts, categorySlug) => {
     const categoryName = posts[0].categoryName;
     const sortedPosts = posts
@@ -69,10 +68,10 @@ const {
 console.log("当前页面数据：", categoryPosts);
 
 const { slug, page = "1" } = Astro.params;
-// 转换为组件需要的格式
+
 const entries: BlogEntry[] = categoryPosts.map((post: any) => ({
   id: post.id,
-  // slug: post.id,
+  
   collection: "blog",
   body: post.body,
   data: {
@@ -97,7 +96,7 @@ const entries: BlogEntry[] = categoryPosts.map((post: any) => ({
 const allPosts = await getCollection("blog", ({ data }) => {
   return data.status === "published" && !data.draft;
 });
-// 生成分类统计数据
+
 const categoryStats = new Map<string, number>();
 allPosts.forEach((post) => {
   if (post.data.categories) {
@@ -119,7 +118,6 @@ const categories = Array.from(categoryStats.entries())
   }))
   .sort((a, b) => a.name.localeCompare(b.name));
 
-// 生成标签数据
 const tagStats = new Map<string, number>();
 allPosts.forEach((post) => {
   if (post.data.tags && Array.isArray(post.data.tags)) {
@@ -135,7 +133,6 @@ const tags = Array.from(tagStats.keys())
   }))
   .sort((a, b) => a.name.localeCompare(b.name));
 
-// 创建entryIndex对象
 const entryIndex: BlogEntry = {
   id: "blog-category",
   collection: "blog" as const,

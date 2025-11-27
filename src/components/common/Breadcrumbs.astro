@@ -14,7 +14,7 @@ let parts = [
 
 paths.forEach((label: string, i: number) => {
   const href = `/${paths.slice(0, i + 1).join("/")}`;
-  // 解码URL编码的中文字符
+  
   const decodedLabel = decodeURIComponent(label);
   label !== "page" &&
     parts.push({

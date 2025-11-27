@@ -16,9 +16,9 @@ const { slug, hidden = false } = Astro.props as {
 </span>
 
 <script type="module" define:vars={{ slug }}>
-  // @ts-nocheck
+  
   const STORAGE_KEY = `view_count::${slug}`;
-  const DEDUP_MS = 60 * 60 * 1000; // 1 小时去重
+  const DEDUP_MS = 60 * 60 * 1000; 
 
   let countEl = document.getElementById('view-count-number');
 
@@ -39,7 +39,7 @@ const { slug, hidden = false } = Astro.props as {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
     } catch (e) {
-      // localStorage 写入可能失败（无痕模式等），忽略
+      
       console.warn('写入本地浏览计数失败', e);
     }
   }
@@ -64,9 +64,9 @@ const { slug, hidden = false } = Astro.props as {
   }
 
   function init() {
-    // 初始渲染
+    
     renderCount(readState().count);
-    // 根据去重规则尝试增加一次
+    
     incrementIfNeeded();
   }
 
@@ -74,7 +74,7 @@ const { slug, hidden = false } = Astro.props as {
   document.addEventListener('astro:page-load', init);
   document.addEventListener('visibilitychange', () => {
     if (!document.hidden) {
-      // 页面重新可见时再尝试一次
+      
       setTimeout(incrementIfNeeded, 200);
     }
   });

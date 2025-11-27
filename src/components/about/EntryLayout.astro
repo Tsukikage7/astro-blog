@@ -14,22 +14,21 @@ const { entry } = Astro.props;
 const { title, description, image, imageAlt } = entry.data;
 const { Content } = await render(entry);
 
-// 获取图片的 src 用于 meta 标签
 const imageSrc = image ? (typeof image === 'string' ? image : image.src) : undefined;
 ---
 
 <BaseLayout title={title} description={description} image={imageSrc}>
   <section class="container px-3 lg:px-8 py-8">
-    <!-- 头像和标题区域 -->
+    
     <div class="mb-8 text-center">
       {
         image && (
           <div class="mb-6 flex justify-center">
             <div class="relative group">
-              {/* 渐变背景光晕 */}
+              {}
               <div class="absolute -inset-4 bg-gradient-to-r from-orange-500 via-indigo-500 to-green-500 rounded-full blur-2xl opacity-40 group-hover:opacity-60 transition duration-500 animate-pulse"></div>
 
-              {/* 头像 */}
+              {}
               {typeof image === 'string' ? (
                 <img
                   class="relative w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-white/20 shadow-2xl transform group-hover:scale-105 transition-all duration-300 bg-white/10 backdrop-blur-sm object-cover"
@@ -62,7 +61,7 @@ const imageSrc = image ? (typeof image === 'string' ? image : image.src) : undef
       </p>
     </div>
 
-    <!-- 内容区域 -->
+    
     <div class="max-w-4xl mx-auto">
       <LiquidGlassLess
         heavy
@@ -78,7 +77,7 @@ const imageSrc = image ? (typeof image === 'string' ? image : image.src) : undef
 </BaseLayout>
 
 <style>
-  /* 自定义 markdown 内容样式 */
+  
   :global(.markdown-content h4) {
     @apply text-2xl font-bold mb-4 mt-8 text-txt-p dark:text-darkmode-txt-p;
   }

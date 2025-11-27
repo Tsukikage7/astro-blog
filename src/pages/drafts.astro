@@ -5,17 +5,14 @@ import { getCollection } from "astro:content";
 import type { BlogEntry } from "@/types";
 import { isDevelopment } from "@lib/env";
 
-// 仅在开发环境显示此页面
 if (!isDevelopment()) {
   return Astro.redirect("/404");
 }
 
-// 获取所有草稿文章
 const draftPosts = (await getCollection("blog", ({ data }) => {
   return data.draft === true;
 })) as BlogEntry[];
 
-// 按创建时间排序
 const sortedDrafts = draftPosts.sort((a, b) => {
   const dateA = new Date(a.data.createdAt || 0);
   const dateB = new Date(b.data.createdAt || 0);

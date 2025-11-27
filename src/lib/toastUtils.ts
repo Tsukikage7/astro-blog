@@ -1,15 +1,14 @@
-// 提示组件工具类
+
 export interface ToastOptions {
   title?: string;
   content: string;
   type?: 'success' | 'info' | 'warning' | 'error';
   position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left' | 'top-center' | 'bottom-center';
-  duration?: number; // 显示时长（毫秒），0 表示不自动消失
+  duration?: number; 
   showIcon?: boolean;
   closable?: boolean;
 }
 
-// 类型配置
 const typeConfig = {
   success: {
     bgColor: 'from-emerald-400/20 to-green-500/20',
@@ -37,7 +36,6 @@ const typeConfig = {
   }
 };
 
-// 位置样式
 const positionClasses = {
   'top-right': 'top-4 right-4',
   'top-left': 'top-4 left-4',
@@ -47,11 +45,6 @@ const positionClasses = {
   'bottom-center': 'bottom-4 left-1/2 transform -translate-x-1/2'
 };
 
-/**
- * 显示提示消息
- * @param options 提示选项
- * @returns 返回创建的提示元素
- */
 export function showToast(options: ToastOptions): HTMLElement {
   const {
     title,
@@ -66,12 +59,12 @@ export function showToast(options: ToastOptions): HTMLElement {
   const config = typeConfig[type];
   const positionClass = positionClasses[position];
 
-  // 创建提示容器
+  
   const toastContainer = document.createElement('div');
   toastContainer.className = `toast-container fixed z-50 ${positionClass} pointer-events-none`;
   toastContainer.dataset.duration = duration.toString();
 
-  // 创建提示内容
+  
   const toastContent = document.createElement('div');
   toastContent.className = `
     toast-content pointer-events-auto
@@ -84,18 +77,17 @@ export function showToast(options: ToastOptions): HTMLElement {
     animate-slide-in
   `;
 
-  // 装饰性光效
+  
   const lightEffect = document.createElement('div');
   lightEffect.className = 'absolute inset-0 rounded-2xl bg-gradient-to-r from-white/10 to-transparent opacity-50';
   toastContent.appendChild(lightEffect);
 
   
-  // 内容区域
+  
   const contentArea = document.createElement('div');
   contentArea.className = 'flex items-start gap-3 relative z-10';
 
-
-  // 图标
+  
   if (showIcon) {
     const iconDiv = document.createElement('div');
     iconDiv.className = `
@@ -110,7 +102,7 @@ export function showToast(options: ToastOptions): HTMLElement {
     contentArea.appendChild(iconDiv);
   }
 
-  // 文本内容
+  
   const textDiv = document.createElement('div');
   textDiv.className = 'flex-1 min-w-0';
 
@@ -128,7 +120,7 @@ export function showToast(options: ToastOptions): HTMLElement {
 
   contentArea.appendChild(textDiv);
 
-  // 关闭按钮
+  
   if (closable) {
     const closeBtn = document.createElement('button');
     closeBtn.className = 'w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 transition-colors duration-200 flex items-center justify-center text-gray-600 hover:text-gray-800';
@@ -139,7 +131,7 @@ export function showToast(options: ToastOptions): HTMLElement {
 
   toastContent.appendChild(contentArea);
 
-  // 进度条（如果有自动消失时间）
+  
   if (duration > 0) {
     const progressContainer = document.createElement('div');
     progressContainer.className = 'absolute bottom-0 left-0 right-0 h-1 bg-white/20 rounded-b-2xl overflow-hidden';
@@ -155,7 +147,7 @@ export function showToast(options: ToastOptions): HTMLElement {
   toastContainer.appendChild(toastContent);
   document.body.appendChild(toastContainer);
 
-  // 自动消失
+  
   if (duration > 0) {
     setTimeout(() => {
       removeToast(toastContainer);
@@ -165,10 +157,6 @@ export function showToast(options: ToastOptions): HTMLElement {
   return toastContainer;
 }
 
-/**
- * 移除提示
- * @param toastElement 提示元素
- */
 function removeToast(toastElement: HTMLElement) {
   const content = toastElement.querySelector('.toast-content') as HTMLElement;
   if (content) {
@@ -182,37 +170,22 @@ function removeToast(toastElement: HTMLElement) {
   }
 }
 
-/**
- * 快捷方法：成功提示
- */
 export function showSuccess(content: string, title?: string, options?: Partial<ToastOptions>) {
   return showToast({ ...options, content, title, type: 'success' });
 }
 
-/**
- * 快捷方法：信息提示
- */
 export function showInfo(content: string, title?: string, options?: Partial<ToastOptions>) {
   return showToast({ ...options, content, title, type: 'info' });
 }
 
-/**
- * 快捷方法：警告提示
- */
 export function showWarning(content: string, title?: string, options?: Partial<ToastOptions>) {
   return showToast({ ...options, content, title, type: 'warning' });
 }
 
-/**
- * 快捷方法：错误提示
- */
 export function showError(content: string, title?: string, options?: Partial<ToastOptions>) {
   return showToast({ ...options, content, title, type: 'error' });
 }
 
-/**
- * 清除所有提示
- */
 export function clearAllToasts() {
   const toasts = document.querySelectorAll('.toast-container');
   toasts.forEach(toast => {
@@ -220,9 +193,6 @@ export function clearAllToasts() {
   });
 }
 
-/**
- * 清除指定位置的提示
- */
 export function clearToastsByPosition(position: ToastOptions['position'] = 'top-right') {
   const positionClass = positionClasses[position];
   const toasts = document.querySelectorAll(`.toast-container.${positionClass.split(' ').join('.')}`);
@@ -231,11 +201,10 @@ export function clearToastsByPosition(position: ToastOptions['position'] = 'top-
   });
 }
 
-// 添加必要的 CSS 样式到页面
 if (typeof document !== 'undefined') {
   const style = document.createElement('style');
   style.textContent = `
-    /* Toast 动画样式 */
+    
     @keyframes slide-in {
       from {
         opacity: 0;

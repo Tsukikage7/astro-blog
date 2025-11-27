@@ -54,14 +54,12 @@ export type EntryReference = {
   collection: string;
 };
 
-// Window object extensions
 declare global {
   interface Window {
     typewriterTimeout?: ReturnType<typeof setTimeout>;
   }
 }
 
-// Define heading hierarchy so that we can generate ToC
 export interface HeadingHierarchy extends MarkdownHeading {
   subheadings: HeadingHierarchy[];
 }
@@ -72,7 +70,6 @@ export type MenuItem = {
   children: MenuItem[];
 };
 
-// Define the type for menu items to created nested object
 export type MenuItemWithDraft = {
   title?: string;
   id: string;
@@ -80,12 +77,10 @@ export type MenuItemWithDraft = {
   children: MenuItemWithDraft[];
 };
 
-// Define the props for the SideNavMenu component
 export type SideNavMenuProps = {
   items: MenuItemWithDraft[];
   level: number;
 };
-
 
 export type ImageData = {
   src: string,

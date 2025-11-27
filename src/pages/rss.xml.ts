@@ -1,7 +1,6 @@
 import { getCollection } from 'astro:content';
 import type { APIContext } from 'astro';
 
-// 转义 XML 特殊字符
 function escapeXml(unsafe: string): string {
   return unsafe.replace(/[<>&'"]/g, function (c) {
     switch (c) {
@@ -15,18 +14,17 @@ function escapeXml(unsafe: string): string {
   });
 }
 
-// 格式化日期为 RFC 822 格式 (RSS 2.0 标准)
 function formatDate(date: Date): string {
   return date.toUTCString();
 }
 
 export async function GET(context: APIContext) {
-  // 获取所有已发布的博客文章
+  
   const blog = await getCollection('blog', ({ data }) => {
     return data.draft !== true && data.status === 'published';
   });
 
-  // 按发布时间倒序排列，取最新的 25 篇文章
+  
   const sortedPosts = blog
     .sort((a, b) => {
       const dateA = a.data.publishedAt || a.data.createdAt || new Date(0);
@@ -40,7 +38,7 @@ export async function GET(context: APIContext) {
     ? formatDate(sortedPosts[0].data.publishedAt || sortedPosts[0].data.createdAt || new Date())
     : formatDate(new Date());
 
-  // 构建 RSS 2.0 XML
+  
   const rssXml = `<?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
@@ -64,11 +62,11 @@ ${sortedPosts.map((post) => {
     const postUrl = `${siteUrl}/blog/${post.id}/`;
     const author = post.data.author || 'Tsukikage';
     
-    // 处理封面图
+    
     let imageContent = '';
     if (post.data.image && typeof post.data.image.src === 'string') {
       let imageUrl = post.data.image.src;
-      // 如果是相对路径，转换为绝对路径
+      
       if (imageUrl.startsWith('@assets/')) {
         imageUrl = imageUrl.replace('@assets/', `${siteUrl}/src/assets/`);
       } else if (imageUrl.startsWith('/')) {
@@ -80,7 +78,7 @@ ${sortedPosts.map((post) => {
       imageContent = `<enclosure url="${escapeXml(imageUrl)}" type="image/jpeg" />`;
     }
     
-    // 处理分类
+    
     const categories = post.data.categories?.filter(Boolean) || [];
     const categoryContent = categories.map(cat => 
       cat &&

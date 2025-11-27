@@ -6,10 +6,10 @@ export async function getStaticPaths() {
   const isDev = import.meta.env.DEV;
 
   const blogEntries = await getCollection("blog", ({ data }) => {
-    // 生产环境只显示已发布的非草稿文章
-    // 开发环境显示所有文章（包括草稿）
+    
+    
     if (isDev) {
-      return true; // 开发环境显示所有文章
+      return true; 
     }
     return data.draft !== true;
   });

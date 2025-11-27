@@ -19,7 +19,7 @@ const { taxonomy, taxonomyTitle, taxa, allTaxa }: Props = Astro.props;
     <PageHeader title={taxonomyTitle} articleCount={taxa.length} />
     <section class="section py-12">
       <div class="container px-3 lg:px-8">
-        <!-- 使用 shadcn 风格的网格布局 -->
+        
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {
             taxa.map((taxon: string) => {
@@ -48,7 +48,7 @@ const { taxonomy, taxonomyTitle, taxa, allTaxa }: Props = Astro.props;
           }
         </div>
 
-        {/* 如果没有分类，显示提示 */}
+        {}
         {
           taxa.length === 0 && (
             <div class="text-center py-12">

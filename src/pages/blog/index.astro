@@ -12,7 +12,6 @@ const entryIndex = (await getIndex("blog")) as BlogEntry;
 const entries = (await getEntries("blog", sortByDate)) as BlogEntry[];
 const allBlogCount = entries.length;
 
-// 获取带有文章数量的分类数据
 const categoriesWithCount = await getTaxaWithCount("blog", "categories");
 const tags = await getTaxa("blog", "tags");
 

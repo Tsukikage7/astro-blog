@@ -1,9 +1,5 @@
 ---
-/**
- * SmartImage - 智能图片组件
- * 自动处理 Astro Image 对象和外部 URL 字符串两种格式
- * 统一图片处理逻辑，避免重复代码
- */
+
 import { Image } from "astro:assets";
 import type { ImageMetadata } from "astro";
 
@@ -37,7 +33,6 @@ const {
   style,
 } = Astro.props;
 
-// 判断是字符串 URL 还是 Astro Image 对象
 const isStringUrl = typeof src === "string";
 ---
 

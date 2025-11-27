@@ -20,7 +20,6 @@ const entryIndex = (await getIndex("blog")) as BlogEntry;
 const entries = (await getEntries("blog", sortByDate)) as BlogEntry[];
 const allBlogCount = entries.length;
 
-// const allCategories = await getTaxaMultiset("blog", "categories");
 const categoriesWithCount = await getTaxaWithCount("blog", "categories");
 const tags = await getTaxa("blog", "tags");
 

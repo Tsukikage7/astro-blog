@@ -17,10 +17,8 @@ import LiquidGlassLess from "./LiquidGlassLess.astro";
       wrapperClass="panel"
       heavy textClass="w-full rounded-[35px] p-6 lg:p-8" 
     >
-    <!-- <div
-      class="bg-[#f8f9ff] dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 shadow-md w-full rounded-[35px] p-6 lg:p-8"
-    > -->
-      <!-- 页面标题 -->
+    
+      
       <div class="text-center mb-4">
         <div class="">
           <h1 class="text-2xl font-bold text-gradient-primary mb-2">
@@ -29,14 +27,14 @@ import LiquidGlassLess from "./LiquidGlassLess.astro";
         </div>
       </div>
 
-      <!-- 友链展示区域 -->
+      
       <div class="mb-8 animate-fade-in-up" style="animation-delay: 0.2s">
         <FriendLinks />
       </div>
 
-      <!-- 申请说明区域 -->
+      
       <div class="grid gap-8 mb-8">
-        <!-- 本站信息卡片 -->
+        
         <div
           class="bg-card rounded-[25px] p-6 border border-border hover:bg-accent animate-fade-in-up"
           style="animation-delay: 0.6s"
@@ -136,7 +134,7 @@ import LiquidGlassLess from "./LiquidGlassLess.astro";
           </div>
         </div>
 
-        <!-- 申请要求卡片 -->
+        
         <div
           class="bg-card hover:bg-accent rounded-[25px] p-6 border border-border animate-fade-in-up"
           style="animation-delay: 0.6s"
@@ -197,7 +195,7 @@ import LiquidGlassLess from "./LiquidGlassLess.astro";
         </div>
       </div>
 
-      <!-- 申请格式和须知区域 -->
+      
       <div
         class="rounded-[25px] p-6 mb-16 animate-fade-in-up"
         style="animation-delay: 0.6s"
@@ -213,7 +211,7 @@ import LiquidGlassLess from "./LiquidGlassLess.astro";
           </p>
         </div>
 
-        <!-- Tab 切换按钮 -->
+        
         <div class="flex justify-center mb-6">
           <div
             class="bg-white/5 dark:bg-gray-700/20 rounded-lg p-1 border border-white/10 dark:border-gray-600/20"
@@ -242,7 +240,7 @@ import LiquidGlassLess from "./LiquidGlassLess.astro";
           </div>
         </div>
 
-        <!-- 申请格式内容 -->
+        
         <div id="format-content" class="tab-content">
           <div
             class="bg-gray-900 rounded-[18px] border border-gray-700 overflow-hidden mb-4"
@@ -270,7 +268,7 @@ import LiquidGlassLess from "./LiquidGlassLess.astro";
           </div>
         </div>
 
-        <!-- 申请须知内容 -->
+        
         <div id="notice-content" class="tab-content hidden">
           <div class="space-y-4">
             <div class="space-y-3">
@@ -366,7 +364,7 @@ import LiquidGlassLess from "./LiquidGlassLess.astro";
           </div>
         </div>
 
-        <!-- 免责声明内容 -->
+        
         <div id="disclaimer-content" class="tab-content hidden">
           <div class="space-y-6">
             <div
@@ -456,10 +454,10 @@ import LiquidGlassLess from "./LiquidGlassLess.astro";
         </div>
       </div>
 
-      <!-- 分割线 -->
+      
       <div class="my-12 border-t border-gary-300/50 dark:border-gray-700/50"></div>
 
-      <!-- 留言区域 -->
+      
       <div
         id="留言区"
         class="bg-card rounded-[25px] p-8 border border-border animate-fade-in-up"
@@ -473,21 +471,21 @@ import LiquidGlassLess from "./LiquidGlassLess.astro";
         <p class="text-center text-txt-light dark:text-darkmode-txt-light mb-6">
           欢迎在这里申请友链或进行交流讨论
         </p>
-        <!-- Twikoo 评论系统 -->
+        
         <Comment />
       </div>
-    <!-- </div> -->
+    
     </LiquidGlassLess>
 
     <script>
-      // Tab 切换功能
+      
       function switchTab(tabName: string) {
-        // 隐藏所有内容
+        
         document.querySelectorAll(".tab-content").forEach((content) => {
           content.classList.add("hidden");
         });
 
-        // 重置所有按钮样式
+        
         document.querySelectorAll(".tab-btn").forEach((btn) => {
           btn.classList.remove("bg-blue-500", "text-white");
           btn.classList.add(
@@ -498,7 +496,7 @@ import LiquidGlassLess from "./LiquidGlassLess.astro";
           );
         });
 
-        // 显示选中的内容
+        
         const content = document.getElementById(tabName + "-content");
         if (content) {
           content.classList.remove("hidden");
@@ -506,7 +504,7 @@ import LiquidGlassLess from "./LiquidGlassLess.astro";
           console.error(`未找到 ID 为 ${tabName}-content 的元素`);
         }
 
-        // 激活选中的按钮
+        
         const activeBtn = document.getElementById(
           tabName + "-tab",
         ) as HTMLButtonElement;
@@ -520,28 +518,28 @@ import LiquidGlassLess from "./LiquidGlassLess.astro";
         );
       }
 
-      // 一键申请功能
+      
       function autoFillApplication() {
         const template = `网站名称：[您的网站名称]\n网站地址：[https://您的域名]\n网站描述：[简短描述，不超过30字]\n网站头像：[头像/Logo链接]`;
 
-        // 滚动到留言区域
+        
         const commentSection = document.getElementById("留言区");
         if (commentSection) {
           commentSection.scrollIntoView({ behavior: "smooth" });
 
-          // 等待滚动完成后尝试填充内容
+          
           setTimeout(() => {
-            // 尝试找到 Twikoo 的输入框
+            
             const textarea = document.querySelector(
               "#tcomment textarea, .tk-input textarea, .twikoo textarea",
             ) as HTMLTextAreaElement;
             if (textarea) {
               textarea.value = template;
               textarea.focus();
-              // 触发输入事件以确保 Twikoo 检测到内容变化
+              
               textarea.dispatchEvent(new Event("input", { bubbles: true }));
             } else {
-              // 如果找不到输入框，复制到剪贴板
+              
               navigator.clipboard
                 .writeText(template)
                 .then(() => {
@@ -555,14 +553,14 @@ import LiquidGlassLess from "./LiquidGlassLess.astro";
         }
       }
 
-      // 复制模板功能
+      
       function copyTemplate() {
         const template = `网站名称：[您的网站名称]\n网站地址：[https://您的域名]\n网站描述：[简短描述，不超过30字]\n网站头像：[头像/Logo链接]`;
 
         navigator.clipboard
           .writeText(template)
           .then(() => {
-            // 显示复制成功提示
+            
             const btn = document.getElementById(
               "copy-btn",
             ) as HTMLButtonElement;
@@ -581,7 +579,7 @@ import LiquidGlassLess from "./LiquidGlassLess.astro";
           });
       }
 
-      // 滚动到留言区功能
+      
       function scrollToComments() {
         const commentSection = document.getElementById("留言区");
         if (commentSection) {
@@ -589,7 +587,7 @@ import LiquidGlassLess from "./LiquidGlassLess.astro";
         }
       }
 
-      // 将函数绑定到全局作用域
+      
       (window as any).switchTab = switchTab;
       (window as any).autoFillApplication = autoFillApplication;
       (window as any).copyTemplate = copyTemplate;
@@ -598,7 +596,7 @@ import LiquidGlassLess from "./LiquidGlassLess.astro";
   </section>
 
   <style>
-    /* 基础动画 */
+    
     @keyframes fade-in-down {
       from {
         opacity: 0;
@@ -631,7 +629,7 @@ import LiquidGlassLess from "./LiquidGlassLess.astro";
       transform: translateY(40px);
     }
 
-    /* 减少动画效果（用户偏好） */
+    
     @media (prefers-reduced-motion: reduce) {
       .animate-fade-in-down,
       .animate-fade-in-up {

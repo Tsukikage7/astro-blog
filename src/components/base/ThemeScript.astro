@@ -16,20 +16,20 @@
   }
 
   function setTheme(darkMode) {
-    // Update DOM
+    
     darkMode
       ? document.documentElement.classList.add("dark")
       : document.documentElement.classList.remove("dark");
-    // Update localStorage
+    
     localStorage.setItem("theme", darkMode ? "dark" : "light");
   }
 
-  // This prevents flickering back to default theme before the page is fully loaded
+  
   setTheme(getTheme(defaultTheme));
 
   document.addEventListener("astro:page-load", () => {
     setTheme(getTheme(defaultTheme));
-    // Theme switcher
+    
     var themeSwitch = document.querySelectorAll("[data-theme-switcher]");
     themeSwitch.forEach((el) => {
       el.addEventListener("change", (e) => {

@@ -1,6 +1,5 @@
 import type { GenericEntry } from "@/types";
 
-// Sort by date
 export const sortByDate = (entries: GenericEntry[]): GenericEntry[] => {
   const sortedEntries = entries.sort(
     (a: any, b: any) =>
@@ -10,7 +9,6 @@ export const sortByDate = (entries: GenericEntry[]): GenericEntry[] => {
   return sortedEntries;
 };
 
-//sort by update
 export const sortByUpdate = (entries: GenericEntry[]): GenericEntry[] => {
   const sortedEntries = entries.sort(
     (a: any, b: any) =>
@@ -20,7 +18,6 @@ export const sortByUpdate = (entries: GenericEntry[]): GenericEntry[] => {
   return sortedEntries;
 };
 
-// Sort by title
 export const sortByTitle = (entries: GenericEntry[]): GenericEntry[] => {
   const sortedEntries = entries.sort((a: any, b: any) =>
     a.data.title.localeCompare(b.data.title),
@@ -28,7 +25,6 @@ export const sortByTitle = (entries: GenericEntry[]): GenericEntry[] => {
   return sortedEntries;
 };
 
-// Sort by random
 export const sortByRandom = (entries: GenericEntry[]): GenericEntry[] => {
   const sortedEntries = entries.sort(() => Math.random() - 0.5);
   return sortedEntries;

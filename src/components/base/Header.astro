@@ -10,11 +10,9 @@ const { pathname } = Astro.url;
 
 const stickyHeader = true;
 
-// 获取网站基本信息
-let siteName = SITE_INFO?.SITE_NAME || ""; // 优先读取配置项，若无则使用默认
+let siteName = SITE_INFO?.SITE_NAME || ""; 
 let siteLogoUrl = SITE_INFO?.LOGO_IMAGE || "";
 
-// 静态菜单数据
 const menu = [
   {
     id: 1,
@@ -83,7 +81,7 @@ const menu = [
     shineClass="rounded-[35px]"
     animation="fadeDown"
   >
-    <!-- 网站名称 -->
+    
     <div class="order-0 flex ml-4 items-center">
       <a href="/" class="flex items-center">
         {
@@ -109,7 +107,7 @@ const menu = [
       </a>
     </div>
 
-    <!-- navbar toggler -->
+    
     <input id="nav-toggle" type="checkbox" class="hidden" />
     <label
       for="nav-toggle"
@@ -134,7 +132,7 @@ const menu = [
           transform="rotate(45 10 10)"></polygon>
       </svg>
     </label>
-    <!-- /navbar toggler -->
+    
     <ul
       id="nav-menu"
       class="bg-card md:bg-inherit rounded-lg text-center relative order-3 hidden w-full p-4 md:order-1 md:flex md:w-auto md:space-x-1 md:p-0 md:mx-auto lg:space-x-2"
@@ -175,7 +173,7 @@ const menu = [
         <IoSearch />
       </a>
 
-      <!-- 随机文章按钮 -->
+      
       <button
         id="random-article-btn"
         class="mr-4 p-2 text-orange-400 hover:text-orange-500 dark:text-orange-500 dark:hover:text-orange-400 transition-colors group"
@@ -199,21 +197,18 @@ const menu = [
 
       <ThemeSwitcher />
     </div>
-    <!-- 背景玻璃效果 -->
-    <!-- <div
-  class="glass absolute inset-0 -z-10 lg:rounded-lg intersect:animate-fadeDown"
-  >
-  </div> -->
+    
+    
   </LiquidGlass>
 
   <style>
-    /* 确保二级菜单正常显示 */
+    
     .group:hover .submenu {
       opacity: 1 !important;
       visibility: visible !important;
     }
 
-    /* 移动端菜单样式 */
+    
     @media (max-width: 768px) {
       #nav-menu {
         position: absolute;
@@ -227,7 +222,7 @@ const menu = [
         display: block !important;
       }
 
-      /* 移动端二级菜单始终显示 */
+      
       .submenu {
         position: static !important;
         opacity: 1 !important;
@@ -235,21 +230,21 @@ const menu = [
         transform: scale(1) !important;
         box-shadow: none !important;
         border: none !important;
-        /* background: rgba(0, 0, 0, 0.05) !important; */
+        
         margin-top: 0.5rem;
         margin-left: 1rem;
         border-left: 2px solid rgba(249, 115, 22, 0.3);
         padding-left: 0.5rem;
       }
 
-      /* 移动端一级菜单项样式调整 */
+      
       .group > a {
-        /* border-bottom: 1px solid rgba(0, 0, 0, 0.1); */
+        
         margin-bottom: 0;
       }
     }
 
-    /* 深色模式下的移动端菜单 */
+    
     @media (max-width: 768px) {
       :global(.dark) .submenu {
         border-left-color: rgba(249, 115, 22, 0.5) !important;
@@ -260,7 +255,7 @@ const menu = [
       }
     }
 
-    /* 菜单项激活状态样式优化 - 防止挤压其他菜单项 */
+    
     #nav-menu .glass-button {
       transform: none !important;
     }
@@ -275,7 +270,7 @@ const menu = [
   </style>
 
   <script>
-    // 页面切换时更新菜单选中状态
+    
     document.addEventListener("astro:page-load", () => {
       updateActiveMenuItem();
     });
@@ -284,14 +279,14 @@ const menu = [
       const currentPath = window.location.pathname;
       const menuItems = document.querySelectorAll("#nav-menu a");
 
-      // 移除所有激活状态和指示器
+      
       menuItems.forEach((item) => {
         item.classList.remove("text-orange-500", "hover-active");
         item.children[0].className =
           "!gap-[inherit] !px-4 !py-2 border border-white/0 w-full";
       });
 
-      // 找到当前激活的菜单项
+      
       const activeItem = Array.from(menuItems).find((item) => {
         const href = item.getAttribute("href");
         return (
@@ -301,39 +296,39 @@ const menu = [
         );
       });
 
-      // 添加当前页面的激活状态
+      
       if (activeItem) {
-        // 设置文本颜色
+        
         activeItem.classList.add("text-orange-500");
         activeItem.children[0].className +=
           " glass-button glass-button--menu glass-button--menu dark:!text-orange-300 dark:!border-gray-400  w-full";
       }
 
-      // 为所有菜单项添加鼠标悬浮事件监听器
+      
       menuItems.forEach((item) => {
-        // 移除之前的事件监听器（如果存在）
+        
         item.removeEventListener("mouseenter", handleMenuItemHover);
         item.removeEventListener("mouseleave", handleMenuItemLeave);
 
-        // 添加新的事件监听器
+        
         item.addEventListener("mouseenter", handleMenuItemHover);
         item.addEventListener("mouseleave", handleMenuItemLeave);
       });
     }
 
-    // 鼠标悬浮进入事件处理函数
+    
     function handleMenuItemHover(event: { currentTarget: any; }) {
       const item = event.currentTarget;
       const currentPath = window.location.pathname;
       const href = item.getAttribute("href");
 
-      // 检查是否是当前激活页面
+      
       const isCurrentPage =
         currentPath === href ||
         currentPath === href + "/" ||
         (href && href !== "/" && currentPath.indexOf(href) !== -1);
 
-      // 如果不是当前页面，添加悬浮激活样式
+      
       if (!isCurrentPage) {
         item.classList.add("text-orange-500", "hover-active");
         item.children[0].className +=
@@ -341,19 +336,19 @@ const menu = [
       }
     }
 
-    // 鼠标悬浮离开事件处理函数
+    
     function handleMenuItemLeave(event: { currentTarget: any; }) {
       const item = event.currentTarget;
       const currentPath = window.location.pathname;
       const href = item.getAttribute("href");
 
-      // 检查是否是当前激活页面
+      
       const isCurrentPage =
         currentPath === href ||
         currentPath === href + "/" ||
         (href && href !== "/" && currentPath.indexOf(href) !== -1);
 
-      // 如果不是当前页面，移除悬浮激活样式
+      
       if (!isCurrentPage) {
         item.classList.remove("text-orange-500", "hover-active");
         item.children[0].className =
@@ -361,12 +356,12 @@ const menu = [
       }
     }
 
-    // 移动端菜单切换
+    
     document.addEventListener("astro:page-load", function () {
       const navToggle = document.getElementById("nav-toggle");
       const navMenu = document.getElementById("nav-menu");
 
-      // 监听导航切换
+      
       if (navToggle && navMenu) {
         (navToggle as HTMLInputElement).addEventListener("change", function () {
           if ((this as HTMLInputElement).checked) {
@@ -379,7 +374,7 @@ const menu = [
         });
       }
 
-      // 点击菜单项后关闭移动端菜单
+      
       const menuLinks = document.querySelectorAll("#nav-menu a");
       menuLinks.forEach((link) => {
         link.addEventListener("click", function () {
@@ -391,10 +386,10 @@ const menu = [
         });
       });
 
-      /* 移动端处理：移除二级菜单的点击切换逻辑，让所有二级菜单始终显示 */
-      // 在移动端，二级菜单通过CSS始终显示，无需JavaScript切换
+      
+      
 
-      // 下拉菜单交互
+      
       const dropdownItems = document.querySelectorAll(".dropdown");
       dropdownItems.forEach((dropdown) => {
         const toggle = dropdown.querySelector(".dropdown-toggle");
@@ -406,7 +401,7 @@ const menu = [
             dropdown.classList.toggle("active");
           });
 
-          // 点击外部关闭下拉菜单
+          
           document.addEventListener("click", function (e) {
             if (!dropdown.contains(e.target as Node)) {
               dropdown.classList.remove("active");
@@ -416,21 +411,21 @@ const menu = [
       });
     });
 
-    // 随机文章按钮点击事件
+    
     document.addEventListener("astro:page-load", function () {
       const randomBtn = document.getElementById("random-article-btn");
       if (randomBtn) {
         randomBtn.addEventListener("click", async function () {
           const button = this as HTMLButtonElement;
-          const originalHTML = button.innerHTML; // 在函数开始时保存原始HTML
+          const originalHTML = button.innerHTML; 
 
           try {
-            // 显示加载状态
+            
             button.disabled = true;
             button.innerHTML =
               '<svg class="w-5 h-5 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>';
 
-            // 获取所有已发布的博客文章
+            
             const response = await fetch("/api/blog-articles.json");
             if (!response.ok) {
               throw new Error("无法获取文章列表");
@@ -441,26 +436,26 @@ const menu = [
             }
             
 
-            // 随机选择一篇文章
+            
             const randomIndex = Math.floor(Math.random() * articles.length);
             const randomArticle = articles[randomIndex];
 
-            // 跳转到随机文章页面
+            
             window.location.href = `/blog/${randomArticle.slug}`;
           } catch (error) {
             console.error("获取随机文章失败:", error);
-            // 恢复按钮状态
+            
             button.disabled = false;
             button.innerHTML = originalHTML;
 
-            // 显示错误提示
+            
             alert("获取随机文章失败，请稍后重试");
           }
         });
       }
     });
 
-    // 初始化
+    
     updateActiveMenuItem();
   </script>
 </header>

@@ -41,9 +41,6 @@ const {
   location,
 } = entry.data;
 
-// 使用全局 Supabase 客户端，无需本地配置
-
-// 处理图片数据：优先使用 images 数组，如果没有则使用单张 image
 const displayImages =
   images && images.length > 0
     ? images
@@ -53,7 +50,6 @@ const displayImages =
 
 const entryDate = createdAt ? formatDate(createdAt) : null;
 
-// 获取相关动态（同标签的其他动态）
 const allNotes = await getCollection("notes");
 const relatedNotes = allNotes
   .filter(
@@ -65,7 +61,6 @@ const relatedNotes = allNotes
   )
   .slice(0, 5);
 
-// 获取最新动态
 const latestNotes = allNotes
   .filter((note) => slugify(note.data.title) !== slug)
   .sort((a, b) => {
@@ -75,14 +70,13 @@ const latestNotes = allNotes
   })
   .slice(0, 3);
 
-// 处理内容中的图片链接，提取出来单独显示
 const { Content } = await render(entry);
 ---
 
 <BaseLayout title={title} description={description || ""}>
   <div class="container px-3 lg:px-8">
     <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
-      <!-- 主内容区 -->
+      
       <div class="w-full lg:col-span-3">
         <LiquidGlass
           heavy
@@ -90,7 +84,7 @@ const { Content } = await render(entry);
           textClass="p-3 md:p-5"
           animation="fadeRight"
         >
-          <!-- 作者信息和发布时间 -->
+          
           <div class="flex items-center mb-6">
             <div
               class="w-12 h-12 rounded-full overflow-hidden bg-gray-200 dark:bg-gray-700"
@@ -118,10 +112,10 @@ const { Content } = await render(entry);
             </div>
           </div>
 
-          <!-- 标题 -->
+          
           <h1 class="text-3xl font-bold mb-4">{title}</h1>
 
-          <!-- 元信息：心情、位置 -->
+          
           <div class="flex flex-wrap gap-4 mb-6">
             {
               mood && (
@@ -142,7 +136,7 @@ const { Content } = await render(entry);
             }
           </div>
 
-          <!-- 图片展示区域 -->
+          
           {
             displayImages.length > 0 && (
               <div class="mb-6">
@@ -168,14 +162,14 @@ const { Content } = await render(entry);
             )
           }
 
-          <!-- 内容 -->
+          
           <div
             class="md:text-lg prose dark:prose-invert max-w-none mb-8 text-txt-s dark:text-darkmode-txt-s"
           >
             <Content />
           </div>
 
-          <!-- 标签 -->
+          
           {
             tags && tags.length > 0 && (
               <div class="flex flex-wrap gap-2 mb-6">
@@ -191,7 +185,7 @@ const { Content } = await render(entry);
             )
           }
 
-          <!-- 互动区域 -->
+          
           <div class="border-t border-gray-200 dark:border-gray-700 pt-4 mt-6">
             <div class="flex justify-around">
 
@@ -220,7 +214,7 @@ const { Content } = await render(entry);
           </div>
         </LiquidGlass>
 
-        <!-- 评论区占位 -->
+        
         <LiquidGlass
           heavy
           containerClass="pb-6 rounded-xl"
@@ -232,9 +226,9 @@ const { Content } = await render(entry);
         </LiquidGlass>
       </div>
 
-      <!-- 侧边栏 -->
+      
       <div class="lg:col-span-1">
-        <!-- 相关动态 -->
+        
         {
           relatedNotes.length > 0 && (
             <LiquidGlass
@@ -266,7 +260,7 @@ const { Content } = await render(entry);
           )
         }
 
-        <!-- 最新动态 -->
+        
         <LiquidGlass
           heavy
           containerClass="pb-4 rounded-xl"
@@ -311,27 +305,27 @@ const { Content } = await render(entry);
 </BaseLayout>
 
 <style>
-  /* 图片网格布局样式 */
+  
   .image-grid {
     display: grid;
     gap: 8px;
     border-radius: 25px;
-    /* overflow: hidden; */
+    
   }
 
-  /* 1张图片 */
+  
   .image-grid-1 {
     grid-template-columns: 1fr;
     max-width: 400px;
   }
 
-  /* 2张图片 */
+  
   .image-grid-2 {
     grid-template-columns: 1fr 1fr;
     max-width: 400px;
   }
 
-  /* 3张图片 */
+  
   .image-grid-3 {
     grid-template-columns: 1fr 1fr;
     max-width: 400px;
@@ -340,13 +334,13 @@ const { Content } = await render(entry);
     grid-column: 1 / -1;
   }
 
-  /* 4张图片 */
+  
   .image-grid-4 {
     grid-template-columns: 1fr 1fr;
     max-width: 400px;
   }
 
-  /* 5-6张图片 */
+  
   .image-grid-5,
   .image-grid-6 {
     grid-template-columns: 1fr 1fr 1fr;
@@ -357,7 +351,7 @@ const { Content } = await render(entry);
     grid-column: span 1;
   }
 
-  /* 7-9张图片 */
+  
   .image-grid-7,
   .image-grid-8,
   .image-grid-9 {
@@ -367,11 +361,11 @@ const { Content } = await render(entry);
 
   .image-item {
     aspect-ratio: 1;
-    /* overflow: hidden; */
-    /* background: #f3f4f6; */
+    
+    
   }
 
-  /* 图片模态框样式 */
+  
   .image-modal {
     position: fixed;
     top: 0;
@@ -451,7 +445,6 @@ const { Content } = await render(entry);
   }
 </style>
 
-<!-- 图片预览模态框 -->
 <div id="imageModal" class="image-modal">
   <div class="modal-content">
     <button class="modal-close" id="closeModal">&times;</button>
@@ -465,7 +458,7 @@ const { Content } = await render(entry);
   let currentImageIndex = 0;
   let modalImages = [];
 
-  // 初始化图片数据
+  
   function initImageModal() {
     const imageElements = document.querySelectorAll("[data-image-index]");
     modalImages = Array.from(imageElements).map((img) => {
@@ -476,13 +469,13 @@ const { Content } = await render(entry);
       };
     });
 
-    // 绑定图片点击事件
+    
     imageElements.forEach((img, index) => {
       img.addEventListener("click", () => openImageModal(index));
     });
   }
 
-  // 打开图片模态框
+  
   function openImageModal(index) {
     currentImageIndex = index;
     const modal = document.getElementById("imageModal");
@@ -496,7 +489,7 @@ const { Content } = await render(entry);
     }
   }
 
-  // 关闭图片模态框
+  
   function closeImageModal() {
     const modal = document.getElementById("imageModal");
     if (modal) {
@@ -505,21 +498,21 @@ const { Content } = await render(entry);
     }
   }
 
-  // 上一张图片
+  
   function prevImage() {
     if (currentImageIndex > 0) {
       openImageModal(currentImageIndex - 1);
     }
   }
 
-  // 下一张图片
+  
   function nextImage() {
     if (currentImageIndex < modalImages.length - 1) {
       openImageModal(currentImageIndex + 1);
     }
   }
 
-  // 键盘事件
+  
   document.addEventListener("keydown", (e) => {
     const modal = document.getElementById("imageModal");
     if (modal && modal.classList.contains("active")) {
@@ -537,7 +530,7 @@ const { Content } = await render(entry);
     }
   });
 
-  // 点击模态框背景关闭
+  
   const imageModal = document.getElementById("imageModal");
   if (imageModal) {
     imageModal.addEventListener("click", (e) => {
@@ -563,20 +556,20 @@ const { Content } = await render(entry);
     nextModal.addEventListener("click", nextImage);
   }
 
-  // 页面加载完成后初始化
+  
   document.addEventListener("DOMContentLoaded", initImageModal);
 
-  // 支持 Astro 的页面切换事件
+  
   document.addEventListener("astro:page-load", initImageModal);
 
-  // Supabase 已移除：改用本地存储（localStorage）
+  
 
-  // 互动按钮功能实现（已移除点赞）
+  
   let isBookmarked = false;
   let noteSlug = window.location.pathname.split("/").pop() || "";
   noteSlug = decodeURI(noteSlug);
 
-  // 从localStorage获取互动状态（本地模式）
+  
   async function loadInteractionState() {
     const noteId = window.location.pathname;
     const savedBookmarked = localStorage.getItem(`bookmarked_${noteId}`);
@@ -586,15 +579,15 @@ const { Content } = await render(entry);
     updateBookmarkButton();
   }
 
-  // 保存收藏状态到localStorage
+  
   function saveBookmarkState() {
     const noteId = window.location.pathname;
     localStorage.setItem(`bookmarked_${noteId}`, isBookmarked.toString());
   }
 
-  // 已移除点赞按钮状态更新
+  
 
-  // 更新收藏按钮状态
+  
   function updateBookmarkButton() {
     const bookmarkBtn = document.getElementById("bookmarkBtn");
     const bookmarkIcon = document.getElementById("bookmarkIcon");
@@ -613,12 +606,12 @@ const { Content } = await render(entry);
     }
   }
 
-  // 点赞功能已移除
+  
 
-  // 收藏功能 - 调用浏览器收藏夹
+  
   function toggleBookmark() {
     if (!isBookmarked) {
-      // 添加到浏览器收藏夹
+      
       const title = document.title;
       const url = window.location.href;
       const message =
@@ -626,35 +619,35 @@ const { Content } = await render(entry);
           ? "请按 Cmd+D 将此页面添加到收藏夹"
           : "请按 Ctrl+D 将此页面添加到收藏夹";
       showToast(message);
-      // 检查浏览器是否支持添加收藏夹功能
-      // if (window.external && 'AddFavorite' in window.external) {
-      //   // IE浏览器
-      //   (window.external as any).AddFavorite(url, title);
-      //   isBookmarked = true;
-      //   updateBookmarkButton();
-      //   saveBookmarkState();
-      //   showToast('已添加到收藏夹');
-      // } else if (window.sidebar && window.sidebar.addPanel) {
-      //   // Firefox浏览器
-      //   window.sidebar.addPanel(title, url, '');
-      //   isBookmarked = true;
-      //   updateBookmarkButton();
-      //   saveBookmarkState();
-      //   showToast('已添加到收藏夹');
-      // } else {
-      //   // 其他浏览器，提示用户手动收藏
-      //   const message = navigator.userAgent.indexOf('Mac') !== -1
-      //     ? '请按 Cmd+D 将此页面添加到收藏夹'
-      //     : '请按 Ctrl+D 将此页面添加到收藏夹';
-      //   showToast(message);
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
 
-      //   // 模拟收藏状态（仅在本地记录）
-      //   isBookmarked = true;
-      //   updateBookmarkButton();
-      //   saveBookmarkState();
-      // }
+      
+      
+      
+      
+      
     } else {
-      // 取消收藏（仅本地状态）
+      
       isBookmarked = false;
       updateBookmarkButton();
       saveBookmarkState();
@@ -662,7 +655,7 @@ const { Content } = await render(entry);
     }
   }
 
-  // 评论功能
+  
   function scrollToComments() {
     const commentSection = document.querySelector("h3");
     if (commentSection && commentSection.textContent?.includes("评论")) {
@@ -670,13 +663,13 @@ const { Content } = await render(entry);
     }
   }
 
-  // 分享功能
+  
   function shareNote() {
     const title = document.title;
     const url = window.location.href;
 
     if (navigator.share) {
-      // 使用原生分享API
+      
       navigator
         .share({
           title: title,
@@ -693,23 +686,23 @@ const { Content } = await render(entry);
     }
   }
 
-  // 备用分享方法
+  
   function fallbackShare(title, url) {
-    // 复制链接到剪贴板
+    
     navigator.clipboard
       .writeText(url)
       .then(() => {
         showToast("链接已复制到剪贴板");
       })
       .catch(() => {
-        // 如果复制失败，显示分享选项
+        
         const shareText = `${title} - ${url}`;
         const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`;
         window.open(shareUrl, "_blank");
       });
   }
 
-  // 简单的提示功能
+  
   function showToast(message) {
     const toast = document.createElement("div");
     toast.className =
@@ -725,7 +718,7 @@ const { Content } = await render(entry);
     }, 2000);
   }
 
-  // 初始化互动功能
+  
   async function initInteractions() {
     await loadInteractionState();
 
@@ -746,7 +739,7 @@ const { Content } = await render(entry);
     }
   }
 
-  // 页面加载完成后初始化互动功能
+  
   document.addEventListener("DOMContentLoaded", initInteractions);
   document.addEventListener("astro:page-load", initInteractions);
 </script>

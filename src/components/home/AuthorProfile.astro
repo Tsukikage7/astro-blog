@@ -7,26 +7,24 @@ import { getEntry } from "astro:content";
 import { getEntries } from "@lib/contentParser";
 import { sortByDate } from "@lib/sortFunctions";
 
-// 获取社交链接
 const socialEntry = await getEntry("social", "-index");
 const socialLinks = socialEntry?.data.platforms;
 
-// 获取所有博客文章
 const allPosts = await getEntries("blog", sortByDate);
 ---
 
 <div class="author-profile">
   <div class="relative">
-    <!-- 装饰性背景 -->
+    
     <div class="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-purple-500/5 to-pink-500/5 rounded-2xl blur-xl"></div>
     
     <div class="relative ">
       <div class="flex flex-col items-center space-y-4">
-        <!-- 头像区域 -->
+        
         <div class="relative group">
-          <!-- 动态光环效果 -->
+          
           <div class="absolute -inset-2 bg-gradient-to-r from-orange-400 via-purple-500 to-blue-500 rounded-full blur-lg opacity-20 group-hover:opacity-40 transition-all duration-500 animate-pulse"></div>
-          <!-- 外圈装饰 -->
+          
           <div class="absolute -inset-1 bg-gradient-to-r from-orange-400 via-purple-500 to-blue-500 rounded-full opacity-60 group-hover:opacity-80 transition-all duration-300"></div>
           <img
             class="relative w-24 h-24 lg:w-28 lg:h-28 rounded-full border-2 border-white/50 dark:border-gray-300/30 shadow-2xl transform group-hover:scale-105 transition-all duration-300 bg-white dark:bg-gray-800"
@@ -40,9 +38,9 @@ const allPosts = await getEntries("blog", sortByDate);
           />
         </div>
         
-        <!-- 个人信息区域 -->
+        
         <div class="text-center space-y-3">
-          <!-- 名字和徽章 -->
+          
           <div class="flex flex-col items-center gap-3">
             <h1 class="text-2xl lg:text-3xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
               Tsukikage
@@ -64,7 +62,7 @@ const allPosts = await getEntries("blog", sortByDate);
 
 <script>
   document.addEventListener("DOMContentLoaded", async function () {
-    // 动态导入提示工具
+    
     const { showInfo } = await import("@lib/toastUtils");
     
     const showWechatBtn = document.getElementById("showWechatBtn");
@@ -103,7 +101,7 @@ const allPosts = await getEntries("blog", sortByDate);
 
 <style>
   .author-profile {
-    min-height: 200px; /* 与文章日历模块保持一致的高度 */
+    min-height: 200px; 
     @apply flex items-center justify-center;
   }
 </style>
