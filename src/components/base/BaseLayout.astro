@@ -2,11 +2,12 @@
 import { plainify } from "@lib/textConverter";
 import Footer from "@components/base/Footer.astro";
 import Header from "@components/base/Header.astro";
+import MusicPlayer from "@components/common/MusicPlayer.astro";
 import "@/styles/main.scss";
 import { ClientRouter } from "astro:transitions";
 import Background from "@/components/base/Background.astro";
 import { Tooltips } from "astro-tooltips";
-import { SITE_INFO } from "@lib/config";
+import { SITE_INFO, MUSIC_PLAYER_CONFIG } from "@lib/config";
 import { isDevelopment } from "@lib/env";
 
 // types for frontmatters
@@ -627,6 +628,7 @@ const customFooterCode = customSettings?.custom_footer_code || "";
       <slot />
     </main>
     <Footer />
+    {MUSIC_PLAYER_CONFIG.ENABLED && <MusicPlayer />}
     <!-- <ObserverScript /> -->
     <!-- KaTeX 初始化脚本 -->
     <script>

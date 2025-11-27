@@ -61,6 +61,26 @@ export const UI_CONFIG = {
   ENABLE_GLASS_EFFECT: true,
 } as const;
 
+// 音乐播放器配置
+export const MUSIC_PLAYER_CONFIG = {
+  // 是否启用音乐播放器
+  ENABLED: true,
+  // 网易云歌单 ID
+  PLAYLIST_ID: '2539599584',
+  // 是否固定在底部
+  FIXED: true,
+  // 是否显示歌词
+  SHOW_LRC: true,
+  // 主题色
+  THEME_COLOR: '#FF6B6B',
+  // 播放模式: circulation(循环) | order(顺序) | random(随机) | single(单曲)
+  ORDER: 'random' as 'circulation' | 'order' | 'random' | 'single',
+  // 预加载模式
+  PRELOAD: 'auto' as 'none' | 'metadata' | 'auto',
+  // 是否自动播放
+  AUTOPLAY: false,
+} as const;
+
 // 获取当前环境的网站URL
 export const getSiteUrl = () => {
   // 在构建时使用生产URL，开发时使用开发URL

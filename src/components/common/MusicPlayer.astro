@@ -1,0 +1,213 @@
+---
+// 网易云音乐播放器组件
+// 使用 APlayer + MetingJS 实现
+import { MUSIC_PLAYER_CONFIG } from "@lib/config";
+
+interface Props {
+  // 网易云歌单 ID，例如: "2539599584"
+  playlistId?: string;
+  // 是否固定在底部
+  fixed?: boolean;
+  // 是否显示歌词
+  lrc?: boolean;
+  // 主题色
+  theme?: string;
+  // 播放模式: circulation(循环) | order(顺序) | random(随机) | single(单曲)
+  order?: "circulation" | "order" | "random" | "single";
+  // 预加载模式
+  preload?: "none" | "metadata" | "auto";
+  // 是否自动播放
+  autoplay?: boolean;
+}
+
+const {
+  playlistId = MUSIC_PLAYER_CONFIG.PLAYLIST_ID,
+  fixed = MUSIC_PLAYER_CONFIG.FIXED,
+  lrc = MUSIC_PLAYER_CONFIG.SHOW_LRC,
+  theme = MUSIC_PLAYER_CONFIG.THEME_COLOR,
+  order = MUSIC_PLAYER_CONFIG.ORDER,
+  preload = MUSIC_PLAYER_CONFIG.PRELOAD,
+  autoplay = MUSIC_PLAYER_CONFIG.AUTOPLAY,
+} = Astro.props;
+---
+
+<!-- APlayer 容器 -->
+<div id="aplayer" class:list={[fixed && "aplayer-fixed"]}></div>
+
+<!-- 引入 APlayer 和 MetingJS 的 CSS -->
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css"
+/>
+
+<!-- 引入 APlayer 和 MetingJS 的 JS -->
+<script
+  is:inline
+  src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"
+></script>
+<script
+  is:inline
+  src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"
+></script>
+
+<!-- 初始化播放器 -->
+<script
+  define:vars={{
+    playlistId,
+    fixed,
+    lrc,
+    theme,
+    order,
+    preload,
+    autoplay,
+  }}
+>
+  // 确保在 DOM 和 APlayer 加载完成后初始化
+  function initMusicPlayer() {
+    // 检查是否已经初始化过
+    if (window.aplayer) {
+      return;
+    }
+
+    // 检查 APlayer 是否已加载
+    if (typeof APlayer === 'undefined') {
+      console.log("等待 APlayer 加载...");
+      setTimeout(initMusicPlayer, 100);
+      return;
+    }
+
+    const container = document.getElementById("aplayer");
+    if (!container) {
+      console.warn("未找到播放器容器");
+      return;
+    }
+
+    console.log("开始初始化音乐播放器...");
+
+    // 使用 MetingJS API 获取网易云歌单
+    fetch(
+      `https://api.i-meto.com/meting/api?server=netease&type=playlist&id=${playlistId}`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        if (!data || data.length === 0) {
+          console.warn("未能加载歌单，使用默认配置");
+          return;
+        }
+
+        console.log(`成功获取歌单,共 ${data.length} 首歌曲`);
+
+        // 初始化 APlayer
+        window.aplayer = new APlayer({
+          container: container,
+          fixed: fixed,
+          mini: fixed, // 固定模式使用迷你播放器
+          autoplay: autoplay,
+          theme: theme,
+          loop: order === "circulation" ? "all" : order === "single" ? "one" : "none",
+          order: order === "random" ? "random" : "list",
+          preload: preload,
+          volume: 0.7,
+          mutex: true,
+          lrcType: lrc ? 3 : 0,
+          audio: data.map((item) => ({
+            name: item.name,
+            artist: item.artist.join("/"),
+            url: item.url,
+            cover: item.pic,
+            lrc: item.lrc || "",
+          })),
+        });
+
+        console.log("🎵 音乐播放器初始化成功");
+      })
+      .catch((error) => {
+        console.error("加载音乐播放器失败:", error);
+      });
+  }
+
+  // 页面加载完成后初始化
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initMusicPlayer);
+  } else {
+    initMusicPlayer();
+  }
+
+  // Astro 页面切换后重新初始化
+  document.addEventListener("astro:page-load", initMusicPlayer);
+
+  // 页面卸载时清理
+  document.addEventListener("astro:before-preparation", () => {
+    if (window.aplayer) {
+      window.aplayer.destroy();
+      window.aplayer = null;
+    }
+  });
+</script>
+
+<style is:global>
+  /* 固定播放器样式优化 */
+  .aplayer-fixed {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0;
+    z-index: 99;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  /* 深色模式适配 */
+  :global(.dark) .aplayer {
+    background: rgba(30, 30, 30, 0.95);
+    backdrop-filter: blur(10px);
+  }
+
+  :global(.dark) .aplayer .aplayer-list {
+    background: rgba(40, 40, 40, 0.95);
+  }
+
+  :global(.dark) .aplayer .aplayer-body,
+  :global(.dark) .aplayer .aplayer-info {
+    background: transparent;
+  }
+
+  :global(.dark) .aplayer .aplayer-info .aplayer-music .aplayer-title,
+  :global(.dark) .aplayer .aplayer-info .aplayer-music .aplayer-author {
+    color: #e0e0e0;
+  }
+
+  :global(.dark) .aplayer .aplayer-list li {
+    color: #e0e0e0;
+    border-top-color: rgba(255, 255, 255, 0.1);
+  }
+
+  :global(.dark) .aplayer .aplayer-list li:hover {
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  :global(.dark) .aplayer .aplayer-list li.aplayer-list-light {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  /* 移动端优化 */
+  @media (max-width: 768px) {
+    .aplayer-fixed {
+      max-width: 100%;
+    }
+
+    .aplayer.aplayer-withlist .aplayer-list {
+      max-height: 50vh;
+    }
+  }
+
+  /* 确保播放器不会遮挡页面内容 */
+  body {
+    padding-bottom: 66px; /* 为固定播放器留出空间 */
+  }
+
+  /* 迷你模式样式 */
+  .aplayer.aplayer-fixed.aplayer-narrow {
+    width: 66px;
+  }
+</style>
