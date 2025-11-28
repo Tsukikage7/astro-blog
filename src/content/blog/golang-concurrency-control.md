@@ -2,8 +2,8 @@
 title: Golang并发度控制
 description: Golang并发度控制
 draft: false
-createdAt: 2024-11-13T08:09:01.000Z
-updatedAt: 2024-11-13T08:09:01.000Z
+date: 2024-11-13 08:09:01
+updated: 2024-11-13 08:09:01
 image: "https://assets.tsukikage7.com/blog/cover/97cb2718.webp"
 imageAlt: ""
 author: tsukikage

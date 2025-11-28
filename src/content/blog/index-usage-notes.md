@@ -2,8 +2,8 @@
 title: 索引使用注意事项
 description: 索引使用注意事项
 draft: false
-createdAt: 2024-09-14T09:45:28.000Z
-updatedAt: 2024-09-14T09:45:28.000Z
+date: 2024-09-14 09:45:28
+updated: 2024-09-14 09:45:28
 image: "https://assets.tsukikage7.com/blog/cover/1f1af593.webp"
 imageAlt: ""
 author: tsukikage

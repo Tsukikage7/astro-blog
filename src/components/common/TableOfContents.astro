@@ -19,7 +19,7 @@ const toc = heirarchy.filter((heading) => heading.depth <= tocDepth);
     <LiquidGlass heavy animation="fadeLeft" wrapperClass="dock !p-6" >
       <div class="intersect:animate-fadeLeft">
         <h2 class="text-2xl border-none mb-3">内容导航</h2>
-        <div class="max-h-96 overflow-y-auto">
+        <div class="max-h-96 overflow-y-auto scrollbar-hide">
           <ul class="list-none m-0 space-y-1">
             {toc.map((heading) => (
               <li class=`${heading.depth === 2 ? "ml-0" : "ml-4"}`>
@@ -36,19 +36,29 @@ const toc = heirarchy.filter((heading) => heading.depth <= tocDepth);
 }
 
 <style>
-  
+
   :global(h1, h2, h3, h4, h5, h6) {
-    scroll-margin-top: 8rem; 
+    scroll-margin-top: 8rem;
   }
-  
-  
+
+
   [data-toc-link] {
     cursor: pointer;
     transition: color 0.2s ease;
   }
-  
+
   [data-toc-link]:hover {
     color: var(--color-primary, #f97316);
+  }
+
+  /* 隐藏滚动条但保持滚动功能 */
+  .scrollbar-hide {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari and Opera */
   }
 </style>
 

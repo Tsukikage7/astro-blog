@@ -2,8 +2,8 @@
 title: 有效的括号
 description: 有效的括号
 draft: false
-createdAt: 2023-07-17T05:29:11.000Z
-updatedAt: 2023-07-17T05:29:11.000Z
+date: 2023-07-17 05:29:11
+updated: 2023-07-17 05:29:11
 image: "https://assets.tsukikage7.com/blog/cover/ce35a9a0.webp"
 imageAlt: ""
 author: tsukikage

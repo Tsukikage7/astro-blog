@@ -2,8 +2,8 @@
 title: MySQL事务
 description: MySQL事务
 draft: false
-createdAt: 2024-09-23T11:38:48.000Z
-updatedAt: 2024-09-23T11:38:48.000Z
+date: 2024-09-23 11:38:48
+updated: 2024-09-23 11:38:48
 image: "https://assets.tsukikage7.com/blog/cover/8ef81369.webp"
 imageAlt: ""
 author: tsukikage

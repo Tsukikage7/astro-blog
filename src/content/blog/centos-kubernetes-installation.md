@@ -2,8 +2,8 @@
 title: CentOS安装Kubernetes
 description: CentOS安装Kubernetes
 draft: false
-createdAt: 2023-08-09T09:46:53.000Z
-updatedAt: 2023-08-09T09:46:53.000Z
+date: 2023-08-09 09:46:53
+updated: 2023-08-09 09:46:53
 image: "https://assets.tsukikage7.com/blog/cover/027a5b62.webp"
 imageAlt: ""
 author: tsukikage

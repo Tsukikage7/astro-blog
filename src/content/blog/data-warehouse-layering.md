@@ -2,8 +2,8 @@
 title: 数仓分层
 description: 数仓分层
 draft: false
-createdAt: 2023-07-25T14:37:26.000Z
-updatedAt: 2023-07-25T14:37:26.000Z
+date: 2023-07-25 14:37:26
+updated: 2023-07-25 14:37:26
 image: "https://assets.tsukikage7.com/blog/cover/a37ed969.webp"
 imageAlt: ""
 author: tsukikage

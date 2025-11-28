@@ -2,8 +2,8 @@
 title: JUC面试题
 description: JUC面试题
 draft: false
-createdAt: 2023-07-24T09:14:07.000Z
-updatedAt: 2023-07-24T09:14:07.000Z
+date: 2023-07-24 09:14:07
+updated: 2023-07-24 09:14:07
 image: "https://assets.tsukikage7.com/blog/cover/6df8bd0d.webp"
 imageAlt: ""
 author: tsukikage

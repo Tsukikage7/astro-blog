@@ -2,8 +2,8 @@
 title: JavaIO流
 description: JavaIO流
 draft: false
-createdAt: 2023-06-13T09:05:07.000Z
-updatedAt: 2023-06-13T09:05:07.000Z
+date: 2023-06-13 09:05:07
+updated: 2023-06-13 09:05:07
 image: "https://assets.tsukikage7.com/blog/cover/a3015dff.webp"
 imageAlt: ""
 author: tsukikage

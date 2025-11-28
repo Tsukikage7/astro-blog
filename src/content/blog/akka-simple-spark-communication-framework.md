@@ -2,8 +2,8 @@
 title: Akka构建简单的Spark通信框架
 description: Akka构建简单的Spark通信框架
 draft: false
-createdAt: 2023-06-13T09:14:52.000Z
-updatedAt: 2023-06-13T09:14:52.000Z
+date: 2023-06-13 09:14:52
+updated: 2023-06-13 09:14:52
 image: "https://assets.tsukikage7.com/blog/cover/c42cb83b.webp"
 imageAlt: ""
 author: tsukikage

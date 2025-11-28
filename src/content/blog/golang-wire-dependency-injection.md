@@ -2,8 +2,8 @@
 title: Wire实现Golang依赖注入
 description: Wire实现Golang依赖注入
 draft: false
-createdAt: 2024-08-06T05:56:21.000Z
-updatedAt: 2024-08-06T05:56:21.000Z
+date: 2024-08-06 05:56:21
+updated: 2024-08-06 05:56:21
 image: "https://assets.tsukikage7.com/blog/cover/893db273.webp"
 imageAlt: ""
 author: tsukikage

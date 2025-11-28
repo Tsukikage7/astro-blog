@@ -78,20 +78,35 @@ const siteStats = await getSiteStats();
         </div>
       </div>
     </section>
-    
-    <section class="rounded-lg">
-      
-      <div class="flex flex-wrap gap-2">
+
+    <section class="rounded-lg mb-6">
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
         {
           categories.slice(0, 6).map((category: any, index: number) => (
             <a
               href={`/blog/categories/${category.slug}`}
-              class="text-txt-light dark:text-darkmode-txt-light font-medium"
+              class="group relative flex items-center justify-between px-4 py-3 rounded-lg border border-border bg-card text-card-foreground hover:bg-accent hover:text-accent-foreground transition-all duration-200 shadow-sm hover:shadow-md intersect:animate-fadeUp"
               style={`animation-delay: ${index * 100}ms`}
             >
-              <LiquidGlass wrapperClass="button">
-                <span class="">{category.name}</span>
-              </LiquidGlass>
+              <div class="flex items-center gap-2 min-w-0">
+                <svg
+                  class="w-4 h-4 text-muted-foreground group-hover:text-accent-foreground transition-colors flex-shrink-0"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"
+                  />
+                </svg>
+                <span class="font-medium text-sm truncate">{category.name}</span>
+              </div>
+              <span class="inline-flex items-center justify-center px-2 py-0.5 rounded-full text-xs font-medium bg-secondary text-secondary-foreground group-hover:bg-primary group-hover:text-primary-foreground transition-colors flex-shrink-0 ml-2">
+                {category.count}
+              </span>
             </a>
           ))
         }

@@ -13,11 +13,11 @@ interface Props {
 }
 
 const { entry }: Props = Astro.props;
-const { title, description, createdAt, tags, images, mood, location } =
+const { title, description, date, tags, images, mood, location } =
   entry.data;
 
 const slug = slugify(entry.data.title);
-const entryDate = createdAt ? formatDate(createdAt) : null;
+const entryDate = date ? formatDate(date) : null;
 
 const contentPreview = entry.body
   ? plainify(entry.body).slice(0, 150) +
@@ -118,16 +118,21 @@ const contentPreview = entry.body
         )
       }
 
-      
+
       {
         tags && tags.length > 0 && (
-          <div class="flex flex-wrap gap-2 ">
+          <div class="flex flex-wrap gap-1.5">
             {tags.map((tag) => (
               <a
                 href={`/notes/tags/${tag}`}
-                class="px-2 py-1 glass-l text-xs text-gray-900/50 rounded-full hover:bg-white/40 transition-colors duration-300 dark:text-gray-200/60"
+                class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium
+                       bg-muted/80 dark:bg-muted/60
+                       text-muted-foreground dark:text-muted-foreground
+                       hover:bg-muted dark:hover:bg-muted/80
+                       transition-colors duration-200"
               >
-                #{tag}
+                <span class="mr-0.5 opacity-60">#</span>
+                {tag}
               </a>
             ))}
           </div>

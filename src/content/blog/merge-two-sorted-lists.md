@@ -2,8 +2,8 @@
 title: 合并两个有序链表
 description: 合并两个有序链表
 draft: false
-createdAt: 2023-07-16T06:15:36.000Z
-updatedAt: 2023-07-16T06:15:36.000Z
+date: 2023-07-16 06:15:36
+updated: 2023-07-16 06:15:36
 image: "https://assets.tsukikage7.com/blog/cover/f988079b.webp"
 imageAlt: ""
 author: tsukikage

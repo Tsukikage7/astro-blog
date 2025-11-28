@@ -32,7 +32,7 @@ const { slug } = Astro.params;
 const {
   title,
   description,
-  createdAt,
+  date,
   tags,
   image,
   imageAlt,
@@ -48,7 +48,7 @@ const displayImages =
       ? [{ src: image, alt: imageAlt || `${title} - 默认图片` }]
       : [];
 
-const entryDate = createdAt ? formatDate(createdAt) : null;
+const entryDate = date ? formatDate(date) : null;
 
 const allNotes = await getCollection("notes");
 const relatedNotes = allNotes
@@ -64,8 +64,8 @@ const relatedNotes = allNotes
 const latestNotes = allNotes
   .filter((note) => slugify(note.data.title) !== slug)
   .sort((a, b) => {
-    const dateA = a.data.createdAt ? new Date(a.data.createdAt).getTime() : 0;
-    const dateB = b.data.createdAt ? new Date(b.data.createdAt).getTime() : 0;
+    const dateA = a.data.date ? new Date(a.data.date).getTime() : 0;
+    const dateB = b.data.date ? new Date(b.data.date).getTime() : 0;
     return dateB - dateA;
   })
   .slice(0, 3);
@@ -169,16 +169,26 @@ const { Content } = await render(entry);
             <Content />
           </div>
 
-          
+
           {
             tags && tags.length > 0 && (
-              <div class="flex flex-wrap gap-2 mb-6">
+              <div class="flex flex-wrap gap-2.5 mb-6">
                 {tags.map((tag) => (
                   <a
                     href={`/notes/tags/${tag}`}
-                    class="px-3 py-1 glass-l text-sm rounded-full hover:bg-white/40 transition-colors duration-300"
+                    class="inline-flex items-center px-4 py-2 text-sm font-medium rounded-full
+                           bg-gradient-to-r from-primary/15 to-primary/8
+                           text-primary dark:text-primary-light
+                           border border-primary/25 dark:border-primary/35
+                           hover:from-primary/25 hover:to-primary/15
+                           hover:border-primary/50 dark:hover:border-primary/60
+                           hover:shadow-lg hover:shadow-primary/20
+                           hover:scale-105
+                           transition-all duration-300 ease-out
+                           backdrop-blur-sm"
                   >
-                    #{tag}
+                    <span class="mr-1.5 text-lg text-primary/70 dark:text-primary-light/70">#</span>
+                    {tag}
                   </a>
                 ))}
               </div>
@@ -250,7 +260,7 @@ const { Content } = await render(entry);
                         {note.data.title}
                       </h5>
                       <p class="text-sm text-gray-700 dark:text-gray-400 mt-1">
-                        {note.data.createdAt && formatDate(note.data.createdAt)}
+                        {note.data.date && formatDate(note.data.date)}
                       </p>
                     </a>
                   </div>
@@ -283,7 +293,7 @@ const { Content } = await render(entry);
                       {note.data.description && note.data.description}
                     </p>
                     <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                      {note.data.createdAt && formatDate(note.data.createdAt)}
+                      {note.data.date && formatDate(note.data.date)}
                     </p>
                   </a>
                 </div>

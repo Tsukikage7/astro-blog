@@ -2,8 +2,8 @@
 title: 字节跳动数据开发面试复盘
 description: 字节跳动数据开发面试复盘
 draft: false
-createdAt: 2023-07-26T10:18:08.000Z
-updatedAt: 2023-07-26T10:18:08.000Z
+date: 2023-07-26 10:18:08
+updated: 2023-07-26 10:18:08
 image: "https://assets.tsukikage7.com/blog/cover/3955f65b.webp"
 imageAlt: ""
 author: tsukikage

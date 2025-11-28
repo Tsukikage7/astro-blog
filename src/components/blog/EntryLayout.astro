@@ -19,7 +19,7 @@ interface Props {
 const isDev = import.meta.env.DEV;
 const { entry } = Astro.props;
 const isDraft = entry.data.draft;
-const { title, description, image, hideToc, updatedAt, author } = entry.data;
+const { title, description, image, hideToc, updated, author } = entry.data;
 
 const { headings } = await render(entry);
 
@@ -74,15 +74,15 @@ const recommendedPosts = allBlogPosts
     return { post, score };
   })
   .sort((a, b) => {
-    
+
     if (b.score !== a.score) {
       return b.score - a.score;
     }
     const dateA = new Date(
-      a.post.data.publishedAt || a.post.data.createdAt || 0,
+      a.post.data.date || 0,
     );
     const dateB = new Date(
-      b.post.data.publishedAt || b.post.data.createdAt || 0,
+      b.post.data.date || 0,
     );
     return dateB.getTime() - dateA.getTime();
   })
@@ -258,8 +258,8 @@ const recommendedPosts = allBlogPosts
                         d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
                      最后更新：{
-                      updatedAt
-                        ? new Date(updatedAt).toLocaleDateString("zh-CN")
+                      updated
+                        ? new Date(updated).toLocaleDateString("zh-CN")
                         : "未知"
                     }
                   </span>

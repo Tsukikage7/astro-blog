@@ -2,8 +2,8 @@
 title: 回文数
 description: 回文数
 draft: false
-createdAt: 2023-07-13T05:59:00.000Z
-updatedAt: 2023-07-13T05:59:00.000Z
+date: 2023-07-13 05:59:00
+updated: 2023-07-13 05:59:00
 image: "https://assets.tsukikage7.com/blog/cover/ae191576.webp"
 imageAlt: ""
 author: tsukikage

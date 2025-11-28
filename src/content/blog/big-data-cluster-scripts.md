@@ -2,8 +2,8 @@
 title: 大数据常用集群脚本
 description: 大数据常用集群脚本
 draft: false
-createdAt: 2023-07-30T07:16:45.000Z
-updatedAt: 2023-07-30T07:16:45.000Z
+date: 2023-07-30 07:16:45
+updated: 2023-07-30 07:16:45
 image: "https://assets.tsukikage7.com/blog/cover/b2edd51c.webp"
 imageAlt: ""
 author: tsukikage

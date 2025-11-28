@@ -25,20 +25,20 @@ const {
 const {
   title,
   description,
-  
-  createdAt,
+
+  date,
   categories,
   image,
   imageAlt,
 } = entry.data;
 
-const descriptionLength = 80; 
+const descriptionLength = 80;
 
 const hasCustomImage = !!(image && (typeof image === "string" || (typeof image === "object" && "src" in image)));
 const displayImage = hasCustomImage ? image : defaultImage;
 const displayImageAlt = imageAlt || `${title} - 默认图片`;
 
-const entryDate = createdAt ? formatDate(createdAt) : null;
+const entryDate = date ? formatDate(date) : null;
 const entryDescription = description;
 ---
 

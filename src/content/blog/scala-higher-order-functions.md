@@ -2,8 +2,8 @@
 title: Scala高阶函数
 description: Scala高阶函数
 draft: false
-createdAt: 2023-06-13T09:18:31.000Z
-updatedAt: 2023-06-13T09:18:31.000Z
+date: 2023-06-13 09:18:31
+updated: 2023-06-13 09:18:31
 image: "https://assets.tsukikage7.com/blog/cover/8d6e8bcb.webp"
 imageAlt: ""
 author: tsukikage

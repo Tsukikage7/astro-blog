@@ -27,15 +27,15 @@ export async function GET(context: APIContext) {
   
   const sortedPosts = blog
     .sort((a, b) => {
-      const dateA = a.data.publishedAt || a.data.createdAt || new Date(0);
-      const dateB = b.data.publishedAt || b.data.createdAt || new Date(0);
+      const dateA = a.data.publishedAt || a.data.date || new Date(0);
+      const dateB = b.data.publishedAt || b.data.date || new Date(0);
       return dateB.getTime() - dateA.getTime();
     })
     .slice(0, 25);
 
   const siteUrl = context.site!.toString().replace(/\/$/, '');
-  const feedUpdated = sortedPosts.length > 0 
-    ? formatDate(sortedPosts[0].data.publishedAt || sortedPosts[0].data.createdAt || new Date())
+  const feedUpdated = sortedPosts.length > 0
+    ? formatDate(sortedPosts[0].data.publishedAt || sortedPosts[0].data.date || new Date())
     : formatDate(new Date());
 
   
@@ -55,8 +55,8 @@ export async function GET(context: APIContext) {
     <ttl>60</ttl>
 
 ${sortedPosts.map((post) => {
-    const pubDate = post.data.publishedAt || post.data.createdAt || new Date();
-    const updatedDate = post.data.updatedAt || pubDate;
+    const pubDate = post.data.publishedAt || post.data.date || new Date();
+    const updatedDate = post.data.updated || pubDate;
     const description = post.data.description || 
       (post.body ? post.body.slice(0, 200).replace(/[#*`]/g, '') + '...' : '暂无描述');
     const postUrl = `${siteUrl}/blog/${post.id}/`;

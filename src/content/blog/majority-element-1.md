@@ -2,8 +2,8 @@
 title: 多数元素I
 description: 多数元素I
 draft: false
-createdAt: 2023-06-15T16:01:34.000Z
-updatedAt: 2023-06-15T16:01:34.000Z
+date: 2023-06-15 16:01:34
+updated: 2023-06-15 16:01:34
 image: "https://assets.tsukikage7.com/blog/cover/6f402932.webp"
 imageAlt: ""
 author: tsukikage

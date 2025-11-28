@@ -2,8 +2,8 @@
 title: Git版本控制
 description: Git版本控制
 draft: false
-createdAt: 2023-06-13T09:31:41.000Z
-updatedAt: 2023-06-13T09:31:41.000Z
+date: 2023-06-13 09:31:41
+updated: 2023-06-13 09:31:41
 image: "https://assets.tsukikage7.com/blog/cover/c336372b.webp"
 imageAlt: ""
 author: tsukikage

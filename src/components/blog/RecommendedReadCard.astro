@@ -23,12 +23,12 @@ const {
   compact = false,
 }: Props = Astro.props;
 
-const { title, createdAt, image, imageAlt } = entry.data;
+const { title, date, image, imageAlt } = entry.data;
 
 const hasCustomImage = !!(image && (typeof image === "string" || (typeof image === "object" && "src" in image)));
 const displayImageAlt = imageAlt || `${title} - 推荐阅读`;
 
-const entryDate = createdAt ? formatDate(createdAt) : null;
+const entryDate = date ? formatDate(date) : null;
 const estimatedReadingTime = readingTime(entry.body || "", 1);
 ---
 

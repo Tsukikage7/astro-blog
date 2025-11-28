@@ -2,8 +2,8 @@
 title: 两数之和
 description: 两数之和
 draft: false
-createdAt: 2023-07-13T06:31:56.000Z
-updatedAt: 2023-07-13T06:31:56.000Z
+date: 2023-07-13 06:31:56
+updated: 2023-07-13 06:31:56
 image: "https://assets.tsukikage7.com/blog/cover/456cb416.webp"
 imageAlt: ""
 author: tsukikage

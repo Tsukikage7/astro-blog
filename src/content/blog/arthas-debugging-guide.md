@@ -2,8 +2,8 @@
 title: 线上调试Arthas的学习使用
 description: 线上调试Arthas的学习使用
 draft: false
-createdAt: 2023-07-06T07:19:51.000Z
-updatedAt: 2023-07-06T07:19:51.000Z
+date: 2023-07-06 07:19:51
+updated: 2023-07-06 07:19:51
 image: "https://assets.tsukikage7.com/blog/cover/3b5cf4c2.webp"
 imageAlt: ""
 author: tsukikage

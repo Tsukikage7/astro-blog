@@ -2,8 +2,8 @@
 title: Scala模式匹配
 description: Scala模式匹配
 draft: false
-createdAt: 2023-06-13T09:20:29.000Z
-updatedAt: 2023-06-13T09:20:29.000Z
+date: 2023-06-13 09:20:29
+updated: 2023-06-13 09:20:29
 image: "https://assets.tsukikage7.com/blog/cover/22219cee.webp"
 imageAlt: ""
 author: tsukikage

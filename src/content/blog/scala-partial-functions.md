@@ -2,8 +2,8 @@
 title: Scala偏函数
 description: Scala偏函数
 draft: false
-createdAt: 2023-06-13T09:19:36.000Z
-updatedAt: 2023-06-13T09:19:36.000Z
+date: 2023-06-13 09:19:36
+updated: 2023-06-13 09:19:36
 image: "https://assets.tsukikage7.com/blog/cover/ed42809a.webp"
 imageAlt: ""
 author: tsukikage

@@ -2,8 +2,8 @@
 title: CentOS安装MySQL
 description: CentOS安装MySQL
 draft: false
-createdAt: 2023-06-13T09:37:28.000Z
-updatedAt: 2023-06-13T09:37:28.000Z
+date: 2023-06-13 09:37:28
+updated: 2023-06-13 09:37:28
 image: "https://assets.tsukikage7.com/blog/cover/dc1e191e.webp"
 imageAlt: ""
 author: tsukikage

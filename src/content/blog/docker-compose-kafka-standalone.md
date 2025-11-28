@@ -2,8 +2,8 @@
 title: DockerCompose搭建Kafka单机版
 description: DockerCompose搭建Kafka单机版
 draft: false
-createdAt: 2023-06-12T15:57:08.000Z
-updatedAt: 2023-06-12T15:57:08.000Z
+date: 2023-06-12 15:57:08
+updated: 2023-06-12 15:57:08
 image: "https://assets.tsukikage7.com/blog/cover/b6823b2f.webp"
 imageAlt: ""
 author: tsukikage

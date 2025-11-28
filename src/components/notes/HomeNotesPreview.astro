@@ -23,8 +23,8 @@ const displayEntries = entries.slice(0, limit);
   <div class="space-y-1">
     {
       displayEntries.map((entry, index) => {
-        const { title, description, createdAt, mood, location } = entry.data;
-        const entryDate = createdAt ? formatDate(createdAt) : null;
+        const { title, description, date, mood, location } = entry.data;
+        const entryDate = date ? formatDate(date) : null;
         
         const contentPreview = entry.body
           ? plainify(entry.body).slice(0, 100) +

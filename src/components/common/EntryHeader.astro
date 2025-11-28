@@ -27,7 +27,7 @@ interface EntryData {
   image?: string;
   imageAlt?: string;
   author?: EntryReference;
-  createdAt?: string;
+  date?: string;
   pubDate?: string;
   modDate?: string;
   categories?: string[];
@@ -71,7 +71,7 @@ const {
   tags,
   image,
   imageAlt,
-  createdAt,
+  date,
   pubDate,
   modDate,
   complexity,
@@ -151,10 +151,10 @@ tags?.sort((a: string, b: string) => a.localeCompare(b));
                   </a>
                 </li>
               )}
-              {createdAt && showDate && (
+              {date && showDate && (
                 <li class="flex items-center gap-1" title="创建日期">
                   <FaRegCalendarAlt className="text-base" />
-                  <span>{formatDate(createdAt)}</span>
+                  <span>{formatDate(date)}</span>
                 </li>
               )}
               {pubDate && showPubDate && (
@@ -176,27 +176,34 @@ tags?.sort((a: string, b: string) => a.localeCompare(b));
                 </li>
               )}
               {categories && showCategories && (
-                <li class="flex flex-wrap items-center gap-2" title="分类">
+                <li class="flex flex-wrap items-center gap-1.5" title="分类">
                   {categories.map((category: string, index: number) => (
                     <a
                       href={`/blog/categories/${slugify(category)}`}
-                      class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-sm font-medium bg-secondary text-secondary-foreground border border-border hover:bg-accent hover:text-accent-foreground transition-colors duration-200"
+                      class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium
+                             bg-primary/10 dark:bg-primary/15
+                             text-primary dark:text-primary-light
+                             hover:bg-primary/20 dark:hover:bg-primary/25
+                             transition-colors duration-200"
                     >
-                      <FaRegFolder className="text-xs" />
-                      <span>{upperHumanize(category)}</span>
+                      {upperHumanize(category)}
                     </a>
                   ))}
                 </li>
               )}
               {tags && showTags && (
-                <li class="flex flex-wrap items-center gap-2" title="标签">
+                <li class="flex flex-wrap items-center gap-1.5" title="标签">
                   {tags.map((tag: string, index: number) => (
                     <a
                       href={`/blog/tags/${slugify(tag)}`}
-                      class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-sm font-medium bg-muted text-muted-foreground border border-border hover:bg-accent hover:text-accent-foreground transition-colors duration-200"
+                      class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium
+                             bg-muted/80 dark:bg-muted/60
+                             text-muted-foreground dark:text-muted-foreground
+                             hover:bg-muted dark:hover:bg-muted/80
+                             transition-colors duration-200"
                     >
-                      <FaHashtag className="text-xs" />
-                      <span>{lowerHumanize(tag)}</span>
+                      <span class="mr-0.5 opacity-60">#</span>
+                      {lowerHumanize(tag)}
                     </a>
                   ))}
                 </li>

@@ -2,8 +2,8 @@
 title: Centos7.9安装Docker
 description: Centos7.9安装Docker
 draft: false
-createdAt: 2023-06-12T14:52:10.000Z
-updatedAt: 2023-06-12T14:52:10.000Z
+date: 2023-06-12 14:52:10
+updated: 2023-06-12 14:52:10
 image: "https://assets.tsukikage7.com/blog/cover/7f15a33c.webp"
 imageAlt: ""
 author: tsukikage

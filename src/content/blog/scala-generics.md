@@ -2,8 +2,8 @@
 title: Scala泛型
 description: Scala泛型
 draft: false
-createdAt: 2023-06-13T09:17:17.000Z
-updatedAt: 2023-06-13T09:17:17.000Z
+date: 2023-06-13 09:17:17
+updated: 2023-06-13 09:17:17
 image: "https://assets.tsukikage7.com/blog/cover/5df8be90.webp"
 imageAlt: ""
 author: tsukikage

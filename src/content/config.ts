@@ -5,8 +5,8 @@ const baseContent = z.object({
   title: z.string(),
   description: z.string().optional(),
   draft: z.boolean().default(false),
-  createdAt: z.date().optional(),
-  updatedAt: z.date().optional(),
+  date: z.coerce.date().optional(),
+  updated: z.coerce.date().optional(),
 });
 
 const social = z.object({

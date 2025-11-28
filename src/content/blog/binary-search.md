@@ -2,8 +2,8 @@
 title: 二分查找
 description: 二分查找
 draft: false
-createdAt: 2023-07-19T07:02:34.000Z
-updatedAt: 2023-07-19T07:02:34.000Z
+date: 2023-07-19 07:02:34
+updated: 2023-07-19 07:02:34
 image: "https://assets.tsukikage7.com/blog/cover/d8563ac5.webp"
 imageAlt: ""
 author: tsukikage

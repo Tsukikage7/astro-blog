@@ -2,8 +2,8 @@
 title: HashMap和常用集合类的区别
 description: HashMap和常用集合类的区别
 draft: false
-createdAt: 2023-08-03T09:00:53.000Z
-updatedAt: 2023-08-03T09:00:53.000Z
+date: 2023-08-03 09:00:53
+updated: 2023-08-03 09:00:53
 image: "https://assets.tsukikage7.com/blog/cover/c42cb83b.webp"
 imageAlt: ""
 author: tsukikage

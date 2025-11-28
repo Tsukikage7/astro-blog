@@ -2,8 +2,8 @@
 title: ScalaActor并发编程模型
 description: ScalaActor并发编程模型
 draft: false
-createdAt: 2023-06-13T09:16:13.000Z
-updatedAt: 2023-06-13T09:16:13.000Z
+date: 2023-06-13 09:16:13
+updated: 2023-06-13 09:16:13
 image: "https://assets.tsukikage7.com/blog/cover/95e2ac6c.webp"
 imageAlt: ""
 author: tsukikage
