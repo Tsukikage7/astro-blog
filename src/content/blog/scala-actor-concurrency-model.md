@@ -6,7 +6,7 @@ createdAt: 2023-06-13T09:16:13.000Z
 updatedAt: 2023-06-13T09:16:13.000Z
 image: "https://assets.tsukikage7.com/blog/cover/95e2ac6c.webp"
 imageAlt: ""
-author: Maple
+author: tsukikage
 categories:
   - 后端开发
 tags:
@@ -22,19 +22,19 @@ hideToc: false
 
 ## Scala Actor 并发编程模型
 
-​	`Actor`并发编程模型,是 Scala 提供的一直与 Java 完全不一样的并发编程模型,是一直基于事件模型的并发机制。`Actor`并发编程模型是一种不共享数据,依赖消息传递的并发编程模型,有效避免了资源争夺、死锁等现象。
+​ `Actor`并发编程模型,是 Scala 提供的一直与 Java 完全不一样的并发编程模型,是一直基于事件模型的并发机制。`Actor`并发编程模型是一种不共享数据,依赖消息传递的并发编程模型,有效避免了资源争夺、死锁等现象。
 
 `Actor`是一种基于事件(消息)的并发编程模型,不共享数据,有效避免了共享数据加锁问题。
 
 ### Java并发编程对比 Actor 并发编程模型
 
-| Java并发编程                                            |           `Actor` 并发编程模型           |
-| ------------------------------------------------------- | :--------------------------------------: |
-| 共享数据锁模型(share data and lock)                     |              share nothing               |
+| Java并发编程                                           |          `Actor` 并发编程模型           |
+| ------------------------------------------------------ | :-------------------------------------: |
+| 共享数据锁模型(share data and lock)                    |              share nothing              |
 | 每个 object 都有一个`monitor`,用来监视对共享数据的访问 | 不共享数据,`Actor`直接通过`Message`通讯 |
-| 加锁代码使用`synchronized`标识                          |                                          |
-| 死锁问题                                                |       每个`Actor`内部是顺序执行的        |
-| 每个线程内部是顺序执行的                                |       每个`Actor`内部是顺序执行的        |
+| 加锁代码使用`synchronized`标识                         |                                         |
+| 死锁问题                                               |       每个`Actor`内部是顺序执行的       |
+| 每个线程内部是顺序执行的                               |       每个`Actor`内部是顺序执行的       |
 
 Scala 在 2.11 及之后的版本中加入了`Akka`并发编程框架,`Actor`并发编程模型已经被废弃了。
 
@@ -44,7 +44,7 @@ Scala 在 2.11 及之后的版本中加入了`Akka`并发编程框架,`Actor`并
 
 #### 通过类实现创建`Actor`对象
 
-````scala
+```scala
   class myActor1 extends Actor {
     override def act(): Unit = {
       for (i <- 1 to 10) println("myActor1---" + i)
@@ -62,7 +62,7 @@ Scala 在 2.11 及之后的版本中加入了`Akka`并发编程框架,`Actor`并
     myActor1.start()
     new myActor2().start()
   }
-````
+```
 
 通过单例对象实现创建`Actor`对象
 
@@ -155,7 +155,7 @@ myActor1 ! "你好"
   }
 ```
 
-**问题**: 
+**问题**:
 
 1. 如果当前`Actor`没有接收到消息,线程就会处于阻塞状态。如果很多的`Actor`,就会导致很多线程处于阻塞状态
 2. 每次有新的消息进来,都会重新创建新的线程来处理。这种频繁的线程创建、销毁和切换会影响影响效率
@@ -396,7 +396,7 @@ object MainActor {
 
 ### 创建`Actor`
 
-​	`Akka`中,也是基于`Actor`来进行编程的。类似于`Actor`。但是`Akka`中的`Actor`的编写、创建方法和之前有一些不一样。
+​ `Akka`中,也是基于`Actor`来进行编程的。类似于`Actor`。但是`Akka`中的`Actor`的编写、创建方法和之前有一些不一样。
 
 #### API介绍
 
@@ -415,11 +415,11 @@ object MainActor {
 - 加载`Actor`
 
 > 1. 要创建Akka的`Actor`,必须要先获取创建一个`ActorSystem`。需要给`ActorSystem`指定一个名称,并可以去加载一些配置项
-> 2.  调用`ActorSystem.actorOf(Props(Actor对象), "Actor名字")`来加载`Actor`
+> 2. 调用`ActorSystem.actorOf(Props(Actor对象), "Actor名字")`来加载`Actor`
 
 #### Actor Path
 
-每一个`Actor`都有一个`Path`,这个路径可以被外部引用。路径的格式如下: 
+每一个`Actor`都有一个`Path`,这个路径可以被外部引用。路径的格式如下:
 
 | **Actor类型** | **路径**                                     | **示例**                                     |
 | ------------- | -------------------------------------------- | -------------------------------------------- |

@@ -6,7 +6,7 @@ createdAt: 2023-07-13T06:31:56.000Z
 updatedAt: 2023-07-13T06:31:56.000Z
 image: "https://assets.tsukikage7.com/blog/cover/456cb416.webp"
 imageAlt: ""
-author: Maple
+author: tsukikage
 categories:
   - 算法
 tags:
@@ -23,7 +23,7 @@ hideToc: false
 
 LeetCode 第 1 题 {% label 简单题 green %}
 
-给定一个整数数组 `nums` 和一个整数目标值 `target`,请你在该数组中找出 和为目标值 `target`  的那 两个 整数,并返回它们的数组下标。
+给定一个整数数组 `nums` 和一个整数目标值 `target`,请你在该数组中找出 和为目标值 `target` 的那 两个 整数,并返回它们的数组下标。
 
 可以假设每种输入只会对应一个答案。但是,数组中同一个元素在答案里不能重复出现。
 
@@ -42,12 +42,12 @@ LeetCode 第 1 题 {% label 简单题 green %}
 > 输出:[0,1]
 
 {% folding yellow, 查看提示 %}
+
 - `2 <= nums.length <= 104`
 - `-109 <= nums[i] <= 109`
 - `-109 <= target <= 109`
 - `只会存在一个有效答案`
-{% endfolding %}
-
+  {% endfolding %}
 
 ```java
 class Solution {

@@ -6,7 +6,7 @@ createdAt: 2023-07-17T05:29:11.000Z
 updatedAt: 2023-07-17T05:29:11.000Z
 image: "https://assets.tsukikage7.com/blog/cover/ce35a9a0.webp"
 imageAlt: ""
-author: Maple
+author: tsukikage
 categories:
   - 算法
 tags:
@@ -50,7 +50,7 @@ LeetCode 第 20 题 {% label 简单题 green %}
 
 - `1 <= s.length <= 104`
 - `s` 仅由括号 `'()[]{}'` 组成
-{% endfolding %}
+  {% endfolding %}
 
 {% folding yellow, 栈解题思路 %}
 用 map 去记录对应的括号匹配情况

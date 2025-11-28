@@ -6,7 +6,7 @@ createdAt: 2024-09-13T15:27:03.000Z
 updatedAt: 2024-09-14T09:45:23.000Z
 image: "https://assets.tsukikage7.com/blog/cover/0ca347b8.webp"
 imageAlt: ""
-author: Maple
+author: tsukikage
 categories:
   - 后端开发
 tags:
@@ -52,9 +52,9 @@ MySQL的慢查询日志默认没有开启，需要再MySQL的配置文件中修�
 
 ```cnf
 # 开启慢查询
-slow_query_log=1 
+slow_query_log=1
 #  设置慢查询时间为2秒，执行时间超过2秒就被视为慢查询
-slow_query_time=2 
+slow_query_time=2
 ```
 
 ```sql

@@ -6,7 +6,7 @@ createdAt: 2023-06-13T07:42:39.000Z
 updatedAt: 2023-06-13T07:42:39.000Z
 image: "https://assets.tsukikage7.com/blog/cover/e9027581.webp"
 imageAlt: ""
-author: Maple
+author: tsukikage
 categories:
   - 后端开发
 tags:
@@ -37,7 +37,7 @@ vim docker-compose.yml
 
 ```yaml
 ---
-version: '3'
+version: "3"
 services:
   umami:
     image: ghcr.io/mikecao/umami:postgresql-latest
@@ -55,12 +55,11 @@ services:
     environment:
       POSTGRES_DB: umami
       POSTGRES_USER: umami # 数据库用户
-      POSTGRES_PASSWORD: umami  # 数据库密码
+      POSTGRES_PASSWORD: umami # 数据库密码
     volumes:
       - ./sql/schema.postgresql.sql:/docker-entrypoint-initdb.d/schema.postgresql.sql:ro
       - ./umami-db-data:/var/lib/postgresql/data
     restart: always
-
 ```
 
 ### 启动`Umami`

@@ -11,24 +11,60 @@ interface Props {
 }
 
 const { entry } = Astro.props;
-const { title, description, image, imageAlt } = entry.data;
+const { title, description, image, imageAlt, skills, experience, education, social } = entry.data;
 const { Content } = await render(entry);
 
 const imageSrc = image ? (typeof image === 'string' ? image : image.src) : undefined;
+
+// 社交媒体图标映射
+const socialIcons = {
+  email: '📧',
+  github: '🐙',
+  twitter: '🐦',
+  linkedin: '💼',
+  discord: '💬',
+  facebook: '📘',
+  instagram: '📷',
+  youtube: '📺',
+  wechat: '💬',
+  xhs: '📕',
+  weibo: '🌊',
+  rss: '📡'
+};
+
+// 社交媒体链接生成
+const getSocialLink = (platform: string, value: string) => {
+  const links: Record<string, string> = {
+    email: `mailto:${value}`,
+    github: value.startsWith('http') ? value : `https://github.com/${value}`,
+    twitter: value.startsWith('http') ? value : `https://twitter.com/${value}`,
+    linkedin: value.startsWith('http') ? value : `https://linkedin.com/in/${value}`,
+    discord: value,
+    facebook: value.startsWith('http') ? value : `https://facebook.com/${value}`,
+    instagram: value.startsWith('http') ? value : `https://instagram.com/${value}`,
+    youtube: value.startsWith('http') ? value : `https://youtube.com/@${value}`,
+    weibo: value.startsWith('http') ? value : `https://weibo.com/${value}`,
+    xhs: value,
+    wechat: value,
+    rss: value
+  };
+  return links[platform] || value;
+};
 ---
 
 <BaseLayout title={title} description={description} image={imageSrc}>
   <section class="container px-3 lg:px-8 py-8">
-    
-    <div class="mb-8 text-center">
+
+    <!-- 头部区域 -->
+    <div class="mb-12 text-center">
       {
         image && (
           <div class="mb-6 flex justify-center">
             <div class="relative group">
-              {}
+              {/* 发光效果 */}
               <div class="absolute -inset-4 bg-gradient-to-r from-orange-500 via-indigo-500 to-green-500 rounded-full blur-2xl opacity-40 group-hover:opacity-60 transition duration-500 animate-pulse"></div>
 
-              {}
+              {/* 头像 */}
               {typeof image === 'string' ? (
                 <img
                   class="relative w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-white/20 shadow-2xl transform group-hover:scale-105 transition-all duration-300 bg-white/10 backdrop-blur-sm object-cover"
@@ -61,8 +97,99 @@ const imageSrc = image ? (typeof image === 'string' ? image : image.src) : undef
       </p>
     </div>
 
-    
-    <div class="max-w-4xl mx-auto">
+    <div class="max-w-6xl mx-auto space-y-6">
+
+      <!-- 社交媒体链接 - 置顶显示 -->
+      {social && Object.keys(social).length > 0 && (
+        <LiquidGlassLess heavy textClass="p-6">
+          <div class="flex flex-wrap justify-center gap-3">
+            {Object.entries(social).map(([platform, value]) => {
+              if (!value) return null;
+              const link = getSocialLink(platform, value as string);
+              const icon = socialIcons[platform as keyof typeof socialIcons] || '🔗';
+              const isExternal = link.startsWith('http');
+
+              return (
+                <a
+                  href={link}
+                  target={isExternal ? "_blank" : undefined}
+                  rel={isExternal ? "noopener noreferrer" : undefined}
+                  class="group flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-orange-500/10 to-indigo-500/10 hover:from-orange-500/20 hover:to-indigo-500/20 rounded-full border border-white/10 hover:border-orange-500/30 transition-all duration-300 transform hover:scale-105"
+                >
+                  <span class="text-xl">{icon}</span>
+                  <span class="text-sm font-medium text-txt-p dark:text-darkmode-txt-p capitalize">
+                    {platform}
+                  </span>
+                </a>
+              );
+            })}
+          </div>
+        </LiquidGlassLess>
+      )}
+
+      <!-- 技能、教育、经历三列布局 -->
+      {(skills || education || experience) && (
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+          <!-- 技能 -->
+          {skills && skills.length > 0 && (
+            <LiquidGlassLess heavy textClass="p-6 h-full">
+              <h3 class="text-xl font-bold mb-4 text-txt-p dark:text-darkmode-txt-p flex items-center gap-2">
+                <span class="text-2xl">💡</span> 技能
+              </h3>
+              <div class="space-y-2">
+                {skills.map((skill) => (
+                  <div class="flex items-center gap-2 text-txt-s dark:text-darkmode-txt-s">
+                    <span class="w-1.5 h-1.5 rounded-full bg-orange-500"></span>
+                    <span>{skill}</span>
+                  </div>
+                ))}
+              </div>
+            </LiquidGlassLess>
+          )}
+
+          <!-- 教育背景 -->
+          {education && education.length > 0 && (
+            <LiquidGlassLess heavy textClass="p-6 h-full">
+              <h3 class="text-xl font-bold mb-4 text-txt-p dark:text-darkmode-txt-p flex items-center gap-2">
+                <span class="text-2xl">🎓</span> 教育
+              </h3>
+              <div class="space-y-4">
+                {education.map((edu) => (
+                  <div>
+                    <div class="font-semibold text-txt-p dark:text-darkmode-txt-p mb-1">{edu.degree}</div>
+                    <div class="text-sm text-txt-s dark:text-darkmode-txt-s">{edu.school}</div>
+                    <div class="text-xs text-txt-s dark:text-darkmode-txt-s opacity-70 mt-1">{edu.period}</div>
+                  </div>
+                ))}
+              </div>
+            </LiquidGlassLess>
+          )}
+
+          <!-- 工作经历 -->
+          {experience && experience.length > 0 && (
+            <LiquidGlassLess heavy textClass="p-6 h-full">
+              <h3 class="text-xl font-bold mb-4 text-txt-p dark:text-darkmode-txt-p flex items-center gap-2">
+                <span class="text-2xl">💼</span> 经历
+              </h3>
+              <div class="space-y-4">
+                {experience.map((exp) => (
+                  <div>
+                    <div class="font-semibold text-txt-p dark:text-darkmode-txt-p mb-1">{exp.title}</div>
+                    <div class="text-sm text-txt-s dark:text-darkmode-txt-s">{exp.company}</div>
+                    <div class="text-xs text-txt-s dark:text-darkmode-txt-s opacity-70 mt-1">{exp.period}</div>
+                    {exp.description && (
+                      <div class="text-sm text-txt-s dark:text-darkmode-txt-s mt-2 leading-relaxed">{exp.description}</div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </LiquidGlassLess>
+          )}
+        </div>
+      )}
+
+      <!-- Markdown 内容 -->
       <LiquidGlassLess
         heavy
         textClass="p-6 md:p-10"
@@ -77,7 +204,7 @@ const imageSrc = image ? (typeof image === 'string' ? image : image.src) : undef
 </BaseLayout>
 
 <style>
-  
+  /* Markdown 内容样式 */
   :global(.markdown-content h4) {
     @apply text-2xl font-bold mb-4 mt-8 text-txt-p dark:text-darkmode-txt-p;
   }

@@ -6,7 +6,7 @@ createdAt: 2023-07-13T05:59:00.000Z
 updatedAt: 2023-07-13T05:59:00.000Z
 image: "https://assets.tsukikage7.com/blog/cover/ae191576.webp"
 imageAlt: ""
-author: Maple
+author: tsukikage
 categories:
   - 算法
 tags:
@@ -51,15 +51,16 @@ LeetCode 第 9 题 {% label 简单题 green %}
 
 {% folding yellow, 反转一半数字解题思路 %}
 先考虑处理临界情况
+
 1. 所有负数都不可能是回文
 2. 最低位和最高位不为 0
-通过 `while` 循环去反转这个数
-判断条件就是反转之后的数是否大于当前的数
-如果大于说明反转完成
-如果小于就说明还需要去反转,就将反转后的数字 * 10,并将 x 的最高位加上去
-反转完成后,反转的数是偶数的的话就直接判断是否相等
-奇数将反转数则 /10 再进行判断
-{% endfolding %}
+   通过 `while` 循环去反转这个数
+   判断条件就是反转之后的数是否大于当前的数
+   如果大于说明反转完成
+   如果小于就说明还需要去反转,就将反转后的数字 \* 10,并将 x 的最高位加上去
+   反转完成后,反转的数是偶数的的话就直接判断是否相等
+   奇数将反转数则 /10 再进行判断
+   {% endfolding %}
 
 ```java
 class Solution {

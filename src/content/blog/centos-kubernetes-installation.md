@@ -6,7 +6,7 @@ createdAt: 2023-08-09T09:46:53.000Z
 updatedAt: 2023-08-09T09:46:53.000Z
 image: "https://assets.tsukikage7.com/blog/cover/027a5b62.webp"
 imageAlt: ""
-author: Maple
+author: tsukikage
 categories:
   - 部署
 tags:
@@ -87,7 +87,7 @@ sudo setenforce 0
 sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
 
 #关闭swap
-swapoff -a  
+swapoff -a
 sed -ri 's/.*swap.*/#&/' /etc/fstab
 
 #允许 iptables 检查桥接流量
@@ -141,7 +141,7 @@ for imageName in ${images[@]} ; do
 docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/$imageName
 done
 EOF
-   
+
 chmod +x ./images.sh && ./images.sh
 ```
 

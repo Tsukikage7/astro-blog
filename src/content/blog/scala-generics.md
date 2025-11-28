@@ -6,7 +6,7 @@ createdAt: 2023-06-13T09:17:17.000Z
 updatedAt: 2023-06-13T09:17:17.000Z
 image: "https://assets.tsukikage7.com/blog/cover/5df8be90.webp"
 imageAlt: ""
-author: Maple
+author: tsukikage
 categories:
   - 后端开发
 tags:
@@ -36,7 +36,7 @@ def getMiddleElement[T](array: Array[T]): T = {
 
 ### 泛型类
 
-定义一个` Pair `泛型类,这个类中包含两个字段且字段类型不固定
+定义一个`Pair`泛型类,这个类中包含两个字段且字段类型不固定
 
 ```scala
 class Pair[T](var x: T, var y: T)

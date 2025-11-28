@@ -6,7 +6,7 @@ createdAt: 2023-06-13T13:27:59.000Z
 updatedAt: 2023-06-13T13:27:59.000Z
 image: "https://assets.tsukikage7.com/blog/cover/de025838.webp"
 imageAlt: ""
-author: Maple
+author: tsukikage
 categories:
   - 面试
 tags:
@@ -20,6 +20,7 @@ hideToc: false
 ---
 
 ## 旋转数组的最小数字
+
 剑指 Offer 第11题 {% label 简单题 green %}
 {% note info no-icon %}
 把一个数组最开始的若干个元素搬到数组的末尾,我们称之为数组的旋转。
@@ -30,24 +31,26 @@ hideToc: false
 {% endnote %}
 
 {% label 示例1 green %}
+
 > 输入: numbers = [3,4,5,1,2]
 > 输出: 1
 
 {% label 示例2 green %}
+
 > 输入: numbers = [2,2,2,0,1]
 > 输出: 0
 
 {% folding yellow, 查看提示 %}
+
 - `n == numbers.length`
 - `1 <= n <= 5000`
 - `-5000 <= numbers[i] <= 5000`
 - `numbers` 原来是一个升序排序的数组,并进行了 1 至 n 次旋转
-{% endfolding %}
-
+  {% endfolding %}
 
 {% label 解题思路: purple %}
 {% note simple %}
-    {% link 面试题11. 旋转数组的最小数字（二分法,清晰图解）,,https://leetcode.cn/problems/xuan-zhuan-shu-zu-de-zui-xiao-shu-zi-lcof/solution/mian-shi-ti-11-xuan-zhuan-shu-zu-de-zui-xiao-shu-3/ %}
+{% link 面试题11. 旋转数组的最小数字（二分法,清晰图解）,,https://leetcode.cn/problems/xuan-zhuan-shu-zu-de-zui-xiao-shu-zi-lcof/solution/mian-shi-ti-11-xuan-zhuan-shu-zu-de-zui-xiao-shu-3/ %}
 
 {% endnote %}
 
@@ -72,11 +75,12 @@ class Solution {
 }
 ```
 
-
 ## 填充每个节点的下一个右侧节点指针
-LeetCode 116题  {% label 中等题 orange %}
+
+LeetCode 116题 {% label 中等题 orange %}
 {% note info no-icon %}
-给定一个 **完美二叉树** ,其所有叶子节点都在同一层,每个父节点都有两个子节点。二叉树定义如下: 
+给定一个 **完美二叉树** ,其所有叶子节点都在同一层,每个父节点都有两个子节点。二叉树定义如下:
+
 ```java
 struct Node {
   int val;
@@ -85,6 +89,7 @@ struct Node {
   Node next;
 }
 ```
+
 填充它的每个 next 指针,让这个指针指向其下一个右侧节点。如果找不到下一个右侧节点,则将 next 指针设置为 `NULL`。
 初始状态下,所有 next 指针都被设置为 `NULL`。
 {% endnote %}
@@ -97,23 +102,25 @@ struct Node {
 > 输出: [1,#,2,3,#,4,5,6,7,#]
 > 解释: 给定二叉树如图 A 所示,你的函数应该填充它的每个 next 指针,以指向其下一个右侧节点,如图 B 所示。序列化的输出按层序遍历排列,同一层节点由 next 指针连接,'#' 标志着每一层的结束。
 
-
 {% label 示例2 green %}
+
 > 输入: root = []
 > 输出: []
 
 {% folding yellow, 查看提示 %}
+
 - 树中节点的数量在 `[0, 212 - 1]` 范围内
 - `-1000 <= node.val <= 1000`
-{% endfolding %}
+  {% endfolding %}
 
-进阶: 
+进阶:
+
 - 你只能使用常量级额外空间。
 - 使用递归解题也符合要求,本题中递归程序占用的栈空间不算做额外的空间复杂度。
 
 {% label 解题思路: purple %}
 {% note simple %}
-    {% link 动画演示+三种实现 116. 填充每个节点的下一个右侧节点指针,,https://leetcode.cn/problems/populating-next-right-pointers-in-each-node/solution/dong-hua-yan-shi-san-chong-shi-xian-116-tian-chong/ %}
+{% link 动画演示+三种实现 116. 填充每个节点的下一个右侧节点指针,,https://leetcode.cn/problems/populating-next-right-pointers-in-each-node/solution/dong-hua-yan-shi-san-chong-shi-xian-116-tian-chong/ %}
 {% endnote %}
 
 ```java

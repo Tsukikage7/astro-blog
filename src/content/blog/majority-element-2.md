@@ -6,7 +6,7 @@ createdAt: 2023-06-17T05:49:20.000Z
 updatedAt: 2023-06-17T05:49:20.000Z
 image: "https://assets.tsukikage7.com/blog/cover/5df8be90.webp"
 imageAlt: ""
-author: Maple
+author: tsukikage
 categories:
   - 算法
 tags:
@@ -41,9 +41,10 @@ LeetCode 第 229 题 {% label 中等题 orange %}
 > 输出:[1,2]
 
 {% folding yellow, 查看提示 %}
+
 - `1 <= nums.length <= 5 * 104`
 - `-109 <= nums[i] <= 109`
-{% endfolding %}
+  {% endfolding %}
 
 进阶:尝试设计时间复杂度为 $$O(n)$$、空间复杂度为 $$O(1)$$的算法解决此问题。
 
@@ -85,11 +86,12 @@ class Solution {
 超过  `⌊ n/3 ⌋`  次的元素很显然的可以得知最多可能是 2 个
 同理也可以推到出现 `k` 次的元素最多可能是 `k - 1` 次
 定义两个候选者和两个投票计数器,先遍历 `nums` 数组,找到这两个候选者
+
 > 判断候选者和当前数组元素是否相等,相等的话投票计数器 + 1
 > 不相等的话两个投票计数器都 - 1
 > 注意当计数器为 0 时,要将候选者替换为当前的数组元素
-将投票计数器置0后再次遍历 `nums` 数组,确定这两个候选者的出现次数
-满足票数 > `⌊ n/3 ⌋`的话就放到list中返回
+> 将投票计数器置0后再次遍历 `nums` 数组,确定这两个候选者的出现次数
+> 满足票数 > `⌊ n/3 ⌋`的话就放到list中返回
 
 {% endfolding %}
 

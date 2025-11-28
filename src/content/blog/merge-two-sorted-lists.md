@@ -6,7 +6,7 @@ createdAt: 2023-07-16T06:15:36.000Z
 updatedAt: 2023-07-16T06:15:36.000Z
 image: "https://assets.tsukikage7.com/blog/cover/f988079b.webp"
 imageAlt: ""
-author: Maple
+author: tsukikage
 categories:
   - 算法
 tags:

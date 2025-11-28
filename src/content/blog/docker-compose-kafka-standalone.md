@@ -6,7 +6,7 @@ createdAt: 2023-06-12T15:57:08.000Z
 updatedAt: 2023-06-12T15:57:08.000Z
 image: "https://assets.tsukikage7.com/blog/cover/b6823b2f.webp"
 imageAlt: ""
-author: Maple
+author: tsukikage
 categories:
   - 后端开发
 tags:
@@ -26,7 +26,7 @@ hideToc: false
 ### docker-compose-single-kafka.yml
 
 ```yaml
-version: '2'
+version: "2"
 services:
   zookeeper:
     image: wurstmeister/zookeeper
@@ -56,7 +56,6 @@ services:
       KAFKA_HEAP_OPTS: "-Xmx256M -Xms128M"
       # 设置 kafka 日志位置
       KAFKA_LOG_DIRS: "/kafka/logs"
-
 ```
 
 ### `Docker Compose` 启动命令

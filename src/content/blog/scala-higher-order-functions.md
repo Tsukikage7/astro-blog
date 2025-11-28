@@ -6,7 +6,7 @@ createdAt: 2023-06-13T09:18:31.000Z
 updatedAt: 2023-06-13T09:18:31.000Z
 image: "https://assets.tsukikage7.com/blog/cover/8d6e8bcb.webp"
 imageAlt: ""
-author: Maple
+author: tsukikage
 categories:
   - 后端开发
 tags:
@@ -91,16 +91,16 @@ println(minusxy(8)(5)) // 3
 1. 参数是函数
 2. 函数参数没有输入也没有返回值
 
- ```scala
- def runInThread(func: => Unit): Thread = {
-   new Thread {
-     override def run(): Unit = {
-       func
-     }
-   }
- }
- 
- runInThread {
-   println("线程启动")
- }
- ```
+```scala
+def runInThread(func: => Unit): Thread = {
+  new Thread {
+    override def run(): Unit = {
+      func
+    }
+  }
+}
+
+runInThread {
+  println("线程启动")
+}
+```

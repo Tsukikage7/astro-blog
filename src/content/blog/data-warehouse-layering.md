@@ -6,7 +6,7 @@ createdAt: 2023-07-25T14:37:26.000Z
 updatedAt: 2023-07-25T14:37:26.000Z
 image: "https://assets.tsukikage7.com/blog/cover/a37ed969.webp"
 imageAlt: ""
-author: Maple
+author: tsukikage
 categories:
   - 数据开发
 tags:

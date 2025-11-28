@@ -6,7 +6,7 @@ createdAt: 2023-07-30T07:16:45.000Z
 updatedAt: 2023-07-30T07:16:45.000Z
 image: "https://assets.tsukikage7.com/blog/cover/b2edd51c.webp"
 imageAlt: ""
-author: Maple
+author: tsukikage
 categories:
   - 数据开发
 tags:
@@ -63,7 +63,7 @@ do
 done
 ```
 
-### 1.3 安装 `rsync`  
+### 1.3 安装 `rsync`
 
 ```bash
 apt install rsync -y
@@ -89,7 +89,7 @@ cd /bin && vim xcall
 
 ```shell
 #! /bin/bash
- 
+
 for i in master slave1 slave2
 do
     echo --------- $i ----------
@@ -97,7 +97,7 @@ do
 done
 ```
 
-###  2.3 给予`xcall`文件可执行权限,并分发到其他节点上
+### 2.3 给予`xcall`文件可执行权限,并分发到其他节点上
 
 ```bash
 chmod 777 xcall && xsync xcall
@@ -127,7 +127,7 @@ cmd=$1
 function hadoopManger(){
     case $cmd in
     start)
-        echo "启动服务"        
+        echo "启动服务"
         remoteExecutionstart
         ;;
     stop)
@@ -141,19 +141,19 @@ function hadoopManger(){
 }
 
 #启动Hadoop
-function remoteExecutionstart(){ 
+function remoteExecutionstart(){
     echo "启动historyserver"
     ssh slave2 "source /etc/profile; mapred --daemon start historyserver"
-    
-    echo "启动HDFS和YARM"        
+
+    echo "启动HDFS和YARM"
     ssh master  "source /etc/profile; start-all.sh"
 }
 
 #关闭HADOOP
-function remoteExecutionstop(){   
-    echo "关闭HDFS和YARM"        
-    ssh master  "source /etc/profile; stop-all.sh"  
-    
+function remoteExecutionstop(){
+    echo "关闭HDFS和YARM"
+    ssh master  "source /etc/profile; stop-all.sh"
+
     echo "关闭historyserver"
     ssh slave2 "source /etc/profile; mapred --daemon stop historyserver"
 }
@@ -167,7 +167,7 @@ hadoopManger
 chmod 777 hdp && xsync hdp
 ```
 
-### 3.4  测试`hdp`脚本
+### 3.4 测试`hdp`脚本
 
 ```bash
 hdp start
@@ -207,7 +207,7 @@ case $1 in
 "status"){
 	for i in master slave1 slave2
 	do
-        echo -e "\033[47;36m ---------- zookeeper $i 状态 ------------ \033[0m "  
+        echo -e "\033[47;36m ---------- zookeeper $i 状态 ------------ \033[0m "
 		ssh $i "source /etc/profile; zkServer.sh status"
 	done
 };;
@@ -235,7 +235,7 @@ zk stop
 ### 5.1 在/bin目录下创建`kf`文件
 
 ```bash
-cd /bin && vim kf 
+cd /bin && vim kf
 ```
 
 ### 5.2 Kafka集群管理Shell脚本
@@ -246,7 +246,7 @@ cd /bin && vim kf
   case $1 in
   "start"){
       for i in master slave1 slave2
-      do  
+      do
           echo -e "\033[47;36m --------启动 $i Kafka------- \033[0m"
           ssh $i "source /etc/profile; kafka-server-start.sh -daemon /usr/local/src/kafka/config/server.properties"
       done
@@ -372,7 +372,7 @@ chmod 777 hv && xsync hv
 ### 6.4 测试`hv`脚本
 
 ```bash
-hv start 
+hv start
 hv stop
 ```
 
@@ -410,7 +410,7 @@ chmod 777 hb && xsync hb
 ### 7.4 测试 hb 脚本
 
 ```bash
-hb start 
+hb start
 hb stop
 ```
 
@@ -448,6 +448,6 @@ chmod 777 sp && xsync sp
 ### 8.4 测试 sp 脚本
 
 ```bash
-sp start 
+sp start
 sp stop
 ```

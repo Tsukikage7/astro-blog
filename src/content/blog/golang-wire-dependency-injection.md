@@ -6,7 +6,7 @@ createdAt: 2024-08-06T05:56:21.000Z
 updatedAt: 2024-08-06T05:56:21.000Z
 image: "https://assets.tsukikage7.com/blog/cover/893db273.webp"
 imageAlt: ""
-author: Maple
+author: tsukikage
 categories:
   - 后端开发
 tags:
@@ -27,7 +27,7 @@ hideToc: false
 
 ## 二、为什么要使用依赖注入
 
-如果不适用依赖注入的话会有以下风险: 
+如果不适用依赖注入的话会有以下风险:
 
 1. 全局变量⼗分不安全,存在覆写的可能。
 2. 资源散落在各处,可能重复创建,浪费内存,后续维护能⼒极差。
@@ -91,7 +91,7 @@ func InitDB() *gorm.DB {
 
 Provider函数可以分组为*provider set*。使用`wire.NewSet` 函数可以将多个Provider添加到一个集合中。
 
-举个例子,例如将 `user` 相关的 `handler` 和 `service` 以及`repo`进行组合: 
+举个例子,例如将 `user` 相关的 `handler` 和 `service` 以及`repo`进行组合:
 
 ```go
 var UserProvider = wire.NewSet(
@@ -137,7 +137,7 @@ func InitWebServer() *gin.Engine {
 
 ### 3.5 绑定接口
 
-依赖项注入通常用于绑定接口的具体实现。`wire`通过类型标识将输入与输出匹配,因此倾向于创建一个返回接口类型的提供者。然而,这也不是习惯写法,因为Go的最佳实践是返回具体类型。你可以在提供者集中声明接口绑定: 
+依赖项注入通常用于绑定接口的具体实现。`wire`通过类型标识将输入与输出匹配,因此倾向于创建一个返回接口类型的提供者。然而,这也不是习惯写法,因为Go的最佳实践是返回具体类型。你可以在提供者集中声明接口绑定:
 
 ```go
 wire.Bind(new(dao.UserDao), new(*dao.GormUserDao))
@@ -145,9 +145,9 @@ wire.Bind(new(dao.UserDao), new(*dao.GormUserDao))
 
 ### 3.6 绑定结构体
 
-`Wire` 库有一个函数是 `wire.Struct`,它能根据现有的类型进行构造结构体,我们来看看下面的例子: 
+`Wire` 库有一个函数是 `wire.Struct`,它能根据现有的类型进行构造结构体,我们来看看下面的例子:
 
-`wire.Struct`的第一个参数是指向所需结构体类型的指针,随后的参数是要注入的字段的名称。可以使用一个特殊的字符串“*”作为快捷方式,告诉注入器注入结构体的所有字段。在这里使用`wire.Struct(new(User), "*")`会产生和上面相同的结果。
+`wire.Struct`的第一个参数是指向所需结构体类型的指针,随后的参数是要注入的字段的名称。可以使用一个特殊的字符串“_”作为快捷方式,告诉注入器注入结构体的所有字段。在这里使用`wire.Struct(new(User), "_")`会产生和上面相同的结果。
 
 ```go
 type User struct {
@@ -186,7 +186,7 @@ func injectValue() User {
 
 值得注意的是,表达式将被复制到注入器的包中；对变量的引用将在注入器包的初始化过程中进行计算。如果表达式调用任何函数或从任何通道接收任何函数,`wire` 将会报错。
 
-对于接口值,使用 `InterfaceValue`: 
+对于接口值,使用 `InterfaceValue`:
 
 ```go
 func injectReader() io.Reader {

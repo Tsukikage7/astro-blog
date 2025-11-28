@@ -6,7 +6,7 @@ createdAt: 2024-09-17T10:15:15.000Z
 updatedAt: 2024-09-17T10:15:15.000Z
 image: "https://assets.tsukikage7.com/blog/cover/02e447e6.webp"
 imageAlt: ""
-author: Maple
+author: tsukikage
 categories:
   - 后端开发
 tags:
@@ -102,7 +102,7 @@ load data local infile '/root/test.csv' into table `tests` fields terminayed by 
   - 没有`not null`约束：InnoDB会遍历整张表，把每一行字段值都取出来，然后判断是否为null，部位null计数累加。
   - 有`not null`约束：InnoDB会遍历整张表，把每一行的字段值都取出来，直接累加计数。
 - count(1)：InnoDB会遍历整张表，但不取值，直接按行进行累加计数。
-- count(*)：InnoDB不会把所有字段取出来，在MySQL中做了优化，直接按行进行累加。
+- count(\*)：InnoDB不会把所有字段取出来，在MySQL中做了优化，直接按行进行累加。
 
 ## Update优化
 

@@ -6,7 +6,7 @@ createdAt: 2023-06-13T09:19:36.000Z
 updatedAt: 2023-06-13T09:19:36.000Z
 image: "https://assets.tsukikage7.com/blog/cover/ed42809a.webp"
 imageAlt: ""
-author: Maple
+author: tsukikage
 categories:
   - 后端开发
 tags:
@@ -75,7 +75,7 @@ val res: List[Int] = list.collect(partialFunction)
 
 **说明:**
 
-1. `PartialFunction[Any,Int]`中`Any`表示偏函数接收的是 Any 类型的参数,`Int`表示偏函数返回类型是 Int 
+1. `PartialFunction[Any,Int]`中`Any`表示偏函数接收的是 Any 类型的参数,`Int`表示偏函数返回类型是 Int
 2. `isDefinedAt`表示如果返回 true,就会去调用 `apply` 方法去构建对象实例,如果是 false 则过滤
 3. `apply` 方法相当于构造器,在这里对传入的值+1,并返回新的集合
 

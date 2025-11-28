@@ -10,7 +10,7 @@ let h3 = h4 * font_scale;
 let h2 = h3 * font_scale;
 let h1 = h2 * font_scale;
 
-let fontPrimary = "寒蝉半圆体, PingFang SC,Hiragino Sans GB, Microsoft YaHei";
+let fontPrimary = "Monaco Nerd Font, PingFang SC, Hiragino Sans GB, Microsoft YaHei";
 let fontPrimaryType = "serif";
 let fontSecondary = "sans-serif";
 let fontSecondaryType = "sans-serif";

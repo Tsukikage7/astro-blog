@@ -6,7 +6,7 @@ createdAt: 2023-06-13T09:05:07.000Z
 updatedAt: 2023-06-13T09:05:07.000Z
 image: "https://assets.tsukikage7.com/blog/cover/a3015dff.webp"
 imageAlt: ""
-author: Maple
+author: tsukikage
 categories:
   - 后端开发
 tags:
@@ -60,6 +60,7 @@ try {
 ```
 
 ##### 方式二、根据父目录文件 + 子路径构建
+
 ```java
 String parentFilePath = "/Volumes/Code/IdeaProjects/java-IO-learn/src/main/java/com/chongyan/file";
 String childFilePath = "news2.txt";
@@ -74,8 +75,8 @@ try {
 }
 ```
 
-
 ##### 方式三、根据父目录 + 子路径构建
+
 ```java
 String parentFilePath = "/Volumes/Code/IdeaProjects/java-IO-learn/src/main/java/com/chongyan/file";
 String childFilePath = "news3.txt";
@@ -112,7 +113,7 @@ public class FileInformation {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        
+
         System.out.println("文件名称: " + file.getName());
         System.out.println("文件绝对路径: " + file.getAbsolutePath());
         System.out.println("文件父目录: " + file.getParent());
@@ -145,7 +146,7 @@ public class Directory_ {
         }else {
             System.out.println("文件不存在");
         }
-        
+
         String directoryPath = "/Volumes/Code/IdeaProjects/java-IO-learn/src/main/java/com/chongyan/file/a/b/c";
         File directory = new File(directoryPath);
         if (directory.exists()) {
@@ -165,6 +166,6 @@ public class Directory_ {
 
 **`Java IO 流`原理**
 
-1. `I/O `是` Input/Output `的缩写,`I/O 技术`是非常更实用的技术,用于处理数据传输,如读写文件,网络通讯等
+1. `I/O `是`Input/Output`的缩写,`I/O 技术`是非常更实用的技术,用于处理数据传输,如读写文件,网络通讯等
 2. Java 程序中,对应数据的输入/输出操作一`流(Stream)`的方式进行
 3. `java.io 包`下提供了各种流类和接口,用于获取不同种类的数据,并通过方法输出或输出数据

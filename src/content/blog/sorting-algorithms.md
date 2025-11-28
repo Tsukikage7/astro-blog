@@ -6,7 +6,7 @@ createdAt: 2023-06-17T08:30:17.000Z
 updatedAt: 2023-06-17T08:30:17.000Z
 image: "https://assets.tsukikage7.com/blog/cover/46fd1145.webp"
 imageAlt: ""
-author: Maple
+author: tsukikage
 categories:
   - 算法
 tags:
@@ -20,7 +20,9 @@ hideToc: false
 ---
 
 ## 冒泡排序
+
 排序原理
+
 1. 从最后一个元素开始进行冒泡,如果最后
 
 ```java

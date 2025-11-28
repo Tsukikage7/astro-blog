@@ -6,7 +6,7 @@ createdAt: 2023-06-15T16:01:34.000Z
 updatedAt: 2023-06-15T16:01:34.000Z
 image: "https://assets.tsukikage7.com/blog/cover/6f402932.webp"
 imageAlt: ""
-author: Maple
+author: tsukikage
 categories:
   - 算法
 tags:
@@ -20,35 +20,42 @@ hideToc: false
 ---
 
 # 多数元素I
+
 LeetCode 第169题 {% label 简单题 green %}
 
 给定一个大小为 `n` 的数组 `nums` ,返回其中的多数元素。多数元素是指在数组中出现次数 大于 `⌊ n/2 ⌋` 的元素。
 你可以假设数组是非空的,并且给定的数组总是存在多数元素。
 
 {% label 示例1 green %}
+
 > 输入:nums = [3,2,3]
 > 输出:3
 
 {% label 示例2 green %}
+
 > 输入:nums = [2,2,1,1,1,2,2]
 > 输出:2
+
  
 
 {% folding yellow, 查看提示 %}
+
 - `n == nums.length`
 - `1 <= n <= 5 * 104`
 - `-109 <= nums[i] <= 109`
-{% endfolding %}
+  {% endfolding %}
 
  
 进阶:尝试设计时间复杂度为 $$O(n)$$、空间复杂度为 $$O(1)$$ 的算法解决此问题。
 
 ## HashMap法
+
 {% folding yellow, HashMap法解题思路 %}
 遍历整个数组,对记录每个数值出现的次数(利用 `HashMap`,其中 `key` 为数值,`value` 为出现次数)
 再去遍历这个 `HashMap` ,如果这个数值出现的次数 > `⌊ n/2 ⌋` 的话,那这个数值就是要寻找的值
 
 {% endfolding %}
+
 ```java
 class Solution {
     public int majorityElement(int[] nums) {
@@ -72,6 +79,7 @@ class Solution {
 ```
 
 ## 摩尔投票法
+
 {% folding yellow, 摩尔投票法解题思路 %}
 候选人(`cand`)初始化为 `nums[0]`,票数 `count` 初始化为 1。
 当遇到与 `cand` 相同的数,则票数 `count = count + 1`,否则票数 `count = count - 1`。
@@ -103,9 +111,8 @@ class Solution {
 }
 ```
 
-
 {% label 解题思路: purple %}
 {% note simple %}
-    {% link Java-3种方法(计数法/排序法/摩尔投票法),,https://leetcode.cn/problems/majority-element/solution/3chong-fang-fa-by-gfu-2/ %}
+{% link Java-3种方法(计数法/排序法/摩尔投票法),,https://leetcode.cn/problems/majority-element/solution/3chong-fang-fa-by-gfu-2/ %}
 
 {% endnote %}

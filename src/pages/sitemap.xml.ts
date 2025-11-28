@@ -8,9 +8,8 @@ export const GET: APIRoute = async ({ request }) => {
     const siteUrl = getSiteUrl();
     
     
-    const [blogPosts, pages, notes] = await Promise.all([
+    const [blogPosts, notes] = await Promise.all([
       getCollection('blog', ({data, filePath}) => !data.draft && !filePath?.endsWith('-index.md')),
-      getCollection('pages', ({data, filePath}) => !data.draft && !filePath?.endsWith('-index.md')),
       getCollection('notes', ({data, filePath}) => !data.draft && !filePath?.endsWith('-index.md'))
     ]);
 
@@ -39,16 +38,6 @@ export const GET: APIRoute = async ({ request }) => {
     });
 
     
-    pages.forEach(page => {
-      const lastmod = page.data.updatedAt || page.data.createdAt || new Date();
-      urls.push(`
-  <url>
-    <loc>${siteUrl}/page/${page.id}</loc>
-    <lastmod>${lastmod.toISOString().split('T')[0]}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>`);
-    });
 
     
     notes.forEach(note => {

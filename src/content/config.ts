@@ -122,16 +122,6 @@ const notes = defineCollection({
     }),
 });
 
-const pages = defineCollection({
-  loader: glob({ pattern: "**\/[^_]*.{md,mdx}", base: "./src/content/pages" }),
-  schema: ({ image }) =>
-    baseContent.extend({
-      image: image().optional(),
-      imageAlt: z.string().default(""),
-      layout: z.string().optional(),
-      hideToc: z.boolean().default(false),
-    }),
-});
 
 const home = defineCollection({
   loader: glob({ pattern: "-index.{md,mdx}", base: "./src/content/home" }),
@@ -201,7 +191,6 @@ export const collections = {
   categories,
   tags,
   notes,
-  pages,
   home,
   search,
   social: socialConfig,

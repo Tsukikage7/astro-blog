@@ -6,7 +6,7 @@ createdAt: 2023-06-14T05:46:13.000Z
 updatedAt: 2023-06-14T05:46:13.000Z
 image: "https://assets.tsukikage7.com/blog/cover/628bab24.webp"
 imageAlt: ""
-author: Maple
+author: tsukikage
 categories:
   - 数据开发
 tags:
@@ -148,8 +148,8 @@ datanode 实现数据冗余存储（副本机制）
 5. 根据{% label NameNode orange %}返回的{% label DataNode blue %}节点列表,各个{% label DataNode blue %}节点之间建立并行传输管道,开始读取数据
 6. 传输数据,并行读取 {% label Block green %} 信息,最终读取来所有的 {% label Block green %} 会合并成一个完整的最终文件
 
-
 ## HDFS如何保证数据不丢失
+
 1. 通过数据块的校验和(`checksum`)来检验数据块的完整性
 2. 多副本机制
 3. {% label DataNode blue %}会周期性的报告{% label Block green %}信息,{% label DataNode blue %}会默认每小时把自己节点上的所有块状态信息报告给{% label NameNode orange %}

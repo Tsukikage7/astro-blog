@@ -6,7 +6,7 @@ createdAt: 2023-06-12T15:53:07.000Z
 updatedAt: 2023-06-12T15:53:07.000Z
 image: "https://assets.tsukikage7.com/blog/cover/d78e4b2d.webp"
 imageAlt: ""
-author: Maple
+author: tsukikage
 categories:
   - 后端开发
 tags:
@@ -26,7 +26,7 @@ hideToc: false
 ### docker-compose-single-clickhouse.yml
 
 ```yaml
-version: '3'
+version: "3"
 
 services:
   clickhouse:

@@ -6,7 +6,7 @@ createdAt: 2023-06-13T09:20:29.000Z
 updatedAt: 2023-06-13T09:20:29.000Z
 image: "https://assets.tsukikage7.com/blog/cover/22219cee.webp"
 imageAlt: ""
-author: Maple
+author: tsukikage
 categories:
   - 后端开发
 tags:
@@ -42,11 +42,11 @@ println("res:\t" + res)
 
 **说明:**
 
-	1. match 和 case 是 scala 中模式匹配的关键字
-	1. 如果匹配成功,执行 => 后的代码块
-	1. 匹配顺序是从上到下的,匹配到就执行对应的代码
-	1. => 还没的代码块不需要写 break ,会自动退出 match
-	1. 如果都没有匹配到,则会执行 case _ 后的代码
+    1. match 和 case 是 scala 中模式匹配的关键字
+    1. 如果匹配成功,执行 => 后的代码块
+    1. 匹配顺序是从上到下的,匹配到就执行对应的代码
+    1. => 还没的代码块不需要写 break ,会自动退出 match
+    1. 如果都没有匹配到,则会执行 case _ 后的代码
 
 ### 条件守卫
 
@@ -108,10 +108,10 @@ obj match {
 
 **注意:**
 
-	1. `Map[String,String]` 和 `Map[String,Int]`是两种不同类型
-	2. 在进行类型匹配时,编译器会`预先检测是否有可能的匹配`,如果没有则会报错
-	3. `case int: Int => println("Int")`表示将 `int=obj`,然后再判断类型
-	4. 如果`case _`出现在 match 中间,则表示隐藏变量名,而`不是表示默认匹配`
+    1. `Map[String,String]` 和 `Map[String,Int]`是两种不同类型
+    2. 在进行类型匹配时,编译器会`预先检测是否有可能的匹配`,如果没有则会报错
+    3. `case int: Int => println("Int")`表示将 `int=obj`,然后再判断类型
+    4. 如果`case _`出现在 match 中间,则表示隐藏变量名,而`不是表示默认匹配`
 
 ```scala
 val obj: Any = ""
@@ -204,7 +204,7 @@ match 中的每一个 case 都可以单独提取出来
 
 1. x = 1,y = 2
 2. q = BigInt(10) / 3,r = BigInt(10) % 3
-3.  first = 1,second = 2
+3. first = 1,second = 2
 
 ```scala
 val (x, y): (Int, Int) = (1, 2)
@@ -244,7 +244,7 @@ case object NoAmount extends Amount
 **说明:**
 
 1. 样例类仍然是类
-2. 样例类用`case 关键字进行声明`  
+2. 样例类用`case 关键字进行声明`
 3. 样例类是为`模式匹配而优化`的类
 4. 构造器中的每一个参数都成为 val (`除非被显式的声明为 var`)
 5. 在样例类对应的伴生对象中`提供 apply 方法`,可以不使用 new关键字就能构造出相应的对象
@@ -256,31 +256,31 @@ case object NoAmount extends Amount
 
 **类似于正则表达式**
 
- ```scala
- val sale: Bundle = Bundle("书籍", 10, Book("漫画", 40), Bundle("文学作品", 20, Book("阳关", 80), Book("围城", 30)))
- 
- val res1: String = sale match {
-   case Bundle(_, _, Book(desc, _), _*) => desc
- }
- 
- val res2: Any = sale match {
-   case Bundle(_, _, book@Book(_, _), rest@_*) => (book, rest)
- }
- 
- val res3: Any = sale match {
-   case Bundle(_, _, book@Book(_, _), rest) => (book, rest)
- }
- 
- abstract class Item
- case class Book(desc: String, price: Double) extends Item
- case class Bundle(desc: String, discount: Double, item: Item*) extends Item
- 
- ```
+```scala
+val sale: Bundle = Bundle("书籍", 10, Book("漫画", 40), Bundle("文学作品", 20, Book("阳关", 80), Book("围城", 30)))
+
+val res1: String = sale match {
+  case Bundle(_, _, Book(desc, _), _*) => desc
+}
+
+val res2: Any = sale match {
+  case Bundle(_, _, book@Book(_, _), rest@_*) => (book, rest)
+}
+
+val res3: Any = sale match {
+  case Bundle(_, _, book@Book(_, _), rest) => (book, rest)
+}
+
+abstract class Item
+case class Book(desc: String, price: Double) extends Item
+case class Bundle(desc: String, discount: Double, item: Item*) extends Item
+
+```
 
 **说明:**
 
 1. 通过签到匹配获取到书籍的 desc
-2. 通过@表示法将嵌套的值绑定到变量, _* 绑定剩余 Iterm 到 rest
+2. 通过@表示法将嵌套的值绑定到变量, \_\* 绑定剩余 Iterm 到 rest
 3. 如果剩余内容只有一个时,可以不用写,直接通过 rest 变量获取剩余内容
 
 ### 密封类

@@ -6,7 +6,7 @@ createdAt: 2023-06-12T14:52:10.000Z
 updatedAt: 2023-06-12T14:52:10.000Z
 image: "https://assets.tsukikage7.com/blog/cover/7f15a33c.webp"
 imageAlt: ""
-author: Maple
+author: tsukikage
 categories:
   - 后端开发
 tags:
@@ -53,7 +53,7 @@ yum install -y yum-utils \
 yum-config-manager \
     --add-repo \
     https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
-  
+
 sed -i 's/download.docker.com/mirrors.aliyun.com\/docker-ce/g' /etc/yum.repos.d/docker-ce.repo
 yum makecache fast
 ```
@@ -119,7 +119,7 @@ docker-compose -version
 curl -L https://get.daocloud.io/docker/compose/releases/download/1.26.2/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
 ```
 
-***设置文件可执行权限* **
+**_设置文件可执行权限_ **
 
 ```bash
 chmod +x /usr/local/bin/docker-compose
