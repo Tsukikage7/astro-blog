@@ -1,23 +1,15 @@
 ---
 title: 大数据常用集群脚本
 description: 大数据常用集群脚本
-draft: false
-date: 2023-07-30 07:16:45
+created: 2023-07-30 07:16:45
 updated: 2023-07-30 07:16:45
 image: "https://assets.tsukikage7.com/blog/cover/b2edd51c.webp"
-imageAlt: ""
-author: tsukikage
 categories:
   - 数据开发
 tags:
   - 开发
   - Hadoop
   - Spark
-status: published
-featured: false
-recommended: false
-views: 0
-hideToc: false
 ---
 
 # 大数据常用集群脚本

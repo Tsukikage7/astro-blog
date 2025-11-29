@@ -1,22 +1,14 @@
 ---
 title: 线上调试Arthas的学习使用
 description: 线上调试Arthas的学习使用
-draft: false
-date: 2023-07-06 07:19:51
+created: 2023-07-06 07:19:51
 updated: 2023-07-06 07:19:51
 image: "https://assets.tsukikage7.com/blog/cover/3b5cf4c2.webp"
-imageAlt: ""
-author: tsukikage
 categories:
   - 工具
 tags:
   - 开发
   - Java
-status: published
-featured: false
-recommended: false
-views: 0
-hideToc: false
 ---
 
 {% image https://assets.tsukikage7.com/blog/dusays/2023/07/06/64a677ab88f07.png %}

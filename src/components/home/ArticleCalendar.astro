@@ -41,7 +41,7 @@ function generateCalendarData(): DayData[][] {
   };
   const articleCounts = new Map<string, number>();
   allPosts.forEach((post) => {
-    const dateToUse = post.data.createdAt || new Date();
+    const dateToUse = post.data.created || new Date();
     const publishDate = toLocalYMD(new Date(dateToUse));
     articleCounts.set(publishDate, (articleCounts.get(publishDate) || 0) + 1);
   });
@@ -132,13 +132,13 @@ function getArticleStats() {
   const totalArticles = allPosts.length;
   const currentYear = new Date().getFullYear();
   const thisYearArticles = allPosts.filter((post) => {
-    const dateToUse = post.data.createdAt || new Date();
+    const dateToUse = post.data.created || new Date();
     return new Date(dateToUse).getFullYear() === currentYear;
   }).length;
 
   const activeDays = new Set();
   allPosts.forEach((post) => {
-    const dateToUse = post.data.createdAt || new Date();
+    const dateToUse = post.data.created || new Date();
     if (new Date(dateToUse).getFullYear() === currentYear) {
       activeDays.add(new Date(dateToUse).toISOString().split("T")[0]);
     }

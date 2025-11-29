@@ -13,14 +13,7 @@ import { sortByDate } from "@lib/sortFunctions";
 import { getEntries } from "@lib/contentParser";
 import RecommendedReadCardComponent from "@components/blog/RecommendedReadCard.astro";
 
-const allPosts = (await getEntries("blog", sortByDate)) as BlogEntry[];
-const publishedPosts = allPosts
-  .filter((post) => post.data.status === "published")
-  .sort((a, b) => {
-    const dateA = new Date(a.data.publishedAt || 0);
-    const dateB = new Date(b.data.publishedAt || 0);
-    return dateB.getTime() - dateA.getTime();
-  });
+const publishedPosts = (await getEntries("blog", sortByDate)) as BlogEntry[];
 
 const latestNotes = (await getEntries(
   "notes",

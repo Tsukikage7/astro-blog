@@ -1,23 +1,15 @@
 ---
 title: CentOS安装MySQL
 description: CentOS安装MySQL
-draft: false
-date: 2023-06-13 09:37:28
+created: 2023-06-13 09:37:28
 updated: 2023-06-13 09:37:28
 image: "https://assets.tsukikage7.com/blog/cover/dc1e191e.webp"
-imageAlt: ""
-author: tsukikage
 categories:
   - 部署
 tags:
   - 部署
   - CentOS
   - MySQL
-status: published
-featured: false
-recommended: false
-views: 0
-hideToc: false
 ---
 
 ## 一、更换清华镜像源

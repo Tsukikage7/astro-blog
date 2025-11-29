@@ -68,15 +68,8 @@ export type MenuItem = {
   children: MenuItem[];
 };
 
-export type MenuItemWithDraft = {
-  title?: string;
-  id: string;
-  draft: boolean;
-  children: MenuItemWithDraft[];
-};
-
 export type SideNavMenuProps = {
-  items: MenuItemWithDraft[];
+  items: MenuItem[];
   level: number;
 };
 

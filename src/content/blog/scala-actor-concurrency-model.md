@@ -1,23 +1,15 @@
 ---
 title: ScalaActor并发编程模型
 description: ScalaActor并发编程模型
-draft: false
-date: 2023-06-13 09:16:13
+created: 2023-06-13 09:16:13
 updated: 2023-06-13 09:16:13
 image: "https://assets.tsukikage7.com/blog/cover/95e2ac6c.webp"
-imageAlt: ""
-author: tsukikage
 categories:
   - 后端开发
 tags:
   - 开发
   - Scala
   - 并发编程
-status: published
-featured: false
-recommended: false
-views: 0
-hideToc: false
 ---
 
 ## Scala Actor 并发编程模型

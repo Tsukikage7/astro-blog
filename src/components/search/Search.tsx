@@ -110,9 +110,9 @@ const SearchPage = ({ searchList }: Props) => {
                       {plainify(item.body.slice(0, descriptionLength))}
                     </p>
                   )}
-                  {item.data.createdAt && (
+                  {item.data.created && (
                     <p className="text-txt-light dark:text-darkmode-txt-light">
-                      {new Date(item.data.createdAt).toLocaleDateString()}
+                      {new Date(item.data.created).toLocaleDateString()}
                     </p>
                   )}
                 </div>

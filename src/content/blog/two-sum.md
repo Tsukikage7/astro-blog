@@ -1,22 +1,14 @@
 ---
 title: 两数之和
 description: 两数之和
-draft: false
-date: 2023-07-13 06:31:56
+created: 2023-07-13 06:31:56
 updated: 2023-07-13 06:31:56
 image: "https://assets.tsukikage7.com/blog/cover/456cb416.webp"
-imageAlt: ""
-author: tsukikage
 categories:
   - 算法
 tags:
   - 算法
   - LeetCode
-status: published
-featured: false
-recommended: false
-views: 0
-hideToc: false
 ---
 
 # 两数之和

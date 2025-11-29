@@ -1,22 +1,14 @@
 ---
 title: Git版本控制
 description: Git版本控制
-draft: false
-date: 2023-06-13 09:31:41
+created: 2023-06-13 09:31:41
 updated: 2023-06-13 09:31:41
 image: "https://assets.tsukikage7.com/blog/cover/c336372b.webp"
-imageAlt: ""
-author: tsukikage
 categories:
   - 工具
 tags:
   - 开发
   - Git
-status: published
-featured: false
-recommended: false
-views: 0
-hideToc: false
 ---
 
 # Git版本控制

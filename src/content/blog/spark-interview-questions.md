@@ -1,22 +1,14 @@
 ---
 title: Spark面试知识点
 description: Spark面试知识点
-draft: false
-date: 2023-07-03 13:35:57
+created: 2023-07-03 13:35:57
 updated: 2023-07-03 13:35:57
 image: "https://assets.tsukikage7.com/blog/cover/baa94e19.webp"
-imageAlt: ""
-author: tsukikage
 categories:
   - 数据开发
 tags:
   - 开发
   - Spark
-status: published
-featured: false
-recommended: false
-views: 0
-hideToc: false
 ---
 
 ## Spark的宽窄依赖

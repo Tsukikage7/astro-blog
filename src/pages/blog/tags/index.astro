@@ -6,9 +6,7 @@ import { slugify } from "@lib/textConverter";
 const taxonomy = "tags";
 const title = "标签";
 
-const allPosts = await getCollection("blog", ({ data }) => {
-  return data.status === "published" && !data.draft;
-});
+const allPosts = await getCollection("blog");
 
 let allTaxa: string[] = [];
 allPosts.forEach(post => {

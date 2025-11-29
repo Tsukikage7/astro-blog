@@ -4,8 +4,7 @@ import { glob } from "astro/loaders";
 const baseContent = z.object({
   title: z.string(),
   description: z.string().optional(),
-  draft: z.boolean().default(false),
-  date: z.coerce.date().optional(),
+  created: z.coerce.date().optional(),
   updated: z.coerce.date().optional(),
 });
 
@@ -31,7 +30,6 @@ const about = defineCollection({
   schema: ({ image }) =>
     baseContent.extend({
       image: image().optional(),
-      imageAlt: z.string().default(""),
       skills: z.array(z.string()).optional(),
       experience: z
         .array(
@@ -60,20 +58,9 @@ const blog = defineCollection({
   loader: glob({ pattern: "**\/[^_]*.{md,mdx}", base: "./src/content/blog" }),
   schema: ({ image }) =>
     baseContent.extend({
-      featuredImg: z.string().optional(),
-      
       image: z.union([image(), z.string()]).optional(),
-      imageAlt: z.string().default(""),
-      author: z.string().optional(),
       categories: z.array(z.string().optional()),
       tags: z.array(z.string()).optional(),
-      status: z.enum(["draft", "published", "archived"]).default("published"),
-      featured: z.boolean().default(false),
-      recommended: z.boolean().default(false),
-      views: z.number().default(0),
-      publishedAt: z.date().optional(),
-      hideToc: z.boolean().default(false),
-      draft: z.boolean().default(false),
     }),
 });
 
@@ -87,7 +74,6 @@ const categories = defineCollection({
       slug: z.string().optional(),
       icon: z.string().optional(),
       image: image().optional(),
-      imageAlt: z.string().default(""),
       color: z.string().default("#007bff"),
       parentId: z.string().optional(),
     }),
@@ -104,7 +90,7 @@ const notes = defineCollection({
   loader: glob({ pattern: "**\/[^_]*.{md,mdx}", base: "./src/content/notes" }),
   schema: ({ image }) =>
     baseContent.extend({
-      
+
       images: z
         .array(
           z.object({
@@ -113,9 +99,8 @@ const notes = defineCollection({
           }),
         )
         .optional(),
-      
+
       image: image().optional(),
-      imageAlt: z.string().default(""),
       tags: z.array(z.string()).optional(),
       mood: z.string().optional(),
       location: z.string().optional(),
@@ -128,7 +113,6 @@ const home = defineCollection({
   schema: ({ image }) =>
     baseContent.extend({
       image: image().optional(),
-      imageAlt: z.string().default(""),
       hero: z
         .object({
           title: z.string(),

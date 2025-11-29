@@ -1,22 +1,14 @@
 ---
 title: 排序算法
 description: 排序算法
-draft: false
-date: 2023-06-17 08:30:17
+created: 2023-06-17 08:30:17
 updated: 2023-06-17 08:30:17
 image: "https://assets.tsukikage7.com/blog/cover/46fd1145.webp"
-imageAlt: ""
-author: tsukikage
 categories:
   - 算法
 tags:
   - 算法
   - LeetCode
-status: published
-featured: false
-recommended: false
-views: 0
-hideToc: false
 ---
 
 ## 冒泡排序

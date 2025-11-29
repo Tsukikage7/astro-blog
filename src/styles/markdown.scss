@@ -25,103 +25,146 @@
 .markdown-content>*,
 .astro-content,
 .tk-comment {
+  // shadcn/ui 风格代码块样式
   pre.astro-code {
-    @apply rounded-[25px];
+    @apply rounded-lg my-4 p-4;
+    @apply bg-muted;
+    @apply border border-border;
+    @apply overflow-x-auto;
+    @apply text-sm;
+
+    code {
+      @apply font-mono;
+      @apply text-sm;
+      line-height: 1.7;
+
+      .line {
+        @apply pl-2;
+      }
+      :first-child {
+        @apply pl-0;
+      }
+    }
   }
 
-  // 浅色模式：行内代码不使用背景色和边框
-  code {
-    @apply text-foreground;
-    @apply px-2 py-1 rounded-md;
-    .line {
-      @apply pl-2;
-    }
-    :first-child {
-      @apply pl-0;
-    }
-  }
-
-  // 暗色模式：行内代码同样不使用背景色和边框
-  .dark & code {
-    @apply text-foreground;
+  // shadcn/ui 风格行内代码
+  :not(pre) > code {
+    @apply relative rounded px-[0.3rem] py-[0.2rem];
+    @apply bg-muted;
+    @apply font-mono text-sm font-medium;
+    @apply border border-border;
   }
 
   // 确保样式能够应用到 render() 生成的内容
-  //增加强调样式的颜色
-  a,
-  strong,
-  em {
-    @apply text-primary;
+  // shadcn/ui 风格文本样式
+  @apply text-base leading-7;
+
+  a {
+    @apply text-foreground font-medium underline underline-offset-4;
+    @apply decoration-muted-foreground/50;
+    @apply transition-colors;
+
+    &:hover {
+      @apply text-primary decoration-primary;
+    }
   }
 
-  @apply text-lg leading-relaxed;
+  strong {
+    @apply font-bold text-foreground;
+  }
 
-  // 基础元素样式 - 确保 render() 生成的内容正确应用
+  em {
+    @apply italic;
+  }
+
+  // shadcn/ui 风格标题样式
   h1,
   h2,
   h3,
   h4,
   h5,
   h6 {
-    @apply font-bold mb-4 mt-6 text-foreground;
-    @apply leading-6 md:leading-8;
+    @apply font-semibold text-foreground;
+    @apply scroll-mt-20;
+    @apply tracking-tight;
   }
 
   h1 {
-    @apply text-3xl md:text-4xl;
+    @apply text-2xl md:text-3xl;
+    @apply mt-8 mb-4;
+    @apply pb-3 border-b border-border;
   }
 
   h2 {
-    @apply text-2xl md:text-3xl;
+    @apply text-xl md:text-2xl;
+    @apply mt-8 mb-3;
+    @apply pb-2 border-b border-border/50;
   }
 
   h3 {
-    @apply text-xl md:text-2xl;
+    @apply text-lg md:text-xl;
+    @apply mt-6 mb-3;
   }
 
   h4 {
-    @apply text-lg md:text-xl;
+    @apply text-base md:text-lg;
+    @apply mt-6 mb-2;
   }
 
   h5 {
-    @apply text-base md:text-lg;
+    @apply text-sm md:text-base;
+    @apply mt-4 mb-2;
   }
 
   h6 {
-    @apply text-sm md:text-base;
+    @apply text-sm;
+    @apply mt-4 mb-2;
+    @apply text-muted-foreground;
   }
 
   p {
     @apply text-muted-foreground;
-    @apply mb-2 mt-0;
-    @apply leading-8 md:leading-10 indent-8;
+    @apply my-4 leading-7;
   }
 
+  // shadcn/ui 风格列表样式
   ul,
   ol {
-    @apply mb-4 pl-6;
+    @apply my-4 ml-6 space-y-2;
   }
 
   ul {
     @apply list-disc;
+
+    li {
+      @apply text-muted-foreground;
+      @apply pl-1;
+
+      &::marker {
+        @apply text-foreground;
+      }
+    }
   }
 
   ol {
     @apply list-decimal;
+
+    li {
+      @apply text-muted-foreground;
+      @apply pl-1;
+
+      &::marker {
+        @apply text-foreground font-medium;
+      }
+    }
   }
 
   li {
-    @apply mb-2 text-foreground leading-8;
-    @apply ml-8 inset-0;
-  }
-
-  li::marker {
-    @apply text-primary;
-    @apply inset-0;
+    @apply leading-7;
   }
 
   li p {
-    @apply indent-0;
+    @apply my-2;
   }
 
   blockquote {
@@ -179,13 +222,9 @@
     @apply max-h-[60vh] w-auto;
   }
 
-  // 分隔线样式
+  // shadcn/ui 风格分隔线
   hr {
-    @apply my-8 border-gray-100;
-
-    .dark & {
-      @apply border-gray-600;
-    }
+    @apply my-8 border-0 border-t border-border;
   }
 
 

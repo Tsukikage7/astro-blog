@@ -34,8 +34,8 @@ export async function getStaticPaths() {
     const sortedPosts = posts
       .map((p) => p.post)
       .sort((a, b) => {
-        const dateA = a.data.publishedAt || a.data.createdAt;
-        const dateB = b.data.publishedAt || b.data.createdAt;
+        const dateA = a.data.created;
+        const dateB = b.data.created;
         if (!dateA || !dateB) return 0;
         return new Date(dateB).getTime() - new Date(dateA).getTime();
       });
@@ -73,25 +73,19 @@ const { slug, page } = Astro.params;
 
 const entries: NotesEntry[] = tagPosts.map((post: any) => ({
   id: post.id,
-  
+
   collection: "notes",
   body: post.body,
   data: {
     title: post.data.title,
     description: post.data.description,
     image: post.data.image,
-    imageAlt: post.data.imageAlt || `${post.data.title} - 特色图片`,
-    author: post.data.author,
-    publishedAt: post.data.publishedAt || post.data.createdAt,
-    updatedAt: post.data.updatedAt,
+    updatedAt: post.data.updated,
     categories: post.data.categories,
     tags: post.data.tags || [],
     featured: post.data.featured,
-    status: post.data.status,
-    draft: post.data.draft,
     recommended: post.data.recommended,
     views: post.data.views,
-    hideToc: post.data.hideToc,
   },
 }));
 
@@ -118,10 +112,8 @@ const entryIndex: NotesEntry = {
     title: tagName,
     description: `标签"${tagName}"下的动态`,
     tags: tags.map((tag) => tag.name),
-    draft: false,
-    imageAlt: "动态标签页面",
-    createdAt: new Date(),
-    updatedAt: new Date(),
+    created: new Date(),
+    updated: new Date(),
   },
 };
 ---

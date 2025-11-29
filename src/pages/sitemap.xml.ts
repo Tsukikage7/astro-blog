@@ -9,8 +9,8 @@ export const GET: APIRoute = async ({ request }) => {
     
     
     const [blogPosts, notes] = await Promise.all([
-      getCollection('blog', ({data, filePath}) => !data.draft && !filePath?.endsWith('-index.md')),
-      getCollection('notes', ({data, filePath}) => !data.draft && !filePath?.endsWith('-index.md'))
+      getCollection('blog', ({filePath}) => !filePath?.endsWith('-index.md')),
+      getCollection('notes', ({filePath}) => !filePath?.endsWith('-index.md'))
     ]);
 
     
@@ -27,7 +27,7 @@ export const GET: APIRoute = async ({ request }) => {
 
     
     blogPosts.forEach(post => {
-      const lastmod = post.data.updatedAt || post.data.createdAt || new Date();
+      const lastmod = post.data.updated || post.data.created || new Date();
       urls.push(`
   <url>
     <loc>${siteUrl}/blog/${post.id}</loc>
@@ -41,7 +41,7 @@ export const GET: APIRoute = async ({ request }) => {
 
     
     notes.forEach(note => {
-      const lastmod = note.data.updatedAt || note.data.createdAt || new Date();
+      const lastmod = note.data.updated || note.data.created || new Date();
       urls.push(`
   <url>
     <loc>${siteUrl}/notes/${note.id}</loc>

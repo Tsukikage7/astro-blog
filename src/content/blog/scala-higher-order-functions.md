@@ -1,22 +1,14 @@
 ---
 title: Scala高阶函数
 description: Scala高阶函数
-draft: false
-date: 2023-06-13 09:18:31
+created: 2023-06-13 09:18:31
 updated: 2023-06-13 09:18:31
 image: "https://assets.tsukikage7.com/blog/cover/8d6e8bcb.webp"
-imageAlt: ""
-author: tsukikage
 categories:
   - 后端开发
 tags:
   - 开发
   - Scala
-status: published
-featured: false
-recommended: false
-views: 0
-hideToc: false
 ---
 
 ## 高阶函数(high-order function) 及 函数柯里化

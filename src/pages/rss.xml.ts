@@ -19,23 +19,21 @@ function formatDate(date: Date): string {
 }
 
 export async function GET(context: APIContext) {
-  
-  const blog = await getCollection('blog', ({ data }) => {
-    return data.draft !== true && data.status === 'published';
-  });
 
-  
+  const blog = await getCollection('blog');
+
+
   const sortedPosts = blog
     .sort((a, b) => {
-      const dateA = a.data.publishedAt || a.data.date || new Date(0);
-      const dateB = b.data.publishedAt || b.data.date || new Date(0);
+      const dateA = a.data.created || new Date(0);
+      const dateB = b.data.created || new Date(0);
       return dateB.getTime() - dateA.getTime();
     })
     .slice(0, 25);
 
   const siteUrl = context.site!.toString().replace(/\/$/, '');
   const feedUpdated = sortedPosts.length > 0
-    ? formatDate(sortedPosts[0].data.publishedAt || sortedPosts[0].data.date || new Date())
+    ? formatDate(sortedPosts[0].data.created || new Date())
     : formatDate(new Date());
 
   
@@ -55,12 +53,12 @@ export async function GET(context: APIContext) {
     <ttl>60</ttl>
 
 ${sortedPosts.map((post) => {
-    const pubDate = post.data.publishedAt || post.data.date || new Date();
+    const pubDate = post.data.created || new Date();
     const updatedDate = post.data.updated || pubDate;
-    const description = post.data.description || 
+    const description = post.data.description ||
       (post.body ? post.body.slice(0, 200).replace(/[#*`]/g, '') + '...' : '暂无描述');
     const postUrl = `${siteUrl}/blog/${post.id}/`;
-    const author = post.data.author || 'Tsukikage';
+    const author = 'Tsukikage';
     
     
     let imageContent = '';

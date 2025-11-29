@@ -1,23 +1,15 @@
 ---
 title: JavaIO流
 description: JavaIO流
-draft: false
-date: 2023-06-13 09:05:07
+created: 2023-06-13 09:05:07
 updated: 2023-06-13 09:05:07
 image: "https://assets.tsukikage7.com/blog/cover/a3015dff.webp"
-imageAlt: ""
-author: tsukikage
 categories:
   - 后端开发
 tags:
   - 开发
   - Java
   - IO
-status: published
-featured: false
-recommended: false
-views: 0
-hideToc: false
 ---
 
 ## Java IO流-认真学习版

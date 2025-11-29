@@ -1,10 +1,7 @@
 ---
 title: 博客
 description: 技术分享、学习笔记与思考总结
-createdAt: 2023-01-01T00:00:00.000+08:00
-publishedAt: 2023-01-01T00:00:00.000+08:00
-status: published
-draft: false
+created: 2023-01-01T00:00:00.000+08:00
 categories:
   - 技术
 tags:

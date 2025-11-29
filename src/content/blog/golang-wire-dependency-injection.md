@@ -1,22 +1,14 @@
 ---
 title: Wire实现Golang依赖注入
 description: Wire实现Golang依赖注入
-draft: false
-date: 2024-08-06 05:56:21
+created: 2024-08-06 05:56:21
 updated: 2024-08-06 05:56:21
 image: "https://assets.tsukikage7.com/blog/cover/893db273.webp"
-imageAlt: ""
-author: tsukikage
 categories:
   - 后端开发
 tags:
   - 开发
   - Golang
-status: published
-featured: false
-recommended: false
-views: 0
-hideToc: false
 ---
 
 # Wire实现Golang依赖注入

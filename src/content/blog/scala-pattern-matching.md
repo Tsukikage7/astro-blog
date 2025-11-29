@@ -1,22 +1,14 @@
 ---
 title: Scala模式匹配
 description: Scala模式匹配
-draft: false
-date: 2023-06-13 09:20:29
+created: 2023-06-13 09:20:29
 updated: 2023-06-13 09:20:29
 image: "https://assets.tsukikage7.com/blog/cover/22219cee.webp"
-imageAlt: ""
-author: tsukikage
 categories:
   - 后端开发
 tags:
   - 开发
   - Scala
-status: published
-featured: false
-recommended: false
-views: 0
-hideToc: false
 ---
 
 ## Scala 模式匹配

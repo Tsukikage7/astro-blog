@@ -1,22 +1,14 @@
 ---
 title: 蔚来面试算法题复盘
 description: 蔚来面试算法题复盘
-draft: false
-date: 2023-06-13 13:27:59
+created: 2023-06-13 13:27:59
 updated: 2023-06-13 13:27:59
 image: "https://assets.tsukikage7.com/blog/cover/de025838.webp"
-imageAlt: ""
-author: tsukikage
 categories:
   - 面试
 tags:
   - 面试
   - 算法
-status: published
-featured: false
-recommended: false
-views: 0
-hideToc: false
 ---
 
 ## 旋转数组的最小数字

@@ -1,22 +1,14 @@
 ---
 title: Hadoop面试知识点
 description: Hadoop面试知识点
-draft: false
-date: 2023-06-14 05:46:13
+created: 2023-06-14 05:46:13
 updated: 2023-06-14 05:46:13
 image: "https://assets.tsukikage7.com/blog/cover/628bab24.webp"
-imageAlt: ""
-author: tsukikage
 categories:
   - 数据开发
 tags:
   - 开发
   - Hadoop
-status: published
-featured: false
-recommended: false
-views: 0
-hideToc: false
 ---
 
 ## 常用端口号

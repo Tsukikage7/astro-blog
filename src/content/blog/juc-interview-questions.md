@@ -1,23 +1,15 @@
 ---
 title: JUC面试题
 description: JUC面试题
-draft: false
-date: 2023-07-24 09:14:07
+created: 2023-07-24 09:14:07
 updated: 2023-07-24 09:14:07
 image: "https://assets.tsukikage7.com/blog/cover/6df8bd0d.webp"
-imageAlt: ""
-author: tsukikage
 categories:
   - 面试
 tags:
   - 面试
   - Java
   - 并发编程
-status: published
-featured: false
-recommended: false
-views: 0
-hideToc: false
 ---
 
 # JUC面试题

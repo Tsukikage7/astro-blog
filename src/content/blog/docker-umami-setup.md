@@ -1,22 +1,14 @@
 ---
 title: Docker搭建一个小而美的网站流量监控——Umami
 description: Docker搭建一个小而美的网站流量监控——Umami
-draft: false
-date: 2023-06-13 07:42:39
+created: 2023-06-13 07:42:39
 updated: 2023-06-13 07:42:39
 image: "https://assets.tsukikage7.com/blog/cover/e9027581.webp"
-imageAlt: ""
-author: tsukikage
 categories:
   - 后端开发
 tags:
   - 开发
   - Docker
-status: published
-featured: false
-recommended: false
-views: 0
-hideToc: false
 ---
 
 ## 通过 Docker搭建一个小而美的网站流量监控——Umami

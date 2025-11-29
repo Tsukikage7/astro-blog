@@ -1,22 +1,14 @@
 ---
 title: 多数元素I
 description: 多数元素I
-draft: false
-date: 2023-06-15 16:01:34
+created: 2023-06-15 16:01:34
 updated: 2023-06-15 16:01:34
 image: "https://assets.tsukikage7.com/blog/cover/6f402932.webp"
-imageAlt: ""
-author: tsukikage
 categories:
   - 算法
 tags:
   - 算法
   - LeetCode
-status: published
-featured: false
-recommended: false
-views: 0
-hideToc: false
 ---
 
 # 多数元素I

@@ -1,22 +1,14 @@
 ---
 title: Centos7.9安装Docker
 description: Centos7.9安装Docker
-draft: false
-date: 2023-06-12 14:52:10
+created: 2023-06-12 14:52:10
 updated: 2023-06-12 14:52:10
 image: "https://assets.tsukikage7.com/blog/cover/7f15a33c.webp"
-imageAlt: ""
-author: tsukikage
 categories:
   - 后端开发
 tags:
   - 开发
   - Docker
-status: published
-featured: false
-recommended: false
-views: 0
-hideToc: false
 ---
 
 ## Centos 7.9 安装 Docker

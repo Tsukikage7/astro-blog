@@ -1,22 +1,14 @@
 ---
 title: 索引使用注意事项
 description: 索引使用注意事项
-draft: false
-date: 2024-09-14 09:45:28
+created: 2024-09-14 09:45:28
 updated: 2024-09-14 09:45:28
 image: "https://assets.tsukikage7.com/blog/cover/1f1af593.webp"
-imageAlt: ""
-author: tsukikage
 categories:
   - 后端开发
 tags:
   - MySQL
   - 索引
-status: published
-featured: false
-recommended: false
-views: 0
-hideToc: false
 ---
 
 # 索引使用注意事项

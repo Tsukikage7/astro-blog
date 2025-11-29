@@ -1,22 +1,14 @@
 ---
 title: MySQL索引
 description: MySQL索引
-draft: false
-date: 2024-09-11 09:47:30
+created: 2024-09-11 09:47:30
 updated: 2024-09-13 15:23:23
 image: "https://assets.tsukikage7.com/blog/cover/0e25fd8c.webp"
-imageAlt: ""
-author: tsukikage
 categories:
   - 后端开发
 tags:
   - MySQL
   - 索引
-status: published
-featured: false
-recommended: false
-views: 0
-hideToc: false
 ---
 
 # MySQL索引

@@ -1,23 +1,15 @@
 ---
 title: 字节跳动数据开发面试复盘
 description: 字节跳动数据开发面试复盘
-draft: false
-date: 2023-07-26 10:18:08
+created: 2023-07-26 10:18:08
 updated: 2023-07-26 10:18:08
 image: "https://assets.tsukikage7.com/blog/cover/3955f65b.webp"
-imageAlt: ""
-author: tsukikage
 categories:
   - 面试
 tags:
   - 面试
   - 算法
   - SQL
-status: published
-featured: false
-recommended: false
-views: 0
-hideToc: false
 ---
 
 # 字节跳动数据开发面试复盘

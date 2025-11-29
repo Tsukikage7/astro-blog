@@ -1,22 +1,14 @@
 ---
 title: SQL优化
 description: SQL优化
-draft: false
-date: 2024-09-17 10:15:15
+created: 2024-09-17 10:15:15
 updated: 2024-09-17 10:15:15
 image: "https://assets.tsukikage7.com/blog/cover/02e447e6.webp"
-imageAlt: ""
-author: tsukikage
 categories:
   - 后端开发
 tags:
   - MySQL
   - SQL
-status: published
-featured: false
-recommended: false
-views: 0
-hideToc: false
 ---
 
 # SQL优化

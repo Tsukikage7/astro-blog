@@ -1,22 +1,14 @@
 ---
 title: 二分查找
 description: 二分查找
-draft: false
-date: 2023-07-19 07:02:34
+created: 2023-07-19 07:02:34
 updated: 2023-07-19 07:02:34
 image: "https://assets.tsukikage7.com/blog/cover/d8563ac5.webp"
-imageAlt: ""
-author: tsukikage
 categories:
   - 算法
 tags:
   - 算法
   - LeetCode
-status: published
-featured: false
-recommended: false
-views: 0
-hideToc: false
 ---
 
 ```java

@@ -1,22 +1,14 @@
 ---
 title: 数仓分层
 description: 数仓分层
-draft: false
-date: 2023-07-25 14:37:26
+created: 2023-07-25 14:37:26
 updated: 2023-07-25 14:37:26
 image: "https://assets.tsukikage7.com/blog/cover/a37ed969.webp"
-imageAlt: ""
-author: tsukikage
 categories:
   - 数据开发
 tags:
   - 开发
   - Hive
-status: published
-featured: false
-recommended: false
-views: 0
-hideToc: false
 ---
 
 # 数仓分层

@@ -1,23 +1,15 @@
 ---
 title: Scala泛型
 description: Scala泛型
-draft: false
-date: 2023-06-13 09:17:17
+created: 2023-06-13 09:17:17
 updated: 2023-06-13 09:17:17
 image: "https://assets.tsukikage7.com/blog/cover/5df8be90.webp"
-imageAlt: ""
-author: tsukikage
 categories:
   - 后端开发
 tags:
   - 开发
   - Scala
   - 泛型
-status: published
-featured: false
-recommended: false
-views: 0
-hideToc: false
 ---
 
 ## Scala泛型

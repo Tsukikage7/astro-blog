@@ -1,23 +1,15 @@
 ---
 title: CentOS安装Kubernetes
 description: CentOS安装Kubernetes
-draft: false
-date: 2023-08-09 09:46:53
+created: 2023-08-09 09:46:53
 updated: 2023-08-09 09:46:53
 image: "https://assets.tsukikage7.com/blog/cover/027a5b62.webp"
-imageAlt: ""
-author: tsukikage
 categories:
   - 部署
 tags:
   - 部署
   - Kubernetes
   - CentOS
-status: published
-featured: false
-recommended: false
-views: 0
-hideToc: false
 ---
 
 # Kubernetes安装

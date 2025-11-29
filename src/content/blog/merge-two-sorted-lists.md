@@ -1,22 +1,14 @@
 ---
 title: 合并两个有序链表
 description: 合并两个有序链表
-draft: false
-date: 2023-07-16 06:15:36
+created: 2023-07-16 06:15:36
 updated: 2023-07-16 06:15:36
 image: "https://assets.tsukikage7.com/blog/cover/f988079b.webp"
-imageAlt: ""
-author: tsukikage
 categories:
   - 算法
 tags:
   - 算法
   - LeetCode
-status: published
-featured: false
-recommended: false
-views: 0
-hideToc: false
 ---
 
 ```java

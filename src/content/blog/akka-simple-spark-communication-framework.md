@@ -1,23 +1,15 @@
 ---
 title: Akka构建简单的Spark通信框架
 description: Akka构建简单的Spark通信框架
-draft: false
-date: 2023-06-13 09:14:52
+created: 2023-06-13 09:14:52
 updated: 2023-06-13 09:14:52
 image: "https://assets.tsukikage7.com/blog/cover/c42cb83b.webp"
-imageAlt: ""
-author: tsukikage
 categories:
   - 后端开发
 tags:
   - 开发
   - Scala
   - Spark
-status: published
-featured: false
-recommended: false
-views: 0
-hideToc: false
 ---
 
 ## 通过 Akka 构建简单的 Spark 通信框架

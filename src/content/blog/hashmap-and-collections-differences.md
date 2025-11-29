@@ -1,23 +1,15 @@
 ---
 title: HashMap和常用集合类的区别
 description: HashMap和常用集合类的区别
-draft: false
-date: 2023-08-03 09:00:53
+created: 2023-08-03 09:00:53
 updated: 2023-08-03 09:00:53
 image: "https://assets.tsukikage7.com/blog/cover/c42cb83b.webp"
-imageAlt: ""
-author: tsukikage
 categories:
   - 后端开发
 tags:
   - 开发
   - Java
   - 数据结构
-status: published
-featured: false
-recommended: false
-views: 0
-hideToc: false
 ---
 
 # HashMap和常用集合类的区别

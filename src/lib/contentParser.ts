@@ -15,15 +15,11 @@ export const getIndex = async (collection: CollectionKey): Promise<GenericEntry 
 export const getEntries = async (
   collection: CollectionKey,
   sortFunction?: ((array: any[]) => any[]),
-  noIndex = true,
-  noDrafts = true
+  noIndex = true
 ): Promise<GenericEntry[]> => {
   let entries: GenericEntry[] = await getCollection(collection);
   entries = noIndex
     ? entries.filter((entry: GenericEntry) => !entry.id.match(/^-/))
-    : entries;
-  entries = noDrafts
-    ? entries.filter((entry: GenericEntry) => 'draft' in entry.data && !entry.data.draft)
     : entries;
   entries = sortFunction ? sortFunction(entries) : entries;
   return entries;
@@ -32,12 +28,11 @@ export const getEntries = async (
 export const getEntriesBatch = async (
   collections: CollectionKey[],
   sortFunction?: ((array: any[]) => any[]),
-  noIndex = true,
-  noDrafts = true
+  noIndex = true
 ): Promise<GenericEntry[]> => {
   const allCollections = await Promise.all(
     collections.map(async (collection) => {
-      return await getEntries(collection, sortFunction, noIndex, noDrafts);
+      return await getEntries(collection, sortFunction, noIndex);
     })
   );
   return allCollections.flat();
@@ -212,19 +207,3 @@ export const getSiteStats = async () => {
   };
 };
 
-export const getEntriesWithDrafts = async (
-  collection: CollectionKey,
-  sortFunction?: ((array: any[]) => any[]),
-  noIndex = true
-): Promise<GenericEntry[]> => {
-  return await getEntries(collection, sortFunction, noIndex, false); 
-};
-
-export const getEntriesForEnvironment = async (
-  collection: CollectionKey,
-  sortFunction?: ((array: any[]) => any[]),
-  noIndex = true
-): Promise<GenericEntry[]> => {
-  const isDev = import.meta.env.DEV;
-  return await getEntries(collection, sortFunction, noIndex, !isDev); 
-};

@@ -1,22 +1,14 @@
 ---
 title: 多数元素II
 description: 多数元素II
-draft: false
-date: 2023-06-17 05:49:20
+created: 2023-06-17 05:49:20
 updated: 2023-06-17 05:49:20
 image: "https://assets.tsukikage7.com/blog/cover/5df8be90.webp"
-imageAlt: ""
-author: tsukikage
 categories:
   - 算法
 tags:
   - 算法
   - LeetCode
-status: published
-featured: false
-recommended: false
-views: 0
-hideToc: false
 ---
 
 # 多数元素 II

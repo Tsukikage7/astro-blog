@@ -1,12 +1,9 @@
 ---
 title: DockerCompose搭建Kafka单机版
 description: DockerCompose搭建Kafka单机版
-draft: false
-date: 2023-06-12 15:57:08
+created: 2023-06-12 15:57:08
 updated: 2023-06-12 15:57:08
 image: "https://assets.tsukikage7.com/blog/cover/b6823b2f.webp"
-imageAlt: ""
-author: tsukikage
 categories:
   - 后端开发
 tags:
@@ -14,11 +11,6 @@ tags:
   - Docker
   - DockerCompose
   - Kafka
-status: published
-featured: false
-recommended: false
-views: 0
-hideToc: false
 ---
 
 ## 通过 Docker Compose 搭建 Kafka 单机版

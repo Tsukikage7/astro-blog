@@ -1,12 +1,9 @@
 ---
 title: DockerCompose搭建ClickHouse单机版
 description: DockerCompose搭建ClickHouse单机版
-draft: false
-date: 2023-06-12 15:53:07
+created: 2023-06-12 15:53:07
 updated: 2023-06-12 15:53:07
 image: "https://assets.tsukikage7.com/blog/cover/d78e4b2d.webp"
-imageAlt: ""
-author: tsukikage
 categories:
   - 后端开发
 tags:
@@ -14,11 +11,6 @@ tags:
   - Docker
   - Docker Compose
   - ClickHouse
-status: published
-featured: false
-recommended: false
-views: 0
-hideToc: false
 ---
 
 ## 通过 Docker Compose 搭建 ClickHouse 单机版

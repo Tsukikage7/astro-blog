@@ -1,22 +1,14 @@
 ---
 title: MySQL性能分析
 description: MySQL性能分析
-draft: false
-date: 2024-09-13 15:27:03
+created: 2024-09-13 15:27:03
 updated: 2024-09-14 09:45:23
 image: "https://assets.tsukikage7.com/blog/cover/0ca347b8.webp"
-imageAlt: ""
-author: tsukikage
 categories:
   - 后端开发
 tags:
   - MySQL
   - SQL
-status: published
-featured: false
-recommended: false
-views: 0
-hideToc: false
 ---
 
 # SQL性能分析

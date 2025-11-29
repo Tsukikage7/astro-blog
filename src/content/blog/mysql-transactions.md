@@ -1,22 +1,14 @@
 ---
 title: MySQL事务
 description: MySQL事务
-draft: false
-date: 2024-09-23 11:38:48
+created: 2024-09-23 11:38:48
 updated: 2024-09-23 11:38:48
 image: "https://assets.tsukikage7.com/blog/cover/8ef81369.webp"
-imageAlt: ""
-author: tsukikage
 categories:
   - 后端开发
 tags:
   - MySQL
   - 事务
-status: published
-featured: false
-recommended: false
-views: 0
-hideToc: false
 ---
 
 # MySQL事务

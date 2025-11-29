@@ -1,22 +1,14 @@
 ---
 title: Scala偏函数
 description: Scala偏函数
-draft: false
-date: 2023-06-13 09:19:36
+created: 2023-06-13 09:19:36
 updated: 2023-06-13 09:19:36
 image: "https://assets.tsukikage7.com/blog/cover/ed42809a.webp"
-imageAlt: ""
-author: tsukikage
 categories:
   - 后端开发
 tags:
   - 开发
   - Scala
-status: published
-featured: false
-recommended: false
-views: 0
-hideToc: false
 ---
 
 ## 偏函数(partial function)
