@@ -21,6 +21,9 @@ export interface Props {
 
 const { title, description, image, noindex, canonical, keywords } = Astro.props;
 
+// Check if current page is music page (to hide floating player)
+const isMusicPage = Astro.url.pathname === '/music' || Astro.url.pathname === '/music/';
+
 let basicSettings: any = {};
 let seoSettings: any = {};
 let customSettings: any = {};
@@ -419,7 +422,7 @@ const customFooterCode = customSettings?.custom_footer_code || "";
       <slot />
     </main>
     <Footer />
-    {MUSIC_PLAYER_CONFIG.ENABLED && <MusicPlayer />}
+    {MUSIC_PLAYER_CONFIG.ENABLED && !isMusicPage && <MusicPlayer />}
     
     
     <script>

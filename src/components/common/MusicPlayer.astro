@@ -75,12 +75,45 @@ const {
 <script is:inline src="https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.min.js"></script>
 
 <script define:vars={{ playlistId, theme, mode, autoplay }}>
+  const MUSIC_STATE_KEY = 'music_player_state';
+
   const state = {
     playlist: [],
     currentIndex: 0,
     player: null,
     isExpanded: false,
   };
+
+  // Save current playing state to localStorage for cross-page sync
+  function savePlayingState() {
+    if (state.playlist.length === 0) return;
+    const song = state.playlist[state.currentIndex];
+    const audio = document.getElementById("plyr-audio");
+    const playState = {
+      index: state.currentIndex,
+      songId: song?.id || state.currentIndex,
+      title: song?.title,
+      artist: song?.artist,
+      currentTime: audio?.currentTime || 0,
+      isPlaying: state.player?.playing || false,
+      timestamp: Date.now()
+    };
+    localStorage.setItem(MUSIC_STATE_KEY, JSON.stringify(playState));
+  }
+
+  // Restore playing state from localStorage
+  function restorePlayingState() {
+    try {
+      const saved = localStorage.getItem(MUSIC_STATE_KEY);
+      if (!saved) return null;
+      const playState = JSON.parse(saved);
+      // Only restore if saved within last 24 hours
+      if (Date.now() - playState.timestamp > 86400000) return null;
+      return playState;
+    } catch {
+      return null;
+    }
+  }
 
   
   async function initPlayer() {
@@ -132,11 +165,25 @@ const {
         volume: 0.7,
       });
 
-      loadSong(0);
+      // Restore saved state or start from beginning
+      const savedState = restorePlayingState();
+      if (savedState && savedState.index < state.playlist.length) {
+        loadSong(savedState.index);
+        // Restore playback position after a small delay
+        setTimeout(() => {
+          const audio = document.getElementById("plyr-audio");
+          if (audio && savedState.currentTime > 0) {
+            audio.currentTime = savedState.currentTime;
+          }
+        }, 100);
+      } else {
+        loadSong(0);
+      }
+
       renderPlaylist();
       bindEvents();
     } catch (error) {
-      
+
     }
   }
 
@@ -208,28 +255,36 @@ const {
 
   
   function bindEvents() {
-    
+    // Track playback events for state sync
     state.player.on("ended", playNext);
+    state.player.on("play", savePlayingState);
+    state.player.on("pause", savePlayingState);
+
+    // Save state periodically during playback
+    const audio = document.getElementById("plyr-audio");
+    audio.addEventListener("timeupdate", () => {
+      // Save every 5 seconds
+      if (Math.floor(audio.currentTime) % 5 === 0) {
+        savePlayingState();
+      }
+    });
 
     const fab = document.getElementById("music-player-fab");
     const fabButton = document.getElementById("fab-button");
     const closeBtn = document.getElementById("close-panel-btn");
 
-    
     fabButton.addEventListener("click", (e) => {
       e.stopPropagation();
       state.isExpanded = true;
       fab.classList.add("expanded");
     });
 
-    
     closeBtn.addEventListener("click", (e) => {
       e.stopPropagation();
       state.isExpanded = false;
       fab.classList.remove("expanded");
     });
 
-    
     document.addEventListener("click", (e) => {
       if (state.isExpanded && !fab.contains(e.target)) {
         state.isExpanded = false;
