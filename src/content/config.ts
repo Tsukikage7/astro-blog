@@ -30,26 +30,60 @@ const about = defineCollection({
   schema: ({ image }) =>
     baseContent.extend({
       image: image().optional(),
+      imageAlt: z.string().optional(),
+      // 个人信息
+      info: z.object({
+        name: z.string(),
+        title: z.string(),
+        location: z.string().optional(),
+        age: z.number().optional(),
+      }).optional(),
+      // 技能分类
+      skillCategories: z.array(
+        z.object({
+          name: z.string(),
+          icon: z.string().optional(),
+          skills: z.array(z.string()),
+        })
+      ).optional(),
+      // 兼容旧的 skills 字段
       skills: z.array(z.string()).optional(),
+      // 工作经历
       experience: z
         .array(
           z.object({
             title: z.string(),
             company: z.string(),
             period: z.string(),
+            location: z.string().optional(),
             description: z.string().optional(),
+            highlights: z.array(z.string()).optional(),
           }),
         )
         .optional(),
+      // 教育背景
       education: z
         .array(
           z.object({
             degree: z.string(),
             school: z.string(),
             period: z.string(),
+            badge: z.string().optional(),
+            location: z.string().optional(),
           }),
         )
         .optional(),
+      // 开源项目
+      openSource: z.array(
+        z.object({
+          name: z.string(),
+          role: z.string(),
+          period: z.string(),
+          description: z.string().optional(),
+          url: z.string().optional(),
+          contributions: z.array(z.string()).optional(),
+        })
+      ).optional(),
       social: social.optional(),
     }),
 });

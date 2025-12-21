@@ -15,9 +15,14 @@ const { title = "", description, articleCount }: Props = Astro.props;
   <div
     class="flex flex-row items-center justify-between pb-4 intersect:animate-fadeDown"
   >
-    <h1
-      set:text={`${upperHumanize(title)}${articleCount ? `(${articleCount})` : ""}`}
-    />
+    <div class="flex items-center gap-3">
+      <h1>{upperHumanize(title)}</h1>
+      {typeof articleCount === 'number' && (
+        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-primary/10 text-primary border border-primary/20">
+          {articleCount} 篇
+        </span>
+      )}
+    </div>
     <Breadcrumbs className="pl-4" />
   </div>
 </section>

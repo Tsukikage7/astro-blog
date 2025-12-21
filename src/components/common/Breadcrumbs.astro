@@ -3,10 +3,25 @@ import { lowerHumanize } from "@lib/textConverter";
 
 const { className }: { className?: string } = Astro.props;
 
+// 路径翻译映射
+const pathTranslations: Record<string, string> = {
+  "blog": "博客",
+  "categories": "分类",
+  "tags": "标签",
+  "notes": "动态",
+  "about": "关于",
+  "search": "搜索",
+};
+
+const translatePath = (path: string): string => {
+  const lower = path.toLowerCase();
+  return pathTranslations[lower] || lowerHumanize(path.replace(/[-_]/g, " ")) || path;
+};
+
 const paths = Astro.url.pathname.split("/").filter((x) => x);
 let parts = [
   {
-    label: "Home",
+    label: "首页",
     href: "/",
     "aria-label": Astro.url.pathname === "/" ? "page" : undefined,
   },
@@ -14,11 +29,11 @@ let parts = [
 
 paths.forEach((label: string, i: number) => {
   const href = `/${paths.slice(0, i + 1).join("/")}`;
-  
+
   const decodedLabel = decodeURIComponent(label);
   label !== "page" &&
     parts.push({
-      label: lowerHumanize(decodedLabel.replace(/[-_]/g, " ")) || "",
+      label: translatePath(decodedLabel),
       href,
       "aria-label": Astro.url.pathname === href ? "page" : undefined,
     });

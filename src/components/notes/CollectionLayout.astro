@@ -99,7 +99,13 @@ const { title, description } = entryIndex
               </div>
               <div class="sidebar-widget">
                 <h4 class="mb-3">统计</h4>
-                <p>共 {allNotesCount || 0} 条动态</p>
+                <div class="flex items-center gap-2">
+                  <span class="text-muted-foreground">共</span>
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-sm font-medium bg-primary/10 text-primary border border-primary/20">
+                    {allNotesCount || 0}
+                  </span>
+                  <span class="text-muted-foreground">条动态</span>
+                </div>
               </div>
             </LiquidGlass>
           </div>

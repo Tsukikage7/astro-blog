@@ -1,79 +1,143 @@
 ---
 title: 关于我
-description: 全栈开发工程师,分享技术心得与生活感悟
+description: Golang 后端开发工程师 | 开源爱好者 | 热爱技术分享
 image: "@assets/avatar.webp"
-imageAlt: Tsukikage 的头像
+imageAlt: 重言的头像
 draft: false
 
-# 技能列表
-skills:
-  - JavaScript / TypeScript
-  - Go (Golang)
-  - Astro / React
-  - 全栈开发
-  - 独立开发
+# 个人信息
+info:
+  name: 韩信
+  title: Golang 后端开发工程师
+  location: 上海
+  age: 23
+
+# 技能分类
+skillCategories:
+  - name: 后端开发
+    icon: "🔧"
+    skills:
+      - Golang (GMP/GC/并发/网络编程)
+      - Gin / GORM
+      - gRPC / 微服务架构
+      - Java / Spring
+
+  - name: 数据存储
+    icon: "💾"
+    skills:
+      - MySQL (事务/索引/调优)
+      - Redis (分布式锁/Lua脚本)
+      - Elasticsearch
+      - TdEngine 时序数据库
+
+  - name: 中间件
+    icon: "⚡"
+    skills:
+      - Kafka 消息队列
+      - Etcd 分布式协调
+      - 熔断/限流/降级
+
+  - name: 大数据
+    icon: "📊"
+    skills:
+      - Hadoop / Hive
+      - Spark / Flink
+      - FlinkCDC
+      - 数据仓库建模
 
 # 教育背景
 education:
-  - degree: 本科 · 计算机科学与技术
+  - degree: 计算机科学与技术 · 本科
     school: 南京信息工程大学
-    period: 2019-2023
+    badge: 双一流
+    period: 2020 - 2024
+    location: 南京
 
 # 工作经历
 experience:
-  - title: 全栈开发工程师
-    company: 独立开发者
-    period: 2023-至今
-    description: 专注于 Web 全栈开发,使用 Go、TypeScript、Astro 等技术栈构建高性能应用
+  - title: Golang 后端研发工程师
+    company: 北京烽台科技有限公司
+    period: 2024.07 - 至今
+    location: 北京
+    description: 参与智能数据平台产品迭代开发
+    highlights:
+      - 基于 WebSocket 实现高性能高可用网关
+      - 基于 Gin 开发简单易用的 Web 开发框架
+      - 主导数采业务从单体架构向微服务架构迁移重构
 
-# 社交媒体 (所有字段都是可选的)
+  - title: 数据架构实习生
+    company: 网易严选实时数仓
+    period: 2023.09 - 2024.03
+    location: 杭州
+    description: 实时数仓能力建设，支撑实时大屏、搜索推荐等场景
+    highlights:
+      - 参与海量数据采集和实时计算平台设计开发
+      - 基于 Flink 构建实时数仓，实现实时用户画像标签
+      - 负责数据持久化存储及 Phoenix 引擎数据查询
+
+  - title: 数据平台开发实习生
+    company: 袋鼠云
+    period: 2022.07 - 2023.09
+    location: 杭州
+    description: 参与商业化数据中台产品迭代开发
+    highlights:
+      - 开发分布式调度引擎 DAGSchedulerX
+      - 增强资源引擎支持能力，适配 Yarn 3.x
+      - 实现数据平台自动化上线功能
+
+# 开源项目
+openSource:
+  - name: DTStack Taier
+    role: Committer
+    period: 2023.07 - 至今
+    description: 开源分布式 DAG 调度系统，专注 ETL 任务提交和调度
+    url: https://github.com/DTStack/Taier
+    contributions:
+      - 新特性开发与 Bug 修复
+      - 适配 Yarn 3.x 提交
+      - 任务中断、重启特性开发
+      - 社区建设与技术支持
+
+  - name: go-zzz
+    role: Committer & PMC
+    period: 2024.07 - 至今
+    description: 基于 Gin 的简单易用 Web 开发框架
+    url: https://github.com/chongyanovo/go-zzz
+    contributions:
+      - 项目架构设计与核心开发
+      - 支持 GORM/WebSocket/JWT/限流/重试
+      - 业务功能组件设计与实现
+
+# 社交媒体
 social:
-  github: https://github.com/Tsukikage7
-  email: contact@example.com
-  # 更多可选平台:
-  # twitter: your-twitter
-  # linkedin: your-linkedin
-  # discord: your-discord
-  # wechat: your-wechat-id
-  # weibo: your-weibo-id
+  github: https://github.com/chongyanovo
+  email: chongyanx@163.com
 ---
 
-你好,我是 **Tsukikage**,一名全栈开发工程师、Gopher、独立开发者。
+## 👋 你好，我是韩信
 
-🤖️ 数码科技爱好者 | 🔍 分享与热心帮助 | 🏃 脚踏实地行动派 | 🧱 团队小组发动机
+一名热爱技术的 **Golang 后端开发工程师**，专注于分布式系统和数据平台开发。
 
-**无限进步**是我的追求,源于热爱而去感受学习、生活、程序、体验。
+> 🚀 具备扎实的编程技能，热爱学习新技术
+> 📖 具有良好的编码习惯，阅读文档和实际解决问题的能力
+> 💡 热爱开源分享，积极参与开源项目的开发及问题解决
 
 ---
 
-#### 技术方面的碎碎念
+## 🎯 关于这个站点
 
-这个网站是我自己写的,用的技术栈是:
+这个博客是我的技术自留地，记录学习笔记、开发经验和思考感悟。
 
-- 前端:Astro(极简、现代、适合写内容)
-- ~~后端:Gin(Go 语言框架,性能不错)~~
-- 现在已经完全舍弃后端,转为全站静态化
-- 内容格式:Markdown 文件,轻巧、便于版本管理
+**技术栈：**
+- 前端：Astro + TypeScript + TailwindCSS
+- 部署：静态化 + CDN
+- 设计：Liquid Glass 磨砂玻璃风格
 
-我想做的远比目前这个版本更多,脑子里方案排到明年。但也正因为如此,我对这个站的架构始终保有不满足感,甚至不排除以后会推到重来。
-
-视觉方面,我也蹭了苹果 Liquid Glass 的热度,做了一个磨砂玻璃风格的 UI。为了性能体验,我做了一些取舍,也算是设计与现实之间的一点平衡练习。
-
----
-
-#### 为什么做这个站?
-
-说简单点,这是我自己的自留地。
-说认真点,它承载着我的几个目标:
-
-- 记录和展示我做过的事,说过的话
-- 建立自己的品牌,为未来可能的副业铺路
-- 不再依赖平台规则,构建独立的内容阵地
-- 做一个可以自由说话、写废话的地方
-
-你看到的这个站,也许只是起点。但未来,我会让它不断生长,哪怕慢一点,也希望它能长成一个真实、有趣、值得我自豪的地方。
+**为什么做这个站？**
+- 记录和展示技术成长轨迹
+- 建立个人品牌，沉淀技术积累
+- 构建独立的内容阵地，不受平台限制
 
 ---
 
-> 生活明朗,万物可爱✨
-> 欢迎来到我的个人博客,这里记录着我作为程序员、开发者、学习者的成长轨迹。
+> 生活明朗，万物可爱 ✨
