@@ -2,7 +2,7 @@
 // 针对 Astro render() 生成的内容进行优化
 // Shiki 双主题支持 - 黑暗模式
 .dark pre.astro-code {
-  @apply rounded-[25px];
+  @apply rounded-xl;
 }
 
 .dark pre.astro-code,
@@ -27,7 +27,7 @@
 .tk-comment {
   // shadcn/ui 风格代码块样式
   pre.astro-code {
-    @apply rounded-lg my-4 p-4;
+    @apply rounded-xl my-4 p-4;
     @apply bg-muted;
     @apply border border-border;
     @apply overflow-x-auto;
@@ -218,7 +218,7 @@
 
   // 图片样式 - 直接应用到 img 元素
   img {
-    @apply mb-6 rounded-[25px] shadow-lg;
+    @apply mb-6 rounded-lg shadow-lg;
     @apply max-h-[60vh] w-auto;
   }
 

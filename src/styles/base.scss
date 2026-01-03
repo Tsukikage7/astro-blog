@@ -20,7 +20,7 @@ h3,
 h4,
 h5,
 h6 {
-  @apply font-primary font-bold leading-tight text-foreground intersect:animate-fade opacity-0;
+  @apply font-primary font-semibold leading-tight text-foreground intersect:animate-fade opacity-0;
 }
 
 h1,
@@ -80,7 +80,7 @@ a {
 
 a.under {
   // 下划线基础样式
-  @apply text-teal-800 dark:text-orange-400;
+  @apply text-zinc-700 dark:text-zinc-300;
   &::after {
     @apply content-[''] absolute left-0 bottom-0;
     @apply w-0 h-[2px];

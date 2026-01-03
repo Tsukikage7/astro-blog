@@ -94,7 +94,7 @@ tags?.sort((a: string, b: string) => a.localeCompare(b));
           <div class="absolute inset-0">
             {typeof image === "string" ? (
               <img
-                class="w-full h-full object-cover rounded-[35px]"
+                class="w-full h-full object-cover rounded-lg"
                 src={image}
                 alt={imageAlt || ""}
                 height={280}
@@ -103,7 +103,7 @@ tags?.sort((a: string, b: string) => a.localeCompare(b));
               />
             ) : (
               <Image
-                class="w-full h-full object-cover rounded-[35px]"
+                class="w-full h-full object-cover rounded-lg"
                 src={image}
                 alt={imageAlt || ""}
                 height={280}
@@ -180,10 +180,10 @@ tags?.sort((a: string, b: string) => a.localeCompare(b));
                   {categories.map((category: string, index: number) => (
                     <a
                       href={`/blog/categories/${slugify(category)}`}
-                      class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium
-                             bg-primary/10 dark:bg-primary/15
-                             text-primary dark:text-primary-light
-                             hover:bg-primary/20 dark:hover:bg-primary/25
+                      class="inline-flex items-center px-2 py-0.5 rounded-lg text-[11px] font-medium
+                             bg-zinc-200/80 dark:bg-zinc-700/60
+                             text-zinc-700 dark:text-zinc-300
+                             hover:bg-zinc-300 dark:hover:bg-zinc-600
                              transition-colors duration-200"
                     >
                       {upperHumanize(category)}
@@ -196,10 +196,10 @@ tags?.sort((a: string, b: string) => a.localeCompare(b));
                   {tags.map((tag: string, index: number) => (
                     <a
                       href={`/blog/tags/${slugify(tag)}`}
-                      class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium
-                             bg-muted/80 dark:bg-muted/60
-                             text-muted-foreground dark:text-muted-foreground
-                             hover:bg-muted dark:hover:bg-muted/80
+                      class="inline-flex items-center px-2 py-0.5 rounded-lg text-[11px] font-medium
+                             bg-zinc-100 dark:bg-zinc-800/60
+                             text-zinc-600 dark:text-zinc-400
+                             hover:bg-zinc-200 dark:hover:bg-zinc-700
                              transition-colors duration-200"
                     >
                       <span class="mr-0.5 opacity-60">#</span>

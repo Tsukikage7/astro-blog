@@ -1,18 +1,8 @@
 ---
-import LiquidGlass from "@components/common/LiquidGlassLess.astro";
 import Social from "@components/common/Social.astro";
 import { getEntry } from "astro:content";
 import { getSiteStats, getTotalWordCount } from "@lib/contentParser";
-import GlassButton from "@components/ui/GlassButton.astro";
 import { SITE_INFO } from "@lib/config";
-
-const footerMenus = [
-  { name: "首页", url: "/", target: "_self" },
-  { name: "博客", url: "/blog", target: "_self" },
-  { name: "关于", url: "/about", target: "_self" },
-  { name: "搜索", url: "/search", target: "_self" },
-  { name: "条款", url: "/terms", target: "_self" },
-];
 
 const socialEntry = await getEntry("social", "-index");
 const socialLinks = socialEntry?.data.platforms || {
@@ -40,247 +30,33 @@ const statsData = {
 
 <footer
   id="main-footer"
-  class="container px-3 lg:px-8 relative z-40 transition-all duration-300 fast-slow mt-8"
+  class="w-full py-6 mt-12 border-t border-border/30"
 >
-  <div class="mx-auto py-2 md:py-4">
-    
-    <div
-      class="rounded-full pointer-events-auto transition-all duration-300 fast-slow"
-    >
-      <LiquidGlass
-        enableGlassEffect={false}
-        containerType="nav"
-        wrapperClass="px-6 py-2 rounded-full hover:bg-accent"
-        effectClass="rounded-full"
-        textClass="rounded-full"
-        tintClass="rounded-full"
-        shineClass="rounded-full"
-        animation="fadeDown"
-      >
-        <div class="">
-          
-          <div
-            id="footer-collapsed"
-            class="flex items-center justify-between md:flex-row flex-col gap-2 md:gap-0"
-          >
-            
-            <div
-              class="text-sm md:text-base text-txt-light dark:text-darkmode-txt-light text-center md:text-left"
-            >
-              © {new Date().getFullYear()} ·
-              <span class="hidden md:inline">保留所有权利 ·</span>
-              <a
-                href={SITE_INFO.URL}
-                class="hover:text-orange-500 transition-colors"
-              >
-                {SITE_INFO.SITE_NAME}
-              </a>
-            </div>
-            
-            <div class="hidden md:flex md:items-center md:scale-100">
-              <Social links={socialLinks} />
-              
-              <GlassButton
-                id="back-to-top-footer"
-                variant="info"
-                size="sm"
-                className="flex items-center gap-2  py-1 text-xs md:text-sm font-medium mx-1 w-0 opacity-0 overflow-hidden pointer-events-none transition-all duration-300 ease-in-out"
-                aria-label="返回顶部"
-              >
-                <svg
-                  class="w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
-                </svg>
-                <span>Top</span>
-              </GlassButton>
-            </div>
-          </div>
+  <div class="container px-4 lg:px-8 mx-auto">
+    <div class="flex flex-col items-center gap-4">
+      <!-- 主要内容 -->
+      <div class="flex items-center gap-4 text-sm text-txt-light dark:text-darkmode-txt-light">
+        <span>© {new Date().getFullYear()}</span>
+        <span class="text-border">·</span>
+        <a
+          href={SITE_INFO.URL}
+          class="hover:text-foreground transition-colors"
+        >
+          {SITE_INFO.SITE_NAME}
+        </a>
+        <span class="hidden md:inline text-border">·</span>
+        <Social links={socialLinks} />
+      </div>
 
-          
-          <div
-            id="footer-expanded"
-            class="opacity-0 max-h-0 transition-all duration-300 fast-slow overflow-hidden"
-          >
-            <div class="z-50 flex flex-row justify-between items-center">
-              
-              <div class="hidden md:block">
-                <ul
-                  class="flex flex-wrap justify-center items-center gap-1 md:gap-2"
-                >
-                  {
-                    footerMenus.map((menu) => (
-                      <li class="relative">
-                        <a
-                          href={menu.url}
-                          target={menu.target}
-                          class="block px-2 py-1 md:px-3 md:py-2 text-xs md:text-sm font-medium text-txt-p transition-all duration-300 dark:text-darkmode-txt-p rounded-lg relative z-10 hover:text-orange-500 hover:bg-white/10"
-                        >
-                          {menu.name}
-                        </a>
-                      </li>
-                    ))
-                  }
-                </ul>
-              </div>
-
-              
-              <div class="text-center hidden md:flex md:items-center md:gap-2">
-                <div
-                  class="flex flex-wrap items-center justify-center gap-x-1 gap-y-1 md:gap-x-2 text-xs md:text-sm text-txt-light dark:text-darkmode-txt-light"
-                >
-                  
-                   ·
-                  <span>{statsData.totalArticles} 文章</span>
-                   ·
-                  <span>全站 {statsData.totalWords} 字</span>
-                   ·
-                  <span>运行 {statsData.runningDays} 天</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </LiquidGlass>
+      <!-- 统计信息 -->
+      <div class="flex flex-wrap items-center justify-center gap-x-3 text-xs text-txt-light/60 dark:text-darkmode-txt-light/60">
+        <span>{statsData.totalArticles} 篇文章</span>
+        <span>·</span>
+        <span>{statsData.totalWords} 字</span>
+        <span>·</span>
+        <span>运行 {statsData.runningDays} 天</span>
+      </div>
     </div>
   </div>
 </footer>
 
-<script>
-  function initFooterScroll() {
-    const footer = document.getElementById("main-footer");
-    const collapsedContent = document.getElementById("footer-collapsed");
-    const expandedContent = document.getElementById("footer-expanded");
-
-    if (!footer || !collapsedContent || !expandedContent) return;
-
-    let isExpanded = false;
-
-    function checkScrollPosition() {
-      const scrollTop =
-        window.pageYOffset || document.documentElement.scrollTop;
-      const windowHeight = window.innerHeight;
-      const documentHeight = document.documentElement.scrollHeight;
-
-      
-      const isAtBottom = scrollTop + windowHeight >= documentHeight - 50;
-
-      if (isAtBottom && !isExpanded && expandedContent) {
-        
-        expandedContent.style.opacity = "1";
-        
-        expandedContent.style.maxHeight = "200px";
-        
-        isExpanded = true;
-      } else if (!isAtBottom && isExpanded && expandedContent) {
-        
-        expandedContent.style.opacity = "0";
-        expandedContent.style.maxHeight = "0";
-        
-        isExpanded = false;
-      }
-    }
-
-    
-    let ticking = false;
-    function throttledScroll() {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          checkScrollPosition();
-          ticking = false;
-        });
-        ticking = true;
-      }
-    }
-
-    
-    window.addEventListener("scroll", throttledScroll, { passive: true });
-
-    
-    checkScrollPosition();
-  }
-
-  
-  function initBackToTop() {
-    const backToTopBtn = document.getElementById("back-to-top-footer");
-    if (!backToTopBtn) return;
-
-    backToTopBtn.style.padding = "0";
-    let isButtonVisible = false;
-
-    
-    backToTopBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      });
-    });
-
-    
-    function toggleBackToTopButton() {
-      if (!backToTopBtn) return;
-
-      const scrollTop =
-        window.pageYOffset || document.documentElement.scrollTop;
-      const shouldShow = scrollTop > 300; 
-
-      if (shouldShow && !isButtonVisible) {
-        
-        backToTopBtn.style.width = "auto";
-        backToTopBtn.style.opacity = "1";
-        backToTopBtn.style.padding = "0.6rem";
-        backToTopBtn.style.display = "visible";
-        backToTopBtn.style.pointerEvents = "auto";
-        isButtonVisible = true;
-      } else if (!shouldShow && isButtonVisible) {
-        
-        backToTopBtn.style.width = "0";
-        backToTopBtn.style.opacity = "0";
-        backToTopBtn.style.padding = "0";
-        backToTopBtn.style.display = "hidden";
-        backToTopBtn.style.pointerEvents = "none";
-        isButtonVisible = false;
-      }
-    }
-
-    
-    let ticking = false;
-    function throttledBackToTopScroll() {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          toggleBackToTopButton();
-          ticking = false;
-        });
-        ticking = true;
-      }
-    }
-
-    
-    window.addEventListener("scroll", throttledBackToTopScroll, {
-      passive: true,
-    });
-
-    
-    toggleBackToTopButton();
-  }
-
-  
-  document.addEventListener("DOMContentLoaded", () => {
-    initFooterScroll();
-    initBackToTop();
-  });
-
-  
-  document.addEventListener("astro:page-load", () => {
-    initFooterScroll();
-    initBackToTop();
-  });
-</script>

@@ -1,10 +1,12 @@
 ---
 import BaseLayout from "@components/base/BaseLayout.astro";
-import BlogListCard from "@components/blog/BlogListCard.astro";
 import Pagination from "@components/common/Pagination.astro";
 import PageHeader from "@components/common/PageHeader.astro";
-import BlogSidebar from "@components/blog/Sidebar.astro";
+import SmartImage from "@components/common/SmartImage.astro";
+import PlaceholderImage from "@components/blog/PlaceholderImage.astro";
 import type { BlogEntry } from "@/types";
+import { formatDate } from "@lib/formatDate";
+import { plainify } from "@lib/textConverter";
 
 interface CategoryWithCount {
   name: string;
@@ -17,11 +19,11 @@ interface Props {
   entries: BlogEntry[];
   tags: string[];
   categories: string[] | CategoryWithCount[];
-  
+
   pageIndex: number;
   pageCount: number;
   allBlogCount?: number;
-  basePath?: string; 
+  basePath?: string;
 }
 
 const {
@@ -29,7 +31,7 @@ const {
   entries,
   tags,
   categories,
-  
+
   pageIndex,
   pageCount,
   allBlogCount,
@@ -39,51 +41,152 @@ const {
 const { title, description } = entryIndex
   ? entryIndex.data
   : {
-      title: "分类",
-      description: "分类下的文章",
+      title: "博客",
+      description: "所有文章",
     };
 
-console.log("当前所在页：", pageIndex);
+// 获取日期（优先 date，其次 created）
+const getEntryDate = (entry: BlogEntry) => {
+  return entry.data.date || entry.data.created;
+};
+
+// 按年份分组
+const entriesByYear = entries.reduce((acc, entry) => {
+  const entryDate = getEntryDate(entry);
+  const year = entryDate ? new Date(entryDate).getFullYear() : new Date().getFullYear();
+  if (!acc[year]) acc[year] = [];
+  acc[year].push(entry);
+  return acc;
+}, {} as Record<number, BlogEntry[]>);
+
+const years = Object.keys(entriesByYear).map(Number).sort((a, b) => b - a);
+
+// 检查是否有图片
+const hasImage = (entry: BlogEntry) => {
+  return entry.data.image && (typeof entry.data.image === "string" || (typeof entry.data.image === "object" && "src" in entry.data.image));
+};
 ---
 
 <BaseLayout title={title} description={description}>
-  <div class="container px-3 lg:px-8">
+  <div class="container px-6 lg:px-8">
     <PageHeader
       title={title}
       description={description}
       articleCount={allBlogCount}
     />
-    <section class="">
-      <div class="flex" style="padding:0px;">
-        <div class="row px-0 mx-0 w-full">
-          
-          <div class="col-12 lg:col-9 p-0 in">
-            {
-              entries.map((entry, index) => (
-                <div class="mb-4" style={`animation-delay: ${index * 100}ms`}>
-                  <BlogListCard entry={entry} />
-                </div>
-              ))
-            }
-            <Pagination
-              collection="blog"
-              pageIndex={pageIndex}
-              pageCount={pageCount}
-              basePath={basePath}
-            />
+
+    <section>
+      <div class="flex flex-col lg:flex-row gap-8">
+
+        <!-- 左侧：时间线文章列表 -->
+        <main class="flex-1 min-w-0">
+          {years.map((year) => (
+            <div class="mb-16">
+              <!-- 年份标题 -->
+              <div class="flex items-center gap-4 mb-8">
+                <h2 class="text-2xl font-light text-foreground">{year}</h2>
+                <div class="flex-1 h-px bg-border/30"></div>
+                <span class="text-sm text-muted-foreground/50 tabular-nums">
+                  {entriesByYear[year].length} 篇
+                </span>
+              </div>
+
+              <!-- 时间线 -->
+              <div class="relative pl-8 border-l-2 border-border/30">
+                {entriesByYear[year].map((entry) => {
+                  const entryDate = getEntryDate(entry);
+                  const dateStr = entryDate ? formatDate(entryDate) : "";
+                  const desc = entry.data.description || (entry.body ? plainify(entry.body.slice(0, 150)) + "..." : "");
+                  return (
+                    <a
+                      href={`/blog/${entry.id}`}
+                      class="group block relative pb-10 last:pb-0"
+                    >
+                      <!-- 时间线节点 -->
+                      <div class="absolute -left-[25px] top-2 w-3 h-3 rounded-full bg-background border-2 border-border/50 group-hover:border-foreground/60 transition-all"></div>
+
+                      <!-- 卡片内容 -->
+                      <div class="flex flex-col md:flex-row gap-5">
+                        <!-- 图片 -->
+                        <div class="flex-shrink-0 w-full md:w-48 aspect-[16/10] rounded-lg overflow-hidden bg-muted/30">
+                          {hasImage(entry) ? (
+                            <SmartImage
+                              src={entry.data.image}
+                              alt={entry.data.imageAlt || entry.data.title}
+                              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                              loading="lazy"
+                              quality={60}
+                            />
+                          ) : (
+                            <PlaceholderImage title={entry.data.title} className="w-full h-full" />
+                          )}
+                        </div>
+
+                        <!-- 文字内容 -->
+                        <div class="flex-1 min-w-0">
+                          <!-- 日期 -->
+                          <time class="text-sm text-muted-foreground/60 tabular-nums">{dateStr}</time>
+
+                          <!-- 标题 -->
+                          <h3 class="mt-1.5 text-lg font-medium text-foreground group-hover:text-foreground/70 transition-colors line-clamp-2">
+                            {entry.data.title}
+                          </h3>
+
+                          <!-- 描述 -->
+                          <p class="mt-2 text-sm text-muted-foreground line-clamp-2 leading-relaxed">
+                            {desc}
+                          </p>
+
+                          <!-- 分类 -->
+                          {entry.data.categories && entry.data.categories.length > 0 && (
+                            <div class="mt-3 flex flex-wrap gap-3">
+                              {entry.data.categories.slice(0, 3).map((cat: string) => (
+                                <span class="text-xs text-muted-foreground/50">
+                                  #{cat}
+                                </span>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
+
+          <Pagination
+            collection="blog"
+            pageIndex={pageIndex}
+            pageCount={pageCount}
+            basePath={basePath}
+          />
+        </main>
+
+        <!-- 右侧：分类侧边栏 -->
+        <aside class="lg:w-72 lg:sticky lg:top-[4.5rem] lg:self-start space-y-4">
+          <div class="rounded-lg border border-border/30 bg-card/30 p-5">
+            <h3 class="text-lg font-medium text-foreground mb-4">分类</h3>
+            <div class="space-y-0">
+              {(categories as CategoryWithCount[]).map((cat) => (
+                <a
+                  href={`/blog/categories/${cat.slug}`}
+                  class="flex items-center justify-between py-2.5 text-sm text-muted-foreground hover:text-foreground transition-colors group"
+                >
+                  <span class="flex items-center gap-2">
+                    <span class="w-1 h-1 rounded-full bg-border group-hover:bg-foreground/50 transition-colors"></span>
+                    {cat.name}
+                  </span>
+                  <span class="text-xs text-muted-foreground/40 group-hover:text-muted-foreground/70 transition-colors tabular-nums">
+                    {cat.count}
+                  </span>
+                </a>
+              ))}
+            </div>
           </div>
-          
-          <div
-            class="lg:col-3 lg:flex p-0 lg:pl-4"
-            style="position: sticky; top: 4.1rem; align-self: flex-start;"
-          >
-            <BlogSidebar
-              tags={tags}
-              categories={categories}
-              allBlogCount={allBlogCount}
-            />
-          </div>
-        </div>
+        </aside>
+
       </div>
     </section>
   </div>

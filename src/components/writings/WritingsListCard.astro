@@ -22,13 +22,13 @@ const entryReadingTime = readingTime(entry.body!, 1);
 const entryDescription = description?.substring(0, descriptionLength) ||
   (entry.body ? plainify(entry.body.slice(0, descriptionLength)) : "");
 
-// 根据体裁返回不同的颜色
+// 根据体裁返回不同的颜色 - 使用灰度
 const genreConfig: Record<string, { color: string }> = {
-  "短篇小说": { color: "bg-amber-500/20 text-amber-600 dark:text-amber-400" },
-  "散文": { color: "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400" },
-  "诗歌": { color: "bg-pink-500/20 text-pink-600 dark:text-pink-400" },
-  "杂文": { color: "bg-purple-500/20 text-purple-600 dark:text-purple-400" },
-  "随笔": { color: "bg-blue-500/20 text-blue-600 dark:text-blue-400" },
+  "短篇小说": { color: "bg-zinc-200/50 text-zinc-700 dark:bg-zinc-700/50 dark:text-zinc-300" },
+  "散文": { color: "bg-stone-200/50 text-stone-700 dark:bg-stone-700/50 dark:text-stone-300" },
+  "诗歌": { color: "bg-neutral-200/50 text-neutral-700 dark:bg-neutral-700/50 dark:text-neutral-300" },
+  "杂文": { color: "bg-gray-200/50 text-gray-700 dark:bg-gray-700/50 dark:text-gray-300" },
+  "随笔": { color: "bg-slate-200/50 text-slate-700 dark:bg-slate-700/50 dark:text-slate-300" },
 };
 
 const currentGenre = genre ? genreConfig[genre] : null;
@@ -36,7 +36,7 @@ const currentGenre = genre ? genreConfig[genre] : null;
 
 <LiquidGlass
   heavy
-  wrapperClass="dock rounded-2xl my-3 hover:scale-[1.01] border-2 border-border/50 dark:border-border/30 hover:border-amber-500/40 dark:hover:border-amber-400/30 hover:shadow-2xl hover:shadow-amber-500/10 transition-all duration-300"
+  wrapperClass="dock rounded-lg my-3 hover:scale-[1.005] border border-border/50 dark:border-border/30 hover:border-border dark:hover:border-border/50 hover:shadow-lg transition-all duration-300"
   textClass="h-full"
   animation="fadeRight"
 >
@@ -50,7 +50,7 @@ const currentGenre = genre ? genreConfig[genre] : null;
           </span>
         )}
         {series && (
-          <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-indigo-500/15 text-indigo-600 dark:text-indigo-400">
+          <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-zinc-500/15 text-zinc-600 dark:text-zinc-400">
             {series}
           </span>
         )}
@@ -70,10 +70,10 @@ const currentGenre = genre ? genreConfig[genre] : null;
     </div>
 
     <!-- 标题 -->
-    <h3 class="mb-2 text-xl md:text-2xl font-bold text-txt-p dark:text-darkmode-txt-p leading-tight group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors duration-300">
+    <h3 class="mb-2 text-xl md:text-2xl font-semibold text-txt-p dark:text-darkmode-txt-p leading-tight group-hover:text-foreground transition-colors duration-300">
       <a
         href={`/writings/${entry.id}`}
-        class="hover:underline hover:decoration-amber-500 hover:decoration-2 hover:underline-offset-4 block"
+        class="hover:underline hover:decoration-foreground hover:decoration-1 hover:underline-offset-4 block"
       >
         {title}
       </a>
@@ -104,7 +104,7 @@ const currentGenre = genre ? genreConfig[genre] : null;
       </div>
       <a
         href={`/writings/${entry.id}`}
-        class="inline-flex items-center text-amber-600 dark:text-amber-400 hover:text-amber-700 dark:hover:text-amber-300 font-medium text-sm transition-all duration-300 group/link"
+        class="inline-flex items-center text-muted-foreground hover:text-foreground font-medium text-sm transition-all duration-300 group/link"
       >
         <span>阅读全文</span>
         <svg

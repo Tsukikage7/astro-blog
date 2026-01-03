@@ -29,14 +29,14 @@ const entryDescription =
 ---
 
 <div
-  class="glass-t border-2 border-border/50 dark:border-border/30 h-full my-2 pl-0 rounded-2xl overflow-hidden transition-all duration-300 group hover:border-primary/40 dark:hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/10"
+  class="glass-t border-2 border-border/50 dark:border-border/30 h-full my-2 pl-0 rounded-xl overflow-hidden transition-all duration-300 group hover:border-zinc-400/50 dark:hover:border-zinc-500/40 hover:shadow-lg hover:shadow-zinc-500/10"
 >
   <div
-    class="flex flex-col h-full rounded-2xl
+    class="flex flex-col h-full rounded-xl
     hover:scale-[1.01] transition-all duration-300"
   >
 
-    <div class="relative w-full aspect-[7/3] overflow-hidden rounded-t-2xl">
+    <div class="relative w-full aspect-[7/3] overflow-hidden rounded-t-lg">
       <a href={`/blog/${entry.id}`} class="block w-full h-full">
         {hasCustomImage ? (
           <>
@@ -55,16 +55,16 @@ const entryDescription =
             </div>
 
             <div
-              class="absolute top-3 right-3 px-3 py-1.5 rounded-full bg-primary/90 backdrop-blur-sm text-primary-foreground text-xs font-semibold shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0"
+              class="absolute top-3 right-3 px-2.5 py-1 rounded-md bg-foreground/80 text-background text-xs font-medium opacity-0 group-hover:opacity-100 transition-all duration-300"
             >
-              阅读文章
+              阅读
             </div>
           </>
         ) : (
           <div class="w-full h-full transition-all duration-700 ease-out group-hover:scale-110">
             <PlaceholderImage
               title={title}
-              className="w-full h-full rounded-t-2xl"
+              className="w-full h-full rounded-t-lg"
             />
           </div>
         )}
@@ -75,11 +75,11 @@ const entryDescription =
     <div class="p-6 flex flex-col flex-1">
 
       <h4
-        class="mb-3 text-xl font-bold text-txt-p dark:text-darkmode-txt-p line-clamp-2 leading-tight group-hover:text-primary transition-colors duration-300"
+        class="mb-3 text-xl font-bold text-txt-p dark:text-darkmode-txt-p line-clamp-2 leading-tight group-hover:text-zinc-900 dark:group-hover:text-zinc-100 transition-colors duration-300"
       >
         <a
           href={`/blog/${entry.id}`}
-          class="hover:underline hover:decoration-primary hover:decoration-2 hover:underline-offset-4"
+          class="hover:underline hover:decoration-zinc-500 hover:decoration-2 hover:underline-offset-4"
         >
           {title}
         </a>
@@ -99,10 +99,10 @@ const entryDescription =
                 ) => (
                   <a
                     href={`/blog/categories/${slugify(category ? category : "")}`}
-                    class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium
-                           bg-primary/10 dark:bg-primary/15
-                           text-primary dark:text-primary-light
-                           hover:bg-primary/20 dark:hover:bg-primary/25
+                    class="inline-flex items-center px-2 py-0.5 rounded-lg text-[11px] font-medium
+                           bg-zinc-200/80 dark:bg-zinc-700/60
+                           text-zinc-700 dark:text-zinc-300
+                           hover:bg-zinc-300 dark:hover:bg-zinc-600
                            transition-colors duration-200"
                   >
                     {category}
@@ -118,10 +118,10 @@ const entryDescription =
               {tags.map((tag) => (
                 <a
                   href={`/blog/tags/${slugify(tag)}`}
-                  class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium
-                         bg-muted/80 dark:bg-muted/60
-                         text-muted-foreground dark:text-muted-foreground
-                         hover:bg-muted dark:hover:bg-muted/80
+                  class="inline-flex items-center px-2 py-0.5 rounded-lg text-[11px] font-medium
+                         bg-zinc-100 dark:bg-zinc-800/60
+                         text-zinc-600 dark:text-zinc-400
+                         hover:bg-zinc-200 dark:hover:bg-zinc-700
                          transition-colors duration-200"
                 >
                   <span class="mr-0.5 opacity-60">#</span>
@@ -151,7 +151,7 @@ const entryDescription =
       <div class="flex items-center justify-between pt-3 border-t border-border/50 dark:border-border/30">
         <a
           href={`/blog/${entry.id}`}
-          class="inline-flex items-center text-primary hover:text-primary-dark text-sm font-semibold transition-all duration-300 group/link"
+          class="inline-flex items-center text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-zinc-100 text-sm font-semibold transition-all duration-300 group/link"
         >
           <span>阅读全文</span>
           <svg

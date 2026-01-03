@@ -1,214 +1,164 @@
 ---
 import BaseLayout from "@components/base/BaseLayout.astro";
-import Button from "@components/common/Button.astro";
-import BlogCard from "@components/blog/Card.astro";
 import type { BlogEntry } from "@/types";
-import LiquidGlass from "@components/common/LiquidGlassLess.astro";
-import HomeNotesPreview from "@components/notes/HomeNotesPreview.astro";
-import ArticleCalendar from "@components/home/ArticleCalendar.astro";
-import AuthorProfile from "@components/home/AuthorProfile.astro";
 import { type CollectionEntry } from "astro:content";
-import { getSiteStats } from "@lib/contentParser";
 import { sortByDate } from "@lib/sortFunctions";
 import { getEntries } from "@lib/contentParser";
-import RecommendedReadCardComponent from "@components/blog/RecommendedReadCard.astro";
+import { formatDate } from "@lib/formatDate";
+import { plainify } from "@lib/textConverter";
+import ArticleCalendar from "@components/home/ArticleCalendar.astro";
+import HomeNotesPreview from "@components/notes/HomeNotesPreview.astro";
+import SmartImage from "@components/common/SmartImage.astro";
+import PlaceholderImage from "@components/blog/PlaceholderImage.astro";
 
-const publishedPosts = (await getEntries("blog", sortByDate)) as BlogEntry[];
+const allPosts = (await getEntries("blog", sortByDate)) as BlogEntry[];
+const galleryPosts = allPosts.slice(0, 8);
+const recentPosts = allPosts.slice(0, 5);
 
-const latestNotes = (await getEntries(
-  "notes",
-  sortByDate,
-)) as CollectionEntry<"notes">[];
+const latestNotes = (await getEntries("notes", sortByDate)) as CollectionEntry<"notes">[];
 
-const featuredPosts = (
-  (await getEntries("blog", sortByDate)) as BlogEntry[]
-).slice(0, 8);
-
-const allCategories = publishedPosts
-  .flatMap((post) => post.data.categories || [])
-  .filter(Boolean);
+// 分类统计
+const allCategories = allPosts.flatMap((post) => post.data.categories || []).filter(Boolean);
 const uniqueCategories = [...new Set(allCategories)].sort();
-const categories = uniqueCategories.map((category) => ({
+const categories = uniqueCategories.slice(0, 6).map((category) => ({
   name: category,
-  count: publishedPosts.filter((post) =>
-    post.data.categories?.includes(category),
-  ).length,
-  id: category,
+  count: allPosts.filter((post) => post.data.categories?.includes(category)).length,
   slug: category?.toLowerCase().replace(/\s+/g, "-"),
 }));
 
-const recommendedPosts = featuredPosts.slice(0, 4);
-
-const siteStats = await getSiteStats();
+// 获取文章图片
+const hasImage = (post: BlogEntry) => {
+  return post.data.image && (typeof post.data.image === "string" || (typeof post.data.image === "object" && "src" in post.data.image));
+};
 ---
 
 <BaseLayout>
-  <div class="container px-3 lg:px-8">
-    
-    <section class="rounded-[35px] mb-4">
-      <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
-        
-        <div class="xl:col-span-1">
-          <LiquidGlass heavy textClass="h-full">
-            <div class="rounded-[35px] intersect:animate-fadeUp h-full">
-              <AuthorProfile />
-            </div>
-          </LiquidGlass>
-        </div>
+  <div class="py-8">
 
-        
-        <div class="hidden md:block xl:col-span-2 h-full">
-          <LiquidGlass
-            heavy
-            containerClass="h-full"
-            wrapperClass="dock h-full"
-            textClass="p-3"
-          >
-            <div class="rounded-lg intersect:animate-fadeUp h-full">
-              <ArticleCalendar />
-            </div>
-          </LiquidGlass>
-        </div>
+    <!-- 横向滚动画廊 -->
+    <section class="mb-16">
+      <div class="px-6 mb-6 flex items-center justify-between">
+        <h2 class="text-2xl font-medium text-foreground">最新文章</h2>
+        <a href="/blog" class="text-base text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1 group">
+          查看全部
+          <svg class="w-5 h-5 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7" />
+          </svg>
+        </a>
+      </div>
+
+      <div class="gallery-scroll flex gap-5 overflow-x-auto pl-6 pb-6 snap-x snap-mandatory">
+        {galleryPosts.map((post, index) => {
+          const dateStr = post.data.date ? formatDate(post.data.date) : "";
+          return (
+            <a
+              href={`/blog/${post.id}`}
+              class="group flex-shrink-0 snap-start w-[85vw] md:w-[420px]"
+            >
+              <article class="h-full">
+                <div class="relative overflow-hidden rounded-xl bg-muted/30 aspect-[16/10]">
+                  {hasImage(post) ? (
+                    <SmartImage
+                      src={post.data.image}
+                      alt={post.data.imageAlt || post.data.title}
+                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      loading={index < 3 ? "eager" : "lazy"}
+                      quality={75}
+                    />
+                  ) : (
+                    <PlaceholderImage title={post.data.title} className="w-full h-full" />
+                  )}
+                </div>
+                <div class="mt-4 pr-4">
+                  <time class="text-sm text-muted-foreground/60">{dateStr}</time>
+                  <h3 class="mt-1.5 text-lg font-medium text-foreground group-hover:text-foreground/70 transition-colors line-clamp-2">
+                    {post.data.title}
+                  </h3>
+                  {post.data.description && (
+                    <p class="mt-2 text-base text-muted-foreground line-clamp-2">
+                      {post.data.description}
+                    </p>
+                  )}
+                </div>
+              </article>
+            </a>
+          );
+        })}
+        <!-- 末尾留白 -->
+        <div class="flex-shrink-0 w-6"></div>
       </div>
     </section>
 
-    <section class="rounded-lg mb-6">
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-        {
-          categories.slice(0, 6).map((category: any, index: number) => (
+    <!-- 三栏区域 -->
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-16 py-12 px-6 border-t border-border/20">
+
+      <!-- 分类 -->
+      <div>
+        <h3 class="text-lg font-medium text-foreground mb-6 flex items-center gap-2">
+          <svg class="w-5 h-5 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A2 2 0 013 12V7a4 4 0 014-4z" />
+          </svg>
+          分类
+        </h3>
+        <div class="space-y-1">
+          {categories.map((cat) => (
             <a
-              href={`/blog/categories/${category.slug}`}
-              class="group relative flex items-center justify-between px-4 py-3 rounded-lg border border-border bg-card text-card-foreground hover:bg-accent hover:text-accent-foreground transition-all duration-200 shadow-sm hover:shadow-md intersect:animate-fadeUp"
-              style={`animation-delay: ${index * 100}ms`}
+              href={`/blog/categories/${cat.slug}`}
+              class="flex items-center justify-between py-3 text-base text-muted-foreground hover:text-foreground transition-colors group"
             >
-              <div class="flex items-center gap-2 min-w-0">
-                <svg
-                  class="w-4 h-4 text-muted-foreground group-hover:text-accent-foreground transition-colors flex-shrink-0"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"
-                  />
-                </svg>
-                <span class="font-medium text-sm truncate">{category.name}</span>
-              </div>
-              <span class="inline-flex items-center justify-center px-2 py-0.5 rounded-full text-xs font-medium bg-secondary text-secondary-foreground group-hover:bg-primary group-hover:text-primary-foreground transition-colors flex-shrink-0 ml-2">
-                {category.count}
+              <span class="flex items-center gap-2">
+                <span class="w-1 h-1 rounded-full bg-border group-hover:bg-foreground/50 transition-colors"></span>
+                {cat.name}
+              </span>
+              <span class="text-sm text-muted-foreground/40 group-hover:text-muted-foreground/70 transition-colors tabular-nums">
+                {cat.count}
               </span>
             </a>
-          ))
-        }
+          ))}
+        </div>
       </div>
-    </section>
-    
-    <section class="mt-4 grid grid-cols-1 lg:grid-cols-4 gap-6 my-4">
-      
-      <LiquidGlass
-        heavy
-        containerClass="lg:col-span-3"
-      >
-        
-        <section class="rounded-lg">
-          <div class="p-3">
-            <div class="mb-2">
-              <h2
-                class="text-2xl font-bold mb-2 text-txt-p dark:text-darkmode-txt-p"
-              >
-                最新文章
-              </h2>
-            </div>
 
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-              {
-                featuredPosts.map((post: any, index: number) => (
-                  <div class="transform hover:scale-105 transition-transform duration-300 intersect:animate-fadeUp">
-                    <BlogCard entry={post} />
-                  </div>
-                ))
-              }
-            </div>
-
-            
-            <div class="text-center">
-              <Button
-                label="查看所有文章"
-                link="/blog"
-                newtab={false}
-                hoverInvert
-                color=""
-              />
-            </div>
-          </div>
-        </section>
-      </LiquidGlass>
-
-      
-      <div class="flex flex-col lg:col-span-1 space-y-6">
-        
-        <LiquidGlass heavy >
-          <section class="rounded-lg pt-3">
-            <div class="flex items-center justify-between mb-4 px-3">
-              <h3 class="text-xl font-bold text-txt-p dark:text-darkmode-txt-p">
-                推荐阅读
-              </h3>
-            </div>
-
-            <div class="space-y-2 px-2 md:px-0">
-              {
-                recommendedPosts.slice(0, 4).map((post: any, index: number) => (
-                  <div
-                    class="transform hover:scale-105 transition-transform duration-300 intersect:animate-fadeUp"
-                    style={`animation-delay: ${index * 200}ms`}
-                  >
-                    <RecommendedReadCardComponent
-                      entry={post}
-                      showImage={true}
-                      showReadingTime={true}
-                      compact={false}
-                    />
-                  </div>
-                ))
-              }
-            </div>
-          </section>
-        </LiquidGlass>
-
-        
-
-        
-        <LiquidGlass heavy >
-          <HomeNotesPreview entries={latestNotes} limit={5} />
-        </LiquidGlass>
-
-        
+      <!-- 推荐阅读 -->
+      <div>
+        <h3 class="text-lg font-medium text-foreground mb-6 flex items-center gap-2">
+          <svg class="w-5 h-5 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+          </svg>
+          推荐
+        </h3>
+        <div class="space-y-4">
+          {recentPosts.map((post) => (
+            <a
+              href={`/blog/${post.id}`}
+              class="block text-base text-muted-foreground hover:text-foreground transition-colors line-clamp-2"
+            >
+              {post.data.title}
+            </a>
+          ))}
+        </div>
       </div>
+
+      <!-- 站点动态 -->
+      <div class="notes-preview-compact">
+        <HomeNotesPreview entries={latestNotes} limit={4} />
+      </div>
+
     </section>
+
+    <!-- 日历热力图 -->
+    <section class="py-12 px-6 border-t border-border/20">
+      <ArticleCalendar />
+    </section>
+
   </div>
 </BaseLayout>
 
 <style>
-  @keyframes blink {
-    0%,
-    50% {
-      opacity: 1;
-    }
-    51%,
-    100% {
-      opacity: 0;
-    }
+  .gallery-scroll {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
-
-  .typewriter-cursor::after {
-    content: "|";
-    animation: blink 1.2s infinite;
-    color: #f97316;
+  .gallery-scroll::-webkit-scrollbar {
+    display: none;
   }
 </style>
-
-<script></script>

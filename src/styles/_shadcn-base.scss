@@ -1,68 +1,68 @@
 // shadcn/ui 基础样式
-// Zinc 配色方案
+// 黑白灰配色方案 - 文艺内敛风格
 
 @layer base {
   :root {
-    // 亮色模式 - 清爽的白色系配色
+    // 亮色模式 - 纯净黑白灰
     --background: 0 0% 100%;             // 纯白背景
-    --foreground: 222 47% 11%;           // 深蓝灰文字
+    --foreground: 0 0% 12%;              // 近黑文字
 
     --card: 0 0% 100%;                   // 纯白卡片
-    --card-foreground: 222 47% 11%;      // 深蓝灰文字
+    --card-foreground: 0 0% 12%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
+    --popover-foreground: 0 0% 12%;
 
-    --primary: 222 47% 11%;              // 深蓝灰主色
-    --primary-foreground: 210 40% 98%;
+    --primary: 0 0% 15%;                 // 深灰主色
+    --primary-foreground: 0 0% 98%;
 
-    --secondary: 210 40% 96.1%;          // 极浅蓝灰次要色
-    --secondary-foreground: 222 47% 11%;
+    --secondary: 0 0% 96%;               // 极浅灰次要色
+    --secondary-foreground: 0 0% 12%;
 
-    --muted: 210 40% 96.1%;              // 极浅蓝灰柔和色
-    --muted-foreground: 215 16% 47%;     // 中灰文字
+    --muted: 0 0% 96%;                   // 极浅灰柔和色
+    --muted-foreground: 0 0% 45%;        // 中灰文字
 
-    --accent: 210 40% 96.1%;             // 极浅蓝灰强调色
-    --accent-foreground: 222 47% 11%;
+    --accent: 0 0% 96%;                  // 极浅灰强调色
+    --accent-foreground: 0 0% 12%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 0% 30%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 214 32% 91%;               // 浅灰边框
-    --input: 214 32% 91%;
-    --ring: 222 84% 5%;
+    --border: 0 0% 90%;                  // 浅灰边框
+    --input: 0 0% 90%;
+    --ring: 0 0% 12%;
 
     --radius: 0.5rem;
   }
 
   .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
+    --background: 0 0% 6%;               // 近黑背景
+    --foreground: 0 0% 90%;              // 浅灰文字
 
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 90%;
 
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 90%;
 
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
+    --primary: 0 0% 90%;
+    --primary-foreground: 0 0% 6%;
 
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary: 0 0% 14%;
+    --secondary-foreground: 0 0% 90%;
 
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
+    --muted: 0 0% 14%;
+    --muted-foreground: 0 0% 60%;
 
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
+    --accent: 0 0% 14%;
+    --accent-foreground: 0 0% 90%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive: 0 0% 40%;
+    --destructive-foreground: 0 0% 90%;
 
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
+    --border: 0 0% 18%;
+    --input: 0 0% 18%;
+    --ring: 0 0% 80%;
   }
 }
 

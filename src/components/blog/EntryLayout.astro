@@ -106,7 +106,7 @@ const recommendedPosts = allBlogPosts
         <LiquidGlassLess
           containerType="section"
           heavy
-          wrapperClass="panel flex flex-col justify-between mb-4 rounded-[35px] intersect-no-queue min-h-96"
+          wrapperClass="panel flex flex-col justify-between mb-4 rounded-xl intersect-no-queue min-h-96"
         >
           <div
             class="p-3 lg:p-8 prose max-w-none markdown-content text-txt-p dark:text-darkmode-txt-p intersect:animate-fadeUp"
@@ -123,7 +123,7 @@ const recommendedPosts = allBlogPosts
           >
             <div class="relative group">
               <div
-                class="absolute -inset-2 bg-gradient-to-r from-orange-500 via-indigo-500 to-green-500 rounded-[35px] blur opacity-40 group-hover:opacity-60 transition duration-300"
+                class="absolute -inset-2 bg-gradient-to-r from-zinc-400 via-zinc-500 to-zinc-600 rounded-full blur opacity-30 group-hover:opacity-50 transition duration-300"
               >
               </div>
               <img
@@ -139,7 +139,7 @@ const recommendedPosts = allBlogPosts
 
           <LiquidGlassLess
             heavy
-            wrapperClass="dock rounded-2xl pt-16 pb-8 px-8"
+            wrapperClass="dock rounded-xl pt-16 pb-8 px-8"
             textClass="intersect-no-queue"
           >
             
@@ -239,7 +239,7 @@ const recommendedPosts = allBlogPosts
 
         <LiquidGlassLess
           heavy
-          wrapperClass="dock rounded-lg p-6 my-4"
+          wrapperClass="dock rounded-xl p-6 my-4"
           textClass="intersect-no-queue  px-3 lg:px-8 "
         >
           <Comment />
@@ -258,14 +258,14 @@ const recommendedPosts = allBlogPosts
         recommendedPosts.length > 0 && (
           <LiquidGlassLess
             heavy
-            wrapperClass="dock rounded-[25px] overflow-hidden mb-3"
+            wrapperClass="dock rounded-xl overflow-hidden mb-3"
             textClass="intersect-no-queue"
           >
             <div class="py-2">
               <div class="flex items-center justify-between mb-4">
                 <h3 class="text-lg font-bold text-txt-p dark:text-darkmode-txt-p flex items-center gap-2">
                   <svg
-                    class="w-5 h-5 text-orange-500"
+                    class="w-5 h-5 text-muted-foreground"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"

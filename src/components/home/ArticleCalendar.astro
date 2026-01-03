@@ -288,25 +288,25 @@ const articleStats = getArticleStats();
 
   .calendar-grid {
     display: grid;
-    grid-template-columns: repeat(53, minmax(8px, 14px));
-    @apply gap-0.5;
-    margin-left: 0px; 
+    grid-template-columns: repeat(53, minmax(12px, 18px));
+    @apply gap-1;
+    margin-left: 0px;
     width: fit-content;
     max-width: calc(100vw - 50px);
-    
+
   }
 
   .week-column {
-    @apply flex flex-col gap-0.5;
-    
+    @apply flex flex-col gap-1;
+
     flex: 1;
     min-width: 0;
   }
 
   .calendar-day {
     @apply rounded-md transition-all duration-75 border !border-slate-400/40;
-    width: 14px;
-    height: 14px;
+    width: 18px;
+    height: 18px;
     cursor: pointer;
   }
 
@@ -326,22 +326,22 @@ const articleStats = getArticleStats();
   }
 
   .calendar-day.level-1 {
-    @apply bg-emerald-300 dark:bg-orange-200/80;
+    @apply bg-zinc-300 dark:bg-zinc-600/80;
     @apply border-gray-50/60 dark:border-gray-100/40;
   }
 
   .calendar-day.level-2 {
-    @apply bg-emerald-500 dark:bg-orange-400/90;
+    @apply bg-zinc-400 dark:bg-zinc-500/90;
     @apply border-gray-50/60 dark:border-gray-100/40;
   }
 
   .calendar-day.level-3 {
-    @apply bg-emerald-700 dark:bg-orange-500/90;
+    @apply bg-zinc-500 dark:bg-zinc-400/90;
     @apply border-gray-50/60 dark:border-gray-100/40;
   }
 
   .calendar-day.level-4 {
-    @apply bg-emerald-900 dark:bg-orange-600;
+    @apply bg-zinc-700 dark:bg-zinc-300;
     @apply border-gray-50/60 dark:border-gray-100/40;
   }
 
@@ -379,22 +379,22 @@ const articleStats = getArticleStats();
   }
 
   .legend-square.level-1 {
-    @apply bg-emerald-300 dark:bg-orange-200/80;
+    @apply bg-zinc-300 dark:bg-zinc-600/80;
     @apply border-gray-50/60 dark:border-gray-100/40;
   }
 
   .legend-square.level-2 {
-    @apply bg-emerald-500 dark:bg-orange-400/90;
+    @apply bg-zinc-400 dark:bg-zinc-500/90;
     @apply border-gray-50/60 dark:border-gray-100/40;
   }
 
   .legend-square.level-3 {
-    @apply bg-emerald-700 dark:bg-orange-500/90;
+    @apply bg-zinc-500 dark:bg-zinc-400/90;
     @apply border-gray-50/60 dark:border-gray-100/40;
   }
 
   .legend-square.level-4 {
-    @apply bg-emerald-900 dark:bg-orange-600;
+    @apply bg-zinc-700 dark:bg-zinc-300;
     @apply border-gray-50/60 dark:border-gray-100/40;
   }
 
@@ -447,34 +447,34 @@ const articleStats = getArticleStats();
 
   @media (max-width: 1024px) and (min-width: 769px) {
     .calendar-grid {
-      grid-template-columns: repeat(53, 11px);
+      grid-template-columns: repeat(53, 14px);
       @apply gap-0.5;
-      margin-left: 0px; 
+      margin-left: 0px;
     }
     .week-column {
       @apply gap-0.5;
     }
 
     .calendar-day {
-      width: 11px;
-      height: 11px;
+      width: 14px;
+      height: 14px;
     }
 
     .month-label {
-      font-size: 11px;
-      left: calc(var(--month-position) * (11px + 2px));
+      font-size: 12px;
+      left: calc(var(--month-position) * (14px + 2px));
     }
 
     .stats-number {
-      font-size: 11px;
+      font-size: 12px;
     }
 
     .stats-label {
-      font-size: 10px;
+      font-size: 11px;
     }
 
     .legend-text {
-      font-size: 10px;
+      font-size: 11px;
     }
   }
 </style>

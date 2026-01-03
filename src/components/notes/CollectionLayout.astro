@@ -2,9 +2,11 @@
 import BaseLayout from "@components/base/BaseLayout.astro";
 import Pagination from "@components/common/Pagination.astro";
 import PageHeader from "@components/common/PageHeader.astro";
-import LiquidGlass from "@components/common/LiquidGlassLess.astro";
-import NotesListCard from "@components/notes/NotesListCard.astro";
 import type { NotesEntry } from "@/types";
+import { formatDate } from "@lib/formatDate";
+import { plainify, slugify } from "@lib/textConverter";
+import { SITE_INFO } from "@lib/config";
+import { Image } from "astro:assets";
 
 interface Props {
   entryIndex: NotesEntry;
@@ -13,7 +15,7 @@ interface Props {
   pageIndex: number;
   pageCount: number;
   allNotesCount?: number;
-  basePath?: string; 
+  basePath?: string;
 }
 
 const {
@@ -35,81 +37,141 @@ const { title, description } = entryIndex
 ---
 
 <BaseLayout title={title} description={description}>
-  <div class="container px-3 lg:px-8">
+  <div class="container px-6 lg:px-8">
     <PageHeader
       title={title}
       description={description}
       articleCount={allNotesCount}
     />
-    <section class="">
-      <div class="flex" style="padding:0px;">
-        <div class="row px-0 mx-0 w-full grid grid-cols-1 lg:grid-cols-4 gap-6">
-          
-          <div class="lg:col-span-3 p-0">
-            {
-              entries.length > 0 ? (
-                entries.map((entry, index) => (
-                  <div class="mb-5" style={`animation-delay: ${index * 200}ms`}>
-                    <NotesListCard entry={entry} />
-                  </div>
-                ))
-              ) : (
-                <div class="mb-5">
-                  <LiquidGlass
-                    heavy
-                    containerClass="p-4"
-                    animation="fadeRight"
+
+    <section>
+      <div class="flex flex-col lg:flex-row gap-8">
+
+        <!-- 主内容区 -->
+        <main class="flex-1">
+          {entries.length === 0 ? (
+            <div class="rounded-lg border border-border/30 bg-card/30 p-8 text-center">
+              <p class="text-muted-foreground">暂无动态内容</p>
+            </div>
+          ) : (
+            <div class="space-y-6">
+              {entries.map((entry) => {
+                const slug = slugify(entry.data.title);
+                const entryDate = entry.data.date ? formatDate(entry.data.date) : null;
+                const contentPreview = entry.body
+                  ? plainify(entry.body).slice(0, 150) + (plainify(entry.body).length > 150 ? "..." : "")
+                  : "";
+
+                return (
+                  <a
+                    href={`/notes/${slug}`}
+                    class="group block rounded-lg border border-border/30 bg-card/30 hover:border-border/60 hover:bg-card/50 transition-all p-5"
                   >
-                    <p class="text-center">暂无动态内容</p>
-                  </LiquidGlass>
-                </div>
-              )
-            }
+                    <!-- 头部：头像 + 作者 + 日期 -->
+                    <div class="flex items-center gap-3 mb-4">
+                      <img
+                        src={SITE_INFO.AUTHOR_AVATAR}
+                        alt="作者头像"
+                        class="w-10 h-10 rounded-full object-cover"
+                      />
+                      <div>
+                        <div class="font-medium text-foreground">Tsukikage</div>
+                        <div class="flex items-center gap-3 text-xs text-muted-foreground/60">
+                          {entryDate && <span>{entryDate}</span>}
+                          {entry.data.location && <span>{entry.data.location}</span>}
+                          {entry.data.mood && <span>{entry.data.mood}</span>}
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- 标题 -->
+                    <h3 class="text-lg font-medium text-foreground group-hover:text-foreground/70 transition-colors mb-2">
+                      {entry.data.title}
+                    </h3>
+
+                    <!-- 内容预览 -->
+                    <p class="text-sm text-muted-foreground leading-relaxed mb-4">
+                      {entry.data.description || contentPreview}
+                    </p>
+
+                    <!-- 图片 -->
+                    {entry.data.images && entry.data.images.length > 0 && (
+                      <div class="flex flex-wrap gap-2 mb-4">
+                        {entry.data.images.slice(0, 4).map((image: any) => (
+                          <div class="w-20 h-20 rounded-lg overflow-hidden bg-muted/30">
+                            <Image
+                              src={image.src}
+                              alt={image.alt || ""}
+                              width={80}
+                              height={80}
+                              class="w-full h-full object-cover"
+                              loading="lazy"
+                            />
+                          </div>
+                        ))}
+                        {entry.data.images.length > 4 && (
+                          <div class="w-20 h-20 rounded-lg bg-muted/50 flex items-center justify-center text-sm text-muted-foreground">
+                            +{entry.data.images.length - 4}
+                          </div>
+                        )}
+                      </div>
+                    )}
+
+                    <!-- 标签 -->
+                    {entry.data.tags && entry.data.tags.length > 0 && (
+                      <div class="flex flex-wrap gap-3">
+                        {entry.data.tags.slice(0, 5).map((tag: string) => (
+                          <span class="text-xs text-muted-foreground/50">
+                            #{tag}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </a>
+                );
+              })}
+            </div>
+          )}
+
+          {pageCount > 1 && (
             <Pagination
               collection="notes"
               pageIndex={pageIndex}
               pageCount={pageCount}
               basePath={basePath}
             />
-          </div>
-          
-          <div
-            class="lg:col-span-1 lg:flex max-h-static_sidemenu sticky p-0 lg:pl-5 top-[4rem]"
-          >
-            <LiquidGlass
-              heavy
-              wrapperClass="dock !p-6"
-              containerClass="py-5 w-full"
-              animation="fadeLeft"
-            >
-              <div class="sidebar-widget mb-8">
-                <h4 class="mb-3">标签</h4>
-                <div class="flex flex-wrap gap-2">
-                  {
-                    tags.map((tag) => (
-                      <a
-                        href={`/notes/tags/${tag}`}
-                        class="text-sm md:text-base px-2 py-1 transition-all border-2 border-indigo-500/0 hover:border-slate-500 hover:rounded-lg hover:bg-white/40"
-                      >
-                        {tag}
-                      </a>
-                    ))
-                  }
-                </div>
+          )}
+        </main>
+
+        <!-- 侧边栏 -->
+        <aside class="lg:w-72 lg:sticky lg:top-[4.5rem] lg:self-start space-y-4">
+          <!-- 标签 -->
+          {tags.length > 0 && (
+            <div class="rounded-lg border border-border/30 bg-card/30 p-5">
+              <h3 class="text-lg font-medium text-foreground mb-4">标签</h3>
+              <div class="space-y-0">
+                {tags.map((tag) => (
+                  <a
+                    href={`/notes/tags/${tag}`}
+                    class="flex items-center gap-2 py-2.5 text-sm text-muted-foreground hover:text-foreground transition-colors group"
+                  >
+                    <span class="w-1 h-1 rounded-full bg-border group-hover:bg-foreground/50 transition-colors"></span>
+                    {tag}
+                  </a>
+                ))}
               </div>
-              <div class="sidebar-widget">
-                <h4 class="mb-3">统计</h4>
-                <div class="flex items-center gap-2">
-                  <span class="text-muted-foreground">共</span>
-                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-sm font-medium bg-primary/10 text-primary border border-primary/20">
-                    {allNotesCount || 0}
-                  </span>
-                  <span class="text-muted-foreground">条动态</span>
-                </div>
-              </div>
-            </LiquidGlass>
+            </div>
+          )}
+
+          <!-- 关于 -->
+          <div class="rounded-lg border border-border/30 bg-card/30 p-5">
+            <h3 class="text-lg font-medium text-foreground mb-3">关于这里</h3>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+              记录日常的碎片与灵感，分享生活中的点滴感悟。
+            </p>
           </div>
-        </div>
+        </aside>
+
       </div>
     </section>
   </div>

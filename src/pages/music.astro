@@ -521,7 +521,7 @@ const themeColor = MUSIC_PLAYER_CONFIG.THEME_COLOR;
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid hsl(var(--border));
-    border-radius: 9999px;
+    border-radius: 12px;
     color: hsl(var(--foreground));
     font-size: 0.9375rem;
     font-weight: 500;
@@ -570,9 +570,9 @@ const themeColor = MUSIC_PLAYER_CONFIG.THEME_COLOR;
   }
 
   .close-btn:hover {
-    background: hsl(var(--destructive) / 0.1);
-    border-color: hsl(var(--destructive) / 0.5);
-    color: hsl(var(--destructive));
+    background: hsl(var(--muted));
+    border-color: hsl(var(--border));
+    color: hsl(var(--foreground));
     transform: rotate(90deg);
   }
 
@@ -583,9 +583,9 @@ const themeColor = MUSIC_PLAYER_CONFIG.THEME_COLOR;
   }
 
   :global(.dark) .close-btn:hover {
-    background: rgba(239, 68, 68, 0.2);
-    border-color: rgba(239, 68, 68, 0.5);
-    color: rgb(239, 68, 68);
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: white;
   }
 
   .music-bg {
@@ -1004,7 +1004,7 @@ const themeColor = MUSIC_PLAYER_CONFIG.THEME_COLOR;
     align-items: center !important;
     gap: 0.75rem !important;
     padding: 0.625rem 0.75rem !important;
-    border-radius: 8px;
+    border-radius: 12px;
     cursor: pointer;
     transition: all 0.2s;
     height: auto !important;
@@ -1024,7 +1024,7 @@ const themeColor = MUSIC_PLAYER_CONFIG.THEME_COLOR;
   }
 
   :global(.dark) .playlist-container > .song-item.active {
-    background: rgba(255, 107, 107, 0.2);
+    background: rgba(82, 82, 91, 0.3);
   }
 
   .playlist-container .song-index {

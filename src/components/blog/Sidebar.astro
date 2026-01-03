@@ -56,12 +56,15 @@ const { tags, categories }: Props = Astro.props;
             return (
               <li class="">
                 <a
-                  class="inline-flex items-center justify-between w-full px-3 py-2 text-sm rounded-md font-medium bg-secondary/50 text-secondary-foreground border border-border hover:bg-accent hover:text-accent-foreground transition-colors duration-200"
+                  class="flex items-center justify-between w-full py-2.5 text-sm text-muted-foreground hover:text-foreground transition-colors group"
                   href={`/blog/categories/${categorySlug}`}
                 >
-                  <span>{categoryName}</span>
+                  <span class="flex items-center gap-2">
+                    <span class="w-1 h-1 rounded-full bg-border group-hover:bg-foreground/50 transition-colors"></span>
+                    {categoryName}
+                  </span>
                   {categoryCount && (
-                    <span class="inline-flex items-center justify-center px-2 py-0.5 text-xs rounded-full bg-muted text-muted-foreground">
+                    <span class="text-xs text-muted-foreground/40 group-hover:text-muted-foreground/70 transition-colors tabular-nums">
                       {categoryCount}
                     </span>
                   )}

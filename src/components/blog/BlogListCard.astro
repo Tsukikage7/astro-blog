@@ -35,7 +35,7 @@ const entryDescription = description?.substring(0, descriptionLength) || "";
 
 <LiquidGlass
   heavy
-  wrapperClass="dock rounded-2xl h-40 md:h-56 my-3 pl-0 hover:scale-[1.01] border-2 border-border/50 dark:border-border/30 hover:border-primary/40 dark:hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/10"
+  wrapperClass="dock rounded-lg h-40 md:h-56 my-3 pl-0 hover:scale-[1.005] border border-border/50 dark:border-border/30 hover:border-border dark:hover:border-border/50 hover:shadow-lg"
   textClass="h-full"
   animation="fadeRight"
 >
@@ -43,7 +43,7 @@ const entryDescription = description?.substring(0, descriptionLength) || "";
   <div class="flex h-full group">
 
     <div
-      class="relative w-36 md:w-72 h-full flex-shrink-0 overflow-hidden rounded-l-2xl"
+      class="relative w-36 md:w-72 h-full flex-shrink-0 overflow-hidden rounded-l-lg"
     >
       <a href={`/blog/${entry.id}`} class="block h-full">
         {hasCustomImage ? (
@@ -63,7 +63,7 @@ const entryDescription = description?.substring(0, descriptionLength) || "";
             </div>
 
             <div
-              class="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-primary/95 backdrop-blur-sm text-primary-foreground text-[10px] font-bold shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0"
+              class="absolute top-3 right-3 px-2.5 py-1 rounded-md bg-foreground/80 text-background text-[10px] font-medium opacity-0 group-hover:opacity-100 transition-all duration-300"
             >
               阅读
             </div>
@@ -72,7 +72,7 @@ const entryDescription = description?.substring(0, descriptionLength) || "";
           <div class="w-full h-full transition-all duration-700 ease-out group-hover:scale-110">
             <PlaceholderImage
               title={title}
-              className="w-full h-full rounded-l-2xl"
+              className="w-full h-full rounded-l-lg"
             />
           </div>
         )}

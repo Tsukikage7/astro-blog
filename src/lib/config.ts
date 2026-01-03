@@ -50,19 +50,20 @@ export const SITE_INFO = {
 
 export const UI_CONFIG = {
   ENABLE_GLASS_EFFECT: true,
+  GLASS_BLUR_INTENSITY: 'light', // 'light' | 'medium' | 'heavy'
 } as const;
 
 export const MUSIC_PLAYER_CONFIG = {
-  
+
   ENABLED: true,
-  
+
   PLAYLIST_ID: '2539599584',
-  
+
   FIXED: true,
-  
+
   SHOW_LRC: true,
-  
-  THEME_COLOR: '#FF6B6B',
+
+  THEME_COLOR: '#52525b',
   
   ORDER: 'random' as 'circulation' | 'order' | 'random' | 'single',
   

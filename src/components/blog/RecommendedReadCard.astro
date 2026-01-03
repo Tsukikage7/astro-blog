@@ -33,10 +33,9 @@ const estimatedReadingTime = readingTime(entry.body || "", 1);
 ---
 
 <div
-  class={`group flex p-2 pr-4 items-center gap-3 rounded-[25px] text-txt-p
-   hover:bg-orange-500 dark:hover:bg-orange-500 transition-all duration-300 
-   border border-transparent hover:border-gray-200/50 dark:hover:border-gray-700/50
-    [&_*]:hover:text-darkmode-txt-p`}
+  class={`group flex p-2 pr-4 items-center gap-3 rounded-lg text-txt-p
+   hover:bg-muted transition-all duration-300
+   border border-transparent hover:border-border/50`}
 >
   <a
     href={`/blog/${entry.id}`}
@@ -46,7 +45,7 @@ const estimatedReadingTime = readingTime(entry.body || "", 1);
     {
       showImage && (
         <div
-          class={`flex-shrink-0 rounded-[18px] overflow-hidden ${compact ? "w-14 h-14" : "w-16 h-16"}  block lg:hidden 2xl:block`}
+          class={`flex-shrink-0 rounded-md overflow-hidden ${compact ? "w-14 h-14" : "w-16 h-16"}  block lg:hidden 2xl:block`}
         >
           {hasCustomImage ? (
             <SmartImage
@@ -60,7 +59,7 @@ const estimatedReadingTime = readingTime(entry.body || "", 1);
           ) : (
             <PlaceholderImage
               title={title}
-              className="w-full h-full rounded-[18px]"
+              className="w-full h-full rounded-lg"
             />
           )}
         </div>

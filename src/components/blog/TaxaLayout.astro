@@ -27,19 +27,15 @@ const { taxonomy, taxonomyTitle, taxa, allTaxa }: Props = Astro.props;
               return (
                 <a
                   href={`/blog/${taxonomy}/${taxon}`}
-                  class="group relative flex items-center justify-between px-6 py-4 rounded-lg border border-border bg-card text-card-foreground hover:bg-accent hover:text-accent-foreground transition-all duration-200 shadow-sm hover:shadow-md"
+                  class="group flex items-center justify-between py-3 text-muted-foreground hover:text-foreground transition-colors"
                 >
-                  <div class="flex items-center gap-3">
-                    {taxonomy === "categories" ? (
-                      <FaRegFolder className="text-lg text-muted-foreground group-hover:text-accent-foreground transition-colors" />
-                    ) : (
-                      <FaHashtag className="text-lg text-muted-foreground group-hover:text-accent-foreground transition-colors" />
-                    )}
-                    <span class="font-medium text-sm md:text-base">
+                  <div class="flex items-center gap-2">
+                    <span class="w-1 h-1 rounded-full bg-border group-hover:bg-foreground/50 transition-colors"></span>
+                    <span class="text-sm md:text-base">
                       {upperHumanize(taxon)}
                     </span>
                   </div>
-                  <span class="inline-flex items-center justify-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-secondary text-secondary-foreground group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                  <span class="text-xs text-muted-foreground/40 group-hover:text-muted-foreground/70 transition-colors tabular-nums">
                     {count}
                   </span>
                 </a>

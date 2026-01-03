@@ -80,7 +80,7 @@ const { Content } = await render(entry);
       <div class="w-full lg:col-span-3">
         <LiquidGlass
           heavy
-          containerClass="pb-6 rounded-xl"
+          containerClass="pb-6 rounded-lg"
           textClass="p-3 md:p-5"
           animation="fadeRight"
         >
@@ -152,7 +152,7 @@ const { Content } = await render(entry);
                         height={800}
                         quality={95}
                         format="webp"
-                        class="w-full h-full object-cover shadow-lg rounded-[25px] cursor-pointer hover:opacity-90 transition-opacity"
+                        class="w-full h-full object-cover shadow-lg rounded-lg cursor-pointer hover:opacity-90 transition-opacity"
                         data-image-index={index}
                       />
                     </div>
@@ -227,7 +227,7 @@ const { Content } = await render(entry);
         
         <LiquidGlass
           heavy
-          containerClass="pb-6 rounded-xl"
+          containerClass="pb-6 rounded-lg"
           textClass="p-5"
         >
           <h3 class="text-xl font-bold mb-4">评论</h3>
@@ -244,14 +244,14 @@ const { Content } = await render(entry);
             <LiquidGlass
               heavy
               wrapperClass="dock !p-6 mb-6"
-              containerClass="rounded-xl"
+              containerClass="rounded-lg"
               textClass="p-1"
               animation="fadeLeft"
             >
               <h3 class="font-bold mb-4">相关动态</h3>
               <div class="space-y-2">
                 {relatedNotes.map((note) => (
-                  <div class="dark:border-gray-800 p-3 rounded-lg hover:bg-orange-500 dark:hover:bg-orange-500 transition-all duration-300 [&_*]:hover:text-darkmode-txt-p">
+                  <div class="dark:border-gray-800 p-3 rounded-lg hover:bg-muted transition-all duration-300">
                     <a
                       href={`/notes/${slugify(note.data.title)}`}
                       class="block hover:text-primary-500 transition-colors"
@@ -273,7 +273,7 @@ const { Content } = await render(entry);
         
         <LiquidGlass
           heavy
-          containerClass="pb-4 rounded-xl"
+          containerClass="pb-4 rounded-lg"
           textClass="p-1"
           animation="fadeLeft"
         >
@@ -281,7 +281,7 @@ const { Content } = await render(entry);
           <div class="space-y-2">
             {
               latestNotes.map((note) => (
-                <div class="dark:border-gray-800 p-3 rounded-lg hover:bg-orange-500 dark:hover:bg-orange-500 transition-all duration-300 [&_*]:hover:text-darkmode-txt-p">
+                <div class="dark:border-gray-800 p-3 rounded-lg hover:bg-muted transition-all duration-300">
                   <a
                     href={`/notes/${slugify(note.data.title)}`}
                     class="block hover:text-primary-500 transition-colors"
