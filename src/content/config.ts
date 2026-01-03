@@ -203,6 +203,30 @@ const terms = defineCollection({
   schema: baseContent,
 });
 
+// 文学创作集合 - 短篇小说、散文等
+const writings = defineCollection({
+  loader: glob({ pattern: "**\/[^_]*.{md,mdx}", base: "./src/content/writings" }),
+  schema: ({ image }) =>
+    baseContent.extend({
+      // 封面图
+      image: z.union([image(), z.string()]).optional(),
+      // 体裁：短篇小说、散文、诗歌、杂文等
+      genre: z.enum(["短篇小说", "散文", "诗歌", "杂文", "随笔"]).optional(),
+      // 系列/连载名称
+      series: z.string().optional(),
+      // 系列中的顺序
+      seriesOrder: z.number().optional(),
+      // 字数（可自动计算或手动指定）
+      wordCount: z.number().optional(),
+      // 氛围/情绪标签
+      mood: z.string().optional(),
+      // 标签
+      tags: z.array(z.string()).optional(),
+      // 是否为草稿
+      draft: z.boolean().default(false),
+    }),
+});
+
 export const collections = {
   about,
   blog,
@@ -213,4 +237,5 @@ export const collections = {
   search,
   social: socialConfig,
   terms,
+  writings,
 };

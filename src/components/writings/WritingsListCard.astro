@@ -1,0 +1,126 @@
+---
+import type { WritingsEntry } from "@/types";
+import { plainify } from "@lib/textConverter";
+import { FaRegClock, FaRegCalendarAlt, FaBookOpen } from "react-icons/fa";
+import readingTime from "@lib/readingTime";
+import { formatDate } from "@lib/formatDate";
+import LiquidGlass from "@components/common/LiquidGlassLess.astro";
+import SmartImage from "@components/common/SmartImage.astro";
+
+interface Props {
+  entry: WritingsEntry;
+}
+
+const { entry }: Props = Astro.props;
+const { title, description, created, genre, mood, tags, image, series } = entry.data;
+const descriptionLength = 150;
+
+const hasCustomImage = !!(image && (typeof image === "string" || (typeof image === "object" && "src" in image)));
+
+const entryDate = created ? formatDate(created) : null;
+const entryReadingTime = readingTime(entry.body!, 1);
+const entryDescription = description?.substring(0, descriptionLength) ||
+  (entry.body ? plainify(entry.body.slice(0, descriptionLength)) : "");
+
+// 根据体裁返回不同的颜色
+const genreConfig: Record<string, { color: string }> = {
+  "短篇小说": { color: "bg-amber-500/20 text-amber-600 dark:text-amber-400" },
+  "散文": { color: "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400" },
+  "诗歌": { color: "bg-pink-500/20 text-pink-600 dark:text-pink-400" },
+  "杂文": { color: "bg-purple-500/20 text-purple-600 dark:text-purple-400" },
+  "随笔": { color: "bg-blue-500/20 text-blue-600 dark:text-blue-400" },
+};
+
+const currentGenre = genre ? genreConfig[genre] : null;
+---
+
+<LiquidGlass
+  heavy
+  wrapperClass="dock rounded-2xl my-3 hover:scale-[1.01] border-2 border-border/50 dark:border-border/30 hover:border-amber-500/40 dark:hover:border-amber-400/30 hover:shadow-2xl hover:shadow-amber-500/10 transition-all duration-300"
+  textClass="h-full"
+  animation="fadeRight"
+>
+  <div class="flex flex-col group p-5">
+    <!-- 顶部信息栏 -->
+    <div class="flex items-center justify-between mb-3">
+      <div class="flex items-center gap-2">
+        {currentGenre && (
+          <span class={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium ${currentGenre.color}`}>
+            {genre}
+          </span>
+        )}
+        {series && (
+          <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-indigo-500/15 text-indigo-600 dark:text-indigo-400">
+            {series}
+          </span>
+        )}
+      </div>
+      <div class="flex items-center gap-3 text-[11px] text-txt-light dark:text-darkmode-txt-light opacity-60">
+        <div class="flex items-center">
+          <FaRegClock className="mr-1" />
+          <span>{entryReadingTime}</span>
+        </div>
+        {entryDate && (
+          <div class="flex items-center">
+            <FaRegCalendarAlt className="mr-1" />
+            <span>{entryDate}</span>
+          </div>
+        )}
+      </div>
+    </div>
+
+    <!-- 标题 -->
+    <h3 class="mb-2 text-xl md:text-2xl font-bold text-txt-p dark:text-darkmode-txt-p leading-tight group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors duration-300">
+      <a
+        href={`/writings/${entry.id}`}
+        class="hover:underline hover:decoration-amber-500 hover:decoration-2 hover:underline-offset-4 block"
+      >
+        {title}
+      </a>
+    </h3>
+
+    <!-- 描述/摘要 -->
+    <p class="text-txt-light dark:text-darkmode-txt-light leading-relaxed mb-4 line-clamp-3 text-sm md:text-base">
+      {entryDescription}...
+    </p>
+
+    <!-- 底部信息 -->
+    <div class="flex items-center justify-between mt-auto pt-3 border-t border-border/30 dark:border-border/20">
+      <div class="flex items-center gap-2">
+        {mood && (
+          <span class="text-xs text-txt-light dark:text-darkmode-txt-light opacity-70">
+            {mood}
+          </span>
+        )}
+        {tags && tags.length > 0 && (
+          <div class="flex items-center gap-1">
+            {tags.slice(0, 3).map((tag) => (
+              <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-muted/60 text-muted-foreground">
+                #{tag}
+              </span>
+            ))}
+          </div>
+        )}
+      </div>
+      <a
+        href={`/writings/${entry.id}`}
+        class="inline-flex items-center text-amber-600 dark:text-amber-400 hover:text-amber-700 dark:hover:text-amber-300 font-medium text-sm transition-all duration-300 group/link"
+      >
+        <span>阅读全文</span>
+        <svg
+          class="ml-1.5 w-4 h-4 transition-transform duration-300 group-hover/link:translate-x-1"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M13 7l5 5m0 0l-5 5m5-5H6"
+          ></path>
+        </svg>
+      </a>
+    </div>
+  </div>
+</LiquidGlass>

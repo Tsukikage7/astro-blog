@@ -1,0 +1,35 @@
+---
+import CollectionLayout from "@components/writings/CollectionLayout.astro";
+import { getEntries, getIndex } from "@lib/contentParser";
+import { sortByDate } from "@lib/sortFunctions";
+import { getPageSize } from "@lib/config";
+import type { WritingsEntry } from "@/types";
+
+const currentPageIndex = 1;
+
+const entryIndex = (await getIndex("writings")) as WritingsEntry;
+const allEntries = (await getEntries("writings", sortByDate)) as WritingsEntry[];
+
+// 过滤掉草稿
+const entries = allEntries.filter((entry) => !entry.data.draft);
+const allCount = entries.length;
+
+// 获取所有体裁
+const genres = [...new Set(entries.map((entry) => entry.data.genre).filter(Boolean))] as string[];
+
+const entriesPerPage = getPageSize("writings") || 10;
+const indexOfLastEntry = currentPageIndex * entriesPerPage;
+const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
+const currentEntries = entries.slice(indexOfFirstEntry, indexOfLastEntry);
+
+const pageCount = Math.ceil(entries.length / entriesPerPage);
+---
+
+<CollectionLayout
+  entryIndex={entryIndex}
+  entries={currentEntries}
+  genres={genres}
+  pageIndex={currentPageIndex}
+  pageCount={pageCount}
+  allCount={allCount}
+/>

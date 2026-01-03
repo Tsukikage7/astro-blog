@@ -102,7 +102,7 @@ openSource:
     role: Committer & PMC
     period: 2024.07 - 至今
     description: 基于 Gin 的简单易用 Web 开发框架
-    url: https://github.com/chongyanovo/go-zzz
+    url: https://github.com/Tsukikage7/go-zzz
     contributions:
       - 项目架构设计与核心开发
       - 支持 GORM/WebSocket/JWT/限流/重试
@@ -110,7 +110,7 @@ openSource:
 
 # 社交媒体
 social:
-  github: https://github.com/chongyanovo
+  github: https://github.com/Tsukikage7
   email: chongyanx@163.com
 ---
 

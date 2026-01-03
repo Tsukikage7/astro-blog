@@ -1,26 +1,30 @@
 
 
 export const PAGINATION_CONFIG = {
-  
+
   BLOG_ENTRIES_PER_PAGE: 10,
-  
+
   NOTES_DEFAULT_PAGE_SIZE: 10,
-  
+
+  WRITINGS_ENTRIES_PER_PAGE: 10,
+
   DEFAULT_PAGE_SIZE: 8,
 } as const;
 
-export const getPageSize = (type: 'blog' | 'notes' = 'blog'): number => {
+export const getPageSize = (type: 'blog' | 'notes' | 'writings' = 'blog'): number => {
   switch (type) {
     case 'blog':
       return PAGINATION_CONFIG.BLOG_ENTRIES_PER_PAGE;
     case 'notes':
       return PAGINATION_CONFIG.NOTES_DEFAULT_PAGE_SIZE;
+    case 'writings':
+      return PAGINATION_CONFIG.WRITINGS_ENTRIES_PER_PAGE;
     default:
       return PAGINATION_CONFIG.DEFAULT_PAGE_SIZE;
   }
 };
 
-export type PageType = 'blog' | 'notes';
+export type PageType = 'blog' | 'notes' | 'writings';
 
 export const SITE_INFO = {
   

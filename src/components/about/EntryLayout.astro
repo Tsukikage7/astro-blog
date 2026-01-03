@@ -5,7 +5,51 @@ import type { AboutEntry } from "@/types";
 import { render } from "astro:content";
 import LiquidGlassLess from "@components/common/LiquidGlassLess.astro";
 import { Image } from "astro:assets";
-import { FaGithub, FaEnvelope, FaMapMarkerAlt, FaBriefcase, FaGraduationCap, FaCode } from "react-icons/fa";
+import { FaGithub, FaEnvelope, FaMapMarkerAlt, FaBriefcase, FaGraduationCap, FaCode, FaLightbulb, FaServer, FaDesktop, FaTools, FaDatabase, FaCogs, FaCloud, FaMobile, FaLaptopCode, FaPalette, FaShieldAlt, FaRocket, FaWrench, FaChartBar, FaBolt, FaHdd, FaTag } from "react-icons/fa";
+
+// Map emoji or icon names to react-icon components
+const iconMap: Record<string, any> = {
+  // Emoji mappings
+  '🔧': FaWrench,
+  '💾': FaDatabase,
+  '⚡': FaBolt,
+  '📊': FaChartBar,
+  '📌': FaTag,
+  '💡': FaLightbulb,
+  '🚀': FaRocket,
+  '💻': FaLaptopCode,
+  '🛠️': FaTools,
+  '☁️': FaCloud,
+  '📱': FaMobile,
+  '🎨': FaPalette,
+  '🔒': FaShieldAlt,
+  '⚙️': FaCogs,
+  '🖥️': FaDesktop,
+  '🗄️': FaServer,
+  // Name mappings
+  'wrench': FaWrench,
+  'database': FaDatabase,
+  'bolt': FaBolt,
+  'chart': FaChartBar,
+  'code': FaCode,
+  'lightbulb': FaLightbulb,
+  'rocket': FaRocket,
+  'laptop': FaLaptopCode,
+  'tools': FaTools,
+  'cloud': FaCloud,
+  'mobile': FaMobile,
+  'palette': FaPalette,
+  'shield': FaShieldAlt,
+  'cogs': FaCogs,
+  'desktop': FaDesktop,
+  'server': FaServer,
+};
+
+// Get icon component from emoji or name, with fallback
+function getIconComponent(icon: string | undefined) {
+  if (!icon) return FaTag;
+  return iconMap[icon] || FaTag;
+}
 
 interface Props {
   entry: AboutEntry;
@@ -124,13 +168,15 @@ const imageSrc = image ? (typeof image === 'string' ? image : image.src) : undef
       {skillCategories && skillCategories.length > 0 && (
         <div>
           <h2 class="text-2xl font-bold text-txt-p dark:text-darkmode-txt-p mb-5 flex items-center gap-2">
-            <span class="text-3xl">💡</span> 专业技能
+            <FaLightbulb className="text-3xl text-primary" /> 专业技能
           </h2>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {skillCategories.map((category) => (
+            {skillCategories.map((category) => {
+              const CategoryIcon = getIconComponent(category.icon);
+              return (
               <LiquidGlassLess heavy textClass="p-5 h-full">
                 <h3 class="text-lg font-bold mb-3 text-txt-p dark:text-darkmode-txt-p flex items-center gap-2">
-                  <span class="text-xl">{category.icon || '📌'}</span>
+                  <CategoryIcon className="text-xl text-primary" />
                   {category.name}
                 </h3>
                 <ul class="space-y-2">
@@ -142,7 +188,8 @@ const imageSrc = image ? (typeof image === 'string' ? image : image.src) : undef
                   ))}
                 </ul>
               </LiquidGlassLess>
-            ))}
+              );
+            })}
           </div>
         </div>
       )}

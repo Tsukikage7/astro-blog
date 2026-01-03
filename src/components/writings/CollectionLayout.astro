@@ -1,0 +1,142 @@
+---
+import BaseLayout from "@components/base/BaseLayout.astro";
+import WritingsListCard from "@components/writings/WritingsListCard.astro";
+import Pagination from "@components/common/Pagination.astro";
+import PageHeader from "@components/common/PageHeader.astro";
+import LiquidGlassLess from "@components/common/LiquidGlassLess.astro";
+import type { WritingsEntry } from "@/types";
+
+interface Props {
+  entryIndex?: WritingsEntry;
+  entries: WritingsEntry[];
+  genres?: string[];
+  pageIndex: number;
+  pageCount: number;
+  allCount?: number;
+  basePath?: string;
+  currentGenre?: string;
+}
+
+const {
+  entryIndex,
+  entries,
+  genres = [],
+  pageIndex,
+  pageCount,
+  allCount,
+  basePath,
+  currentGenre,
+} = Astro.props;
+
+const { title, description } = entryIndex?.data || {
+  title: "文字小筑",
+  description: "记录灵感与故事的角落",
+};
+
+// 体裁筛选配置
+const genreConfig: Record<string, { label: string }> = {
+  "短篇小说": { label: "短篇小说" },
+  "散文": { label: "散文" },
+  "诗歌": { label: "诗歌" },
+  "杂文": { label: "杂文" },
+  "随笔": { label: "随笔" },
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <div class="container px-3 lg:px-8">
+    <PageHeader
+      title={title}
+      description={description}
+      articleCount={allCount}
+    />
+
+    <section class="">
+      <div class="flex flex-col lg:flex-row gap-6">
+        <!-- 主内容区 -->
+        <div class="flex-1">
+          {entries.length === 0 ? (
+            <LiquidGlassLess
+              heavy
+              wrapperClass="dock rounded-2xl p-8 text-center"
+            >
+              <p class="text-txt-light dark:text-darkmode-txt-light text-lg">
+                暂无作品，敬请期待...
+              </p>
+            </LiquidGlassLess>
+          ) : (
+            entries.map((entry, index) => (
+              <div class="mb-4" style={`animation-delay: ${index * 100}ms`}>
+                <WritingsListCard entry={entry} />
+              </div>
+            ))
+          )}
+
+          {pageCount > 1 && (
+            <Pagination
+              collection="writings"
+              pageIndex={pageIndex}
+              pageCount={pageCount}
+              basePath={basePath}
+            />
+          )}
+        </div>
+
+        <!-- 侧边栏 -->
+        <div class="lg:w-72 lg:sticky lg:top-[4.5rem] lg:self-start space-y-4">
+          <!-- 体裁筛选 -->
+          {genres.length > 0 && (
+            <LiquidGlassLess
+              heavy
+              wrapperClass="dock rounded-2xl p-4"
+            >
+              <h3 class="text-lg font-bold text-txt-p dark:text-darkmode-txt-p mb-3">
+                体裁分类
+              </h3>
+              <div class="flex flex-wrap gap-2">
+                <a
+                  href="/writings"
+                  class={`inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 ${
+                    !currentGenre
+                      ? "bg-amber-500/20 text-amber-600 dark:text-amber-400 ring-1 ring-amber-500/30"
+                      : "bg-muted/60 text-muted-foreground hover:bg-muted"
+                  }`}
+                >
+                  全部
+                </a>
+                {genres.map((genre) => {
+                  const config = genreConfig[genre];
+                  return (
+                    <a
+                      href={`/writings/genre/${encodeURIComponent(genre)}`}
+                      class={`inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 ${
+                        currentGenre === genre
+                          ? "bg-amber-500/20 text-amber-600 dark:text-amber-400 ring-1 ring-amber-500/30"
+                          : "bg-muted/60 text-muted-foreground hover:bg-muted"
+                      }`}
+                    >
+                      {genre}
+                    </a>
+                  );
+                })}
+              </div>
+            </LiquidGlassLess>
+          )}
+
+          <!-- 写作说明 -->
+          <LiquidGlassLess
+            heavy
+            wrapperClass="dock rounded-2xl p-4"
+          >
+            <h3 class="text-lg font-bold text-txt-p dark:text-darkmode-txt-p mb-3">
+              关于这里
+            </h3>
+            <p class="text-sm text-txt-light dark:text-darkmode-txt-light leading-relaxed">
+              这里是我的文学创作空间，收录短篇小说、散文随笔和偶尔的诗歌。文字是思想的载体，故事是灵魂的倒影。
+            </p>
+          </LiquidGlassLess>
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>

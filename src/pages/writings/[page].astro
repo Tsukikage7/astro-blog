@@ -1,0 +1,54 @@
+---
+import CollectionLayout from "@components/writings/CollectionLayout.astro";
+import { getEntries, getIndex } from "@lib/contentParser";
+import { sortByDate } from "@lib/sortFunctions";
+import { getPageSize } from "@lib/config";
+import type { WritingsEntry } from "@/types";
+
+export async function getStaticPaths() {
+  const allEntries = (await getEntries("writings", sortByDate)) as WritingsEntry[];
+  const entries = allEntries.filter((entry) => !entry.data.draft);
+  const entriesPerPage = getPageSize("writings") || 10;
+  const pageCount = Math.ceil(entries.length / entriesPerPage);
+
+  const paths = [];
+  for (let i = 2; i <= pageCount; i++) {
+    paths.push({
+      params: { page: `page/${i}` },
+      props: { pageIndex: i },
+    });
+  }
+
+  return paths;
+}
+
+interface Props {
+  pageIndex: number;
+}
+
+const { pageIndex } = Astro.props;
+
+const entryIndex = (await getIndex("writings")) as WritingsEntry;
+const allEntries = (await getEntries("writings", sortByDate)) as WritingsEntry[];
+const entries = allEntries.filter((entry) => !entry.data.draft);
+const allCount = entries.length;
+
+// 获取所有体裁
+const genres = [...new Set(entries.map((entry) => entry.data.genre).filter(Boolean))] as string[];
+
+const entriesPerPage = getPageSize("writings") || 10;
+const indexOfLastEntry = pageIndex * entriesPerPage;
+const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
+const currentEntries = entries.slice(indexOfFirstEntry, indexOfLastEntry);
+
+const pageCount = Math.ceil(entries.length / entriesPerPage);
+---
+
+<CollectionLayout
+  entryIndex={entryIndex}
+  entries={currentEntries}
+  genres={genres}
+  pageIndex={pageIndex}
+  pageCount={pageCount}
+  allCount={allCount}
+/>
