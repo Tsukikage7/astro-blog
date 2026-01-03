@@ -17,6 +17,10 @@ const recentPosts = allPosts.slice(0, 5);
 
 const latestNotes = (await getEntries("notes", sortByDate)) as CollectionEntry<"notes">[];
 
+// 获取文字内容
+const allWritings = (await getEntries("writings", sortByDate)) as CollectionEntry<"writings">[];
+const latestWritings = allWritings.slice(0, 6);
+
 // 分类统计
 const allCategories = allPosts.flatMap((post) => post.data.categories || []).filter(Boolean);
 const uniqueCategories = [...new Set(allCategories)].sort();
@@ -88,6 +92,59 @@ const hasImage = (post: BlogEntry) => {
         <div class="flex-shrink-0 w-6"></div>
       </div>
     </section>
+
+    <!-- 文字作品 -->
+    {latestWritings.length > 0 && (
+      <section class="mb-16">
+        <div class="px-6 mb-6 flex items-center justify-between">
+          <h2 class="text-2xl font-medium text-foreground flex items-center gap-2">
+            <svg class="w-6 h-6 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+            </svg>
+            文字
+          </h2>
+          <a href="/writings" class="text-base text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1 group">
+            查看全部
+            <svg class="w-5 h-5 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7" />
+            </svg>
+          </a>
+        </div>
+
+        <div class="gallery-scroll flex gap-4 overflow-x-auto pl-6 pb-6 snap-x snap-mandatory">
+          {latestWritings.map((writing, index) => {
+            const dateStr = writing.data.date ? formatDate(writing.data.date) : "";
+            const preview = writing.body ? plainify(writing.body).slice(0, 80) + "..." : "";
+            return (
+              <a
+                href={`/writings/${writing.id}`}
+                class="group flex-shrink-0 snap-start w-[280px] md:w-[320px]"
+              >
+                <article class="h-full p-5 rounded-lg border border-border/30 bg-card/30 hover:border-border/60 hover:bg-card/50 transition-all">
+                  <div class="flex items-center gap-2 mb-3">
+                    {writing.data.genre && (
+                      <span class="text-xs text-muted-foreground/60">
+                        {writing.data.genre}
+                      </span>
+                    )}
+                    {dateStr && (
+                      <span class="text-xs text-muted-foreground/40">{dateStr}</span>
+                    )}
+                  </div>
+                  <h3 class="text-base font-medium text-foreground group-hover:text-foreground/70 transition-colors line-clamp-2 mb-2">
+                    {writing.data.title}
+                  </h3>
+                  <p class="text-sm text-muted-foreground/70 line-clamp-3 leading-relaxed">
+                    {writing.data.description || preview}
+                  </p>
+                </article>
+              </a>
+            );
+          })}
+          <div class="flex-shrink-0 w-6"></div>
+        </div>
+      </section>
+    )}
 
     <!-- 三栏区域 -->
     <section class="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-16 py-12 px-6 border-t border-border/20">
