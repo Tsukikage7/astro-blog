@@ -129,12 +129,12 @@ tags?.sort((a: string, b: string) => a.localeCompare(b));
               set:html={markdownify(title)}
               class={`${
                 image && showImage
-                  ? "mb-4 text-white drop-shadow-lg text-shadow-lg text-xl md:text-3xl font-bold"
-                  : "mb-3 text-2xl md:text-3xl font-bold text-gray-900 dark:text-white"
+                  ? "mb-4 text-white drop-shadow-lg text-shadow-lg text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold"
+                  : "mb-3 text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 dark:text-white"
               }`}
             />
             <ul
-              class={`flex flex-wrap gap-4 text-sm ${
+              class={`flex flex-wrap gap-x-4 gap-y-2 text-xs sm:text-sm ${
                 image && showImage
                   ? "text-white/90"
                   : "text-gray-600 dark:text-gray-300"
@@ -180,11 +180,12 @@ tags?.sort((a: string, b: string) => a.localeCompare(b));
                   {categories.map((category: string, index: number) => (
                     <a
                       href={`/blog/categories/${slugify(category)}`}
-                      class="inline-flex items-center px-2 py-0.5 rounded-lg text-[11px] font-medium
+                      class="inline-flex items-center px-2.5 py-1 rounded-lg text-[11px] sm:text-xs font-medium min-h-[28px]
                              bg-zinc-200/80 dark:bg-zinc-700/60
                              text-zinc-700 dark:text-zinc-300
                              hover:bg-zinc-300 dark:hover:bg-zinc-600
-                             transition-colors duration-200"
+                             active:scale-95
+                             transition-all duration-200"
                     >
                       {upperHumanize(category)}
                     </a>
@@ -196,11 +197,12 @@ tags?.sort((a: string, b: string) => a.localeCompare(b));
                   {tags.map((tag: string, index: number) => (
                     <a
                       href={`/blog/tags/${slugify(tag)}`}
-                      class="inline-flex items-center px-2 py-0.5 rounded-lg text-[11px] font-medium
+                      class="inline-flex items-center px-2.5 py-1 rounded-lg text-[11px] sm:text-xs font-medium min-h-[28px]
                              bg-zinc-100 dark:bg-zinc-800/60
                              text-zinc-600 dark:text-zinc-400
                              hover:bg-zinc-200 dark:hover:bg-zinc-700
-                             transition-colors duration-200"
+                             active:scale-95
+                             transition-all duration-200"
                     >
                       <span class="mr-0.5 opacity-60">#</span>
                       {lowerHumanize(tag)}
