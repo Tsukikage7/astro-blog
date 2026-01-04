@@ -9,37 +9,28 @@ import type { WritingsEntry } from "@/types";
 interface Props {
   entryIndex?: WritingsEntry;
   entries: WritingsEntry[];
-  genres?: string[];
+  tags?: string[];
   pageIndex: number;
   pageCount: number;
   allCount?: number;
   basePath?: string;
-  currentGenre?: string;
+  currentTag?: string;
 }
 
 const {
   entryIndex,
   entries,
-  genres = [],
+  tags = [],
   pageIndex,
   pageCount,
   allCount,
   basePath,
-  currentGenre,
+  currentTag,
 } = Astro.props;
 
 const { title, description } = entryIndex?.data || {
   title: "文字小筑",
   description: "记录灵感与故事的角落",
-};
-
-// 体裁筛选配置
-const genreConfig: Record<string, { label: string }> = {
-  "短篇小说": { label: "短篇小说" },
-  "散文": { label: "散文" },
-  "诗歌": { label: "诗歌" },
-  "杂文": { label: "杂文" },
-  "随笔": { label: "随笔" },
 };
 ---
 
@@ -83,55 +74,50 @@ const genreConfig: Record<string, { label: string }> = {
         </div>
 
         <!-- 侧边栏 -->
-        <div class="lg:w-72 lg:sticky lg:top-[4.5rem] lg:self-start space-y-4">
-          <!-- 体裁筛选 -->
-          {genres.length > 0 && (
+        <div class="lg:w-64 lg:sticky lg:top-[4.5rem] lg:self-start space-y-4">
+          {tags.length > 0 && (
             <LiquidGlassLess
               heavy
               wrapperClass="dock rounded-lg p-4"
             >
-              <h3 class="text-lg font-bold text-txt-p dark:text-darkmode-txt-p mb-3">
-                体裁分类
+              <h3 class="text-base font-medium text-foreground mb-3">
+                标签
               </h3>
               <div class="flex flex-wrap gap-2">
                 <a
                   href="/writings"
-                  class={`inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 ${
-                    !currentGenre
-                      ? "bg-zinc-800/90 text-zinc-100 dark:bg-zinc-200/90 dark:text-zinc-900"
-                      : "bg-muted/60 text-muted-foreground hover:bg-muted"
+                  class={`inline-flex items-center px-2.5 py-1 rounded-md text-sm transition-colors ${
+                    !currentTag
+                      ? "bg-foreground text-background"
+                      : "bg-muted/60 text-muted-foreground hover:bg-muted hover:text-foreground"
                   }`}
                 >
                   全部
                 </a>
-                {genres.map((genre) => {
-                  const config = genreConfig[genre];
-                  return (
-                    <a
-                      href={`/writings/genre/${encodeURIComponent(genre)}`}
-                      class={`inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 ${
-                        currentGenre === genre
-                          ? "bg-zinc-800/90 text-zinc-100 dark:bg-zinc-200/90 dark:text-zinc-900"
-                          : "bg-muted/60 text-muted-foreground hover:bg-muted"
-                      }`}
-                    >
-                      {genre}
-                    </a>
-                  );
-                })}
+                {tags.map((tag) => (
+                  <a
+                    href={`/writings/tags/${encodeURIComponent(tag)}`}
+                    class={`inline-flex items-center px-2.5 py-1 rounded-md text-sm transition-colors ${
+                      currentTag === tag
+                        ? "bg-foreground text-background"
+                        : "bg-muted/60 text-muted-foreground hover:bg-muted hover:text-foreground"
+                    }`}
+                  >
+                    {tag}
+                  </a>
+                ))}
               </div>
             </LiquidGlassLess>
           )}
 
-          <!-- 写作说明 -->
           <LiquidGlassLess
             heavy
             wrapperClass="dock rounded-lg p-4"
           >
-            <h3 class="text-lg font-bold text-txt-p dark:text-darkmode-txt-p mb-3">
+            <h3 class="text-base font-medium text-foreground mb-3">
               关于这里
             </h3>
-            <p class="text-sm text-txt-light dark:text-darkmode-txt-light leading-relaxed">
+            <p class="text-sm text-muted-foreground leading-relaxed">
               这里是我的文学创作空间，收录短篇小说、散文随笔和偶尔的诗歌。文字是思想的载体，故事是灵魂的倒影。
             </p>
           </LiquidGlassLess>

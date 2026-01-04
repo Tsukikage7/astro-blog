@@ -197,7 +197,20 @@ module.exports = {
       },
       dropShadow: {
         'md-white': '0 0 1px rgba(255, 255, 255, 0.6)',
-      }
+      },
+      typography: {
+        DEFAULT: {
+          css: {
+            // 移除行内代码前后的反引号
+            'code::before': {
+              content: '""',
+            },
+            'code::after': {
+              content: '""',
+            },
+          },
+        },
+      },
     },
   },
   plugins: [

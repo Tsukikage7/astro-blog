@@ -33,8 +33,8 @@ const allEntries = (await getEntries("writings", sortByDate)) as WritingsEntry[]
 const entries = allEntries.filter((entry) => !entry.data.draft);
 const allCount = entries.length;
 
-// 获取所有体裁
-const genres = [...new Set(entries.map((entry) => entry.data.genre).filter(Boolean))] as string[];
+// 获取所有标签
+const tags = [...new Set(entries.flatMap((entry) => entry.data.tags || []))].sort();
 
 const entriesPerPage = getPageSize("writings") || 10;
 const indexOfLastEntry = pageIndex * entriesPerPage;
@@ -47,7 +47,7 @@ const pageCount = Math.ceil(entries.length / entriesPerPage);
 <CollectionLayout
   entryIndex={entryIndex}
   entries={currentEntries}
-  genres={genres}
+  tags={tags}
   pageIndex={pageIndex}
   pageCount={pageCount}
   allCount={allCount}
