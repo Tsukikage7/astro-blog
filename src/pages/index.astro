@@ -12,14 +12,23 @@ import SmartImage from "@components/common/SmartImage.astro";
 import PlaceholderImage from "@components/blog/PlaceholderImage.astro";
 
 const allPosts = (await getEntries("blog", sortByDate)) as BlogEntry[];
-const galleryPosts = allPosts.slice(0, 8);
 const recentPosts = allPosts.slice(0, 5);
 
 const latestNotes = (await getEntries("notes", sortByDate)) as CollectionEntry<"notes">[];
 
 // 获取文字内容
 const allWritings = (await getEntries("writings", sortByDate)) as CollectionEntry<"writings">[];
-const latestWritings = allWritings.slice(0, 6);
+
+// 合并博客和文字，按日期排序
+type GalleryItem = { type: "blog"; data: BlogEntry } | { type: "writing"; data: CollectionEntry<"writings"> };
+const galleryItems: GalleryItem[] = [
+  ...allPosts.map((post) => ({ type: "blog" as const, data: post })),
+  ...allWritings.map((writing) => ({ type: "writing" as const, data: writing })),
+].sort((a, b) => {
+  const dateA = a.type === "blog" ? a.data.data.date : a.data.data.date;
+  const dateB = b.type === "blog" ? b.data.data.date : b.data.data.date;
+  return new Date(dateB || 0).getTime() - new Date(dateA || 0).getTime();
+}).slice(0, 12);
 
 // 分类统计
 const allCategories = allPosts.flatMap((post) => post.data.categories || []).filter(Boolean);
@@ -39,84 +48,56 @@ const hasImage = (post: BlogEntry) => {
 <BaseLayout>
   <div class="py-8">
 
-    <!-- 博客文章 -->
+    <!-- 最新内容（博客+文字混合） -->
     <section class="mb-16">
       <div class="px-6 mb-6 flex items-center justify-between">
-        <h2 class="text-2xl font-medium text-foreground flex items-center gap-2">
-          <svg class="w-6 h-6 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
-          </svg>
-          博客
-        </h2>
-        <a href="/blog" class="text-base text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1 group">
-          查看全部
-          <svg class="w-5 h-5 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7" />
-          </svg>
-        </a>
+        <h2 class="text-2xl font-medium text-foreground">最新内容</h2>
       </div>
 
       <div class="gallery-scroll flex gap-5 overflow-x-auto pl-6 pb-6 snap-x snap-mandatory">
-        {galleryPosts.map((post, index) => {
-          const dateStr = post.data.date ? formatDate(post.data.date) : "";
-          return (
-            <a
-              href={`/blog/${post.id}`}
-              class="group flex-shrink-0 snap-start w-[85vw] md:w-[420px]"
-            >
-              <article class="h-full">
-                <div class="relative overflow-hidden rounded-xl bg-muted/30 aspect-[16/10]">
-                  {hasImage(post) ? (
-                    <SmartImage
-                      src={post.data.image}
-                      alt={post.data.imageAlt || post.data.title}
-                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      loading={index < 3 ? "eager" : "lazy"}
-                      quality={75}
-                    />
-                  ) : (
-                    <PlaceholderImage title={post.data.title} className="w-full h-full" />
-                  )}
-                </div>
-                <div class="mt-4 pr-4">
-                  <time class="text-sm text-muted-foreground/60">{dateStr}</time>
-                  <h3 class="mt-1.5 text-lg font-medium text-foreground group-hover:text-foreground/70 transition-colors line-clamp-2">
-                    {post.data.title}
-                  </h3>
-                  {post.data.description && (
-                    <p class="mt-2 text-base text-muted-foreground line-clamp-2">
-                      {post.data.description}
-                    </p>
-                  )}
-                </div>
-              </article>
-            </a>
-          );
-        })}
-        <div class="flex-shrink-0 w-6"></div>
-      </div>
-    </section>
-
-    <!-- 文字作品 -->
-    {latestWritings.length > 0 && (
-      <section class="mb-16">
-        <div class="px-6 mb-6 flex items-center justify-between">
-          <h2 class="text-2xl font-medium text-foreground flex items-center gap-2">
-            <svg class="w-6 h-6 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-            </svg>
-            文字
-          </h2>
-          <a href="/writings" class="text-base text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1 group">
-            查看全部
-            <svg class="w-5 h-5 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7" />
-            </svg>
-          </a>
-        </div>
-
-        <div class="gallery-scroll flex gap-5 overflow-x-auto pl-6 pb-6 snap-x snap-mandatory">
-          {latestWritings.map((writing, index) => {
+        {galleryItems.map((item, index) => {
+          if (item.type === "blog") {
+            const post = item.data;
+            const dateStr = post.data.date ? formatDate(post.data.date) : "";
+            return (
+              <a
+                href={`/blog/${post.id}`}
+                class="group flex-shrink-0 snap-start w-[85vw] md:w-[420px]"
+              >
+                <article class="h-full">
+                  <div class="relative overflow-hidden rounded-xl bg-muted/30 aspect-[16/10]">
+                    {hasImage(post) ? (
+                      <SmartImage
+                        src={post.data.image}
+                        alt={post.data.imageAlt || post.data.title}
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        loading={index < 3 ? "eager" : "lazy"}
+                        quality={75}
+                      />
+                    ) : (
+                      <PlaceholderImage title={post.data.title} className="w-full h-full" />
+                    )}
+                  </div>
+                  <div class="mt-4 pr-4">
+                    <div class="flex items-center gap-2 text-sm text-muted-foreground/60">
+                      <span>博客</span>
+                      {dateStr && <span>·</span>}
+                      {dateStr && <time>{dateStr}</time>}
+                    </div>
+                    <h3 class="mt-1.5 text-lg font-medium text-foreground group-hover:text-foreground/70 transition-colors line-clamp-2">
+                      {post.data.title}
+                    </h3>
+                    {post.data.description && (
+                      <p class="mt-2 text-base text-muted-foreground line-clamp-2">
+                        {post.data.description}
+                      </p>
+                    )}
+                  </div>
+                </article>
+              </a>
+            );
+          } else {
+            const writing = item.data;
             const dateStr = writing.data.date ? formatDate(writing.data.date) : "";
             const preview = writing.body ? plainify(writing.body).slice(0, 100) + "..." : "";
             return (
@@ -130,8 +111,8 @@ const hasImage = (post: BlogEntry) => {
                   </div>
                   <div class="mt-4 pr-4">
                     <div class="flex items-center gap-2 text-sm text-muted-foreground/60">
-                      {writing.data.genre && <span>{writing.data.genre}</span>}
-                      {writing.data.genre && dateStr && <span>·</span>}
+                      <span>{writing.data.genre || "文字"}</span>
+                      {dateStr && <span>·</span>}
                       {dateStr && <time>{dateStr}</time>}
                     </div>
                     <h3 class="mt-1.5 text-lg font-medium text-foreground group-hover:text-foreground/70 transition-colors line-clamp-2">
@@ -144,11 +125,11 @@ const hasImage = (post: BlogEntry) => {
                 </article>
               </a>
             );
-          })}
-          <div class="flex-shrink-0 w-6"></div>
-        </div>
-      </section>
-    )}
+          }
+        })}
+        <div class="flex-shrink-0 w-6"></div>
+      </div>
+    </section>
 
     <!-- 三栏区域 -->
     <section class="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-16 py-12 px-6 border-t border-border/20">
