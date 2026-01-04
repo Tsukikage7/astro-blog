@@ -6,7 +6,6 @@ import TableOfContents from "@components/common/TableOfContents.astro";
 import "../../styles/markdown.scss";
 import { SITE_INFO } from "@lib/config";
 import LiquidGlassLess from "@components/common/LiquidGlassLess.astro";
-import Comment from "@components/base/Comment.astro";
 import ShareButton from "@components/blog/ShareButton.astro";
 import { formatDate } from "@lib/formatDate";
 import readingTime from "@lib/readingTime";
@@ -175,33 +174,13 @@ const currentGenre = genre ? genreConfig[genre] : null;
         )}
 
         <!-- 作者信息和分享 -->
-        <div class="relative mt-16">
-          <div class="left_centor -top-12 transform -translate-x-1/2 z-10 animate-fadeUp">
-            <div class="relative group">
-              <div class="absolute -inset-2 bg-gradient-to-r from-zinc-400 via-zinc-500 to-zinc-600 rounded-full blur opacity-30 group-hover:opacity-50 transition duration-300"></div>
-              <img
-                class="relative w-20 h-20 rounded-full border-4 border-white/50 shadow-2xl transform group-hover:scale-105 transition-all duration-300 bg-white/10 backdrop-blur-sm"
-                src={SITE_INFO.AUTHOR_AVATAR}
-                alt="Author"
-                width="80"
-                height="80"
-                loading="lazy"
-              />
-            </div>
-          </div>
-
+        <div class="relative mt-6">
           <LiquidGlassLess
             heavy
-            wrapperClass="dock rounded-xl pt-16 pb-8 px-8"
+            wrapperClass="dock rounded-xl pt-6 pb-6 px-6"
             textClass="intersect-no-queue"
           >
-            <div class="text-center m-6">
-              <div class="font-bold text-2xl text-txt-p dark:text-darkmode-txt-p mb-1">
-                {SITE_INFO.AUTHOR_NAME || "Tsukikage"}
-              </div>
-            </div>
-
-            <div class="flex items-center justify-center gap-4 mb-2">
+            <div class="flex items-center justify-center gap-4 mb-4">
               <ShareButton
                 title={title}
                 description={entryDescription}
@@ -210,49 +189,31 @@ const currentGenre = genre ? genreConfig[genre] : null;
               />
             </div>
 
-            <div class="w-full h-px bg-gradient-to-r from-transparent via-white/20 to-transparent mb-2"></div>
+            <div class="w-full h-px bg-gradient-to-r from-transparent via-white/20 to-transparent mb-4"></div>
 
-            <div class="space-y-4 text-center">
-              <div class="text-xs text-txt-p dark:text-darkmode-txt-p opacity-75 leading-relaxed">
-                <div class="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4">
-                  <span>
-                    © 2025 by
-                    <a href={SITE_INFO.URL}>{SITE_INFO.SITE_NAME}</a>
-                    本文基于
-                    <a
-                      target="_blank"
-                      href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
-                      class="font-bold"
-                    >
-                      CC BY-NC-SA 4.0
-                    </a>
-                    许可
-                  </span>
-                  {updated && (
-                    <>
-                      <span class="hidden sm:inline text-white/30">|</span>
-                      <span class="inline-flex items-center gap-2">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        最后更新：{new Date(updated).toLocaleDateString("zh-CN")}
-                      </span>
-                    </>
-                  )}
+            <div class="text-center text-xs text-muted-foreground/70 space-y-2">
+              <div class="flex flex-wrap items-center justify-center gap-1">
+                <span>© 2025</span>
+                <a href={SITE_INFO.URL} class="hover:text-foreground transition-colors">{SITE_INFO.SITE_NAME}</a>
+                <span>·</span>
+                <a
+                  target="_blank"
+                  href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
+                  class="hover:text-foreground transition-colors"
+                >
+                  CC BY-NC-SA 4.0
+                </a>
+              </div>
+              {updated && (
+                <div class="flex items-center justify-center gap-1">
+                  <span>更新于</span>
+                  <span>{new Date(updated).toLocaleDateString("zh-CN")}</span>
                 </div>
+              )}
               </div>
             </div>
           </LiquidGlassLess>
         </div>
-
-        <!-- 评论 -->
-        <LiquidGlassLess
-          heavy
-          wrapperClass="dock rounded-xl p-6 my-4"
-          textClass="intersect-no-queue px-3 lg:px-8"
-        >
-          <Comment />
-        </LiquidGlassLess>
       </article>
     </div>
 

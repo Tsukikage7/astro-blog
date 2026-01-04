@@ -15,8 +15,9 @@ interface MonthLabel {
 
 const blogPosts = await getEntries("blog");
 const notesPosts = await getEntries("notes");
+const writingsPosts = await getEntries("writings");
 
-const allPosts = [...blogPosts, ...notesPosts];
+const allPosts = [...blogPosts, ...notesPosts, ...writingsPosts];
 
 function generateCalendarData(): DayData[][] {
   const today = new Date();
