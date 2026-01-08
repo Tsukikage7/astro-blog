@@ -58,6 +58,8 @@
     "js-yaml": "^4.1.0",
     "katex": "^0.16.21",
     "marked": "^17.0.1",
+    "mdast": "^3.0.0",
+    "mermaid": "^11.12.2",
     "plyr": "^3.8.3",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.7.1",
@@ -73,7 +75,8 @@
     "remark-toc": "^9.0.0",
     "sharp": "^0.34.5",
     "swiper": "^12.0.3",
-    "tailwind-merge": "^3.4.0"
+    "tailwind-merge": "^3.4.0",
+    "unist-util-visit": "^5.0.0"
   },
   "devDependencies": {
     "@astrojs/tailwind": "^6.0.2",
@@ -83,6 +86,7 @@
     "@types/node": "24.10.1",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
+    "@types/unist": "^3.0.3",
     "autoprefixer": "^10.4.14",
     "eslint": "^9.39.1",
     "fontkit": "^2.0.4",
