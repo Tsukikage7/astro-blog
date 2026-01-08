@@ -8,21 +8,22 @@ import remarkToc from "remark-toc";
 import rehypeKatex from "rehype-katex";
 import remarkMath from "remark-math";
 import rehypeExternalLinks from "rehype-external-links";
+import { remarkMermaid } from "./src/lib/remarkMermaid.js";
 import { fileURLToPath, URL } from "node:url";
 import os from "node:os";
 
 // 获取环境变量
-const NODE_ENV = process.env.NODE_ENV || 'development';
-const isProduction = NODE_ENV === 'production';
-const isDevelopment = NODE_ENV === 'development';
+const NODE_ENV = process.env.NODE_ENV || "development";
+const isProduction = NODE_ENV === "production";
+const isDevelopment = NODE_ENV === "development";
 
 // 根据环境设置站点 URL
 const getSiteUrl = () => {
   switch (NODE_ENV) {
-    case 'production':
+    case "production":
       return "https://tsukikage7.com";
-    case 'development':
-    case 'test':
+    case "development":
+    case "test":
     default:
       return "http://localhost:4321";
   }
@@ -37,7 +38,7 @@ export default defineConfig({
   server: {
     // 允许通过本机IP访问开发服务器
     host: true, // 或者使用 '0.0.0.0'
-    port: 4321
+    port: 4321,
   },
   build: {
     // 静态站点构建优化
@@ -46,11 +47,11 @@ export default defineConfig({
     // 启用并行构建以提升性能
     concurrency: Math.max(4, os.cpus().length - 1),
     // 分割代码以减少单个文件大小
-    split: true
+    split: true,
   },
   prefetch: {
     // 在开发环境禁用预取以加快构建
-    prefetchAll: isProduction
+    prefetchAll: isProduction,
   },
   integrations: [
     react(),
@@ -58,44 +59,69 @@ export default defineConfig({
       applyBaseStyles: false,
     }),
     AutoImport({
-      imports: ["@components/common/Button.astro", "@shortcodes/Accordion", "@shortcodes/Notice", "@shortcodes/Youtube", "@shortcodes/Tabs", "@shortcodes/Tab"]
+      imports: [
+        "@components/common/Button.astro",
+        "@shortcodes/Accordion",
+        "@shortcodes/Notice",
+        "@shortcodes/Youtube",
+        "@shortcodes/Tabs",
+        "@shortcodes/Tab",
+      ],
     }),
-    mdx()
+    mdx(),
   ],
   markdown: {
-    remarkPlugins: [remarkToc, [remarkCollapse, {
-      test: "Table of contents"
-    }], remarkMath],
+    remarkPlugins: [
+      remarkMermaid,
+      remarkToc,
+      [
+        remarkCollapse,
+        {
+          test: "Table of contents",
+        },
+      ],
+      remarkMath,
+    ],
     rehypePlugins: [
       [rehypeKatex, {}],
-      [rehypeExternalLinks, {
-        target: "_blank",
-        rel: ["nofollow", "noopener", "noreferrer"],
-        test: (node) => {
-          // 只对外部链接应用，内部链接不受影响
-          const href = node.properties?.href;
-          if (!href) return false;
-          // 检查是否为外部链接
-          return href.startsWith('http://') || href.startsWith('https://') || href.startsWith('//');
-        }
-      }]
+      [
+        rehypeExternalLinks,
+        {
+          target: "_blank",
+          rel: ["nofollow", "noopener", "noreferrer"],
+          test: (node) => {
+            // 只对外部链接应用，内部链接不受影响
+            const href = node.properties?.href;
+            if (!href) return false;
+            // 检查是否为外部链接
+            return (
+              href.startsWith("http://") ||
+              href.startsWith("https://") ||
+              href.startsWith("//")
+            );
+          },
+        },
+      ],
     ],
     shikiConfig: {
-      themes: { // https://shiki.style/themes
+      themes: {
+        // https://shiki.style/themes
         light: "github-light",
         dark: "github-dark-dimmed",
-      } 
+      },
     },
-    extendDefaultPlugins: true
+    extendDefaultPlugins: true,
   },
   image: {
     // 配置图片处理
-    remotePatterns: [{
-      protocol: "https"
-    }],
+    remotePatterns: [
+      {
+        protocol: "https",
+      },
+    ],
     // 启用图片优化服务
     service: {
-      entrypoint: "astro/assets/services/sharp"
+      entrypoint: "astro/assets/services/sharp",
     },
     // 图片优化配置
     domains: [],
@@ -104,6 +130,6 @@ export default defineConfig({
     // 支持的图片格式
     formats: ["webp"],
     // 启用图片缓存以加速重复构建
-    experimentalLayout: "constrained"
+    experimentalLayout: "constrained",
   },
 });

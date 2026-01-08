@@ -178,11 +178,11 @@
 
   // 表格样式 - 直接应用到 table 元素
   table {
-    @apply w-full border-collapse mb-6 rounded-lg overflow-hidden;
+    @apply w-full border-collapse mb-4 sm:mb-6 rounded-lg overflow-hidden text-sm sm:text-base;
     border: 1px solid #e5e7eb;
     display: block;
     overflow-x: auto;
-    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
 
     .dark & {
       border-color: #374151;
@@ -190,8 +190,9 @@
 
     th,
     td {
-      @apply px-3 sm:px-4 py-2 sm:py-3 text-left border-b;
+      @apply px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 md:py-3 text-left border-b;
       border-color: #e5e7eb;
+      white-space: nowrap;
 
       .dark & {
         border-color: #374151;
@@ -199,7 +200,7 @@
     }
 
     th {
-      @apply bg-gray-50 font-semibold text-gray-900;
+      @apply bg-gray-50 font-semibold text-gray-900 text-xs sm:text-sm md:text-base;
 
       .dark & {
         @apply bg-gray-800 text-gray-100;
@@ -207,7 +208,7 @@
     }
 
     td {
-      @apply text-gray-700;
+      @apply text-gray-700 text-xs sm:text-sm md:text-base;
 
       .dark & {
         @apply text-gray-300;
@@ -226,7 +227,18 @@
   // 图片样式 - 直接应用到 img 元素
   img {
     @apply mb-4 sm:mb-6 rounded-lg shadow-lg;
-    @apply max-h-[50vh] sm:max-h-[60vh] w-auto;
+    @apply max-h-[40vh] sm:max-h-[50vh] md:max-h-[60vh] w-auto;
+  }
+
+  // Mermaid 图表样式
+  .mermaid-container {
+    @apply my-4 sm:my-6 flex justify-center overflow-x-auto rounded-lg border border-border bg-muted/50 p-2 sm:p-4;
+    -webkit-overflow-scrolling: touch;
+
+    svg {
+      @apply max-w-full h-auto;
+      min-width: min(100%, 300px);
+    }
   }
 
   // shadcn/ui 风格分隔线
