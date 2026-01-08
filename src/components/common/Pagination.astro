@@ -60,19 +60,19 @@ if (pageIndex < pageCount) {
 {
   pageCount >= 1 && (
     <nav class="flex items-center justify-center pb-2">
-      <LiquidGlass containerClass="rounded-md p-2 mx-2 space-x-2" >
+      <LiquidGlass containerClass="rounded-md p-1.5 sm:p-2 mx-2 space-x-1 sm:space-x-2" >
         {}
         {prevPage ? (
           <a
             href={prevPage}
-            class="col rounded px-2 py-1.5 text-txt-p dark:text-darkmode-txt-p"
+            class="col rounded px-3 py-2.5 sm:px-3 sm:py-2 min-w-[44px] min-h-[44px] flex items-center justify-center text-txt-p dark:text-darkmode-txt-p"
             aria-label="Previous"
           >
             <FaArrowLeft className="inline-block" />
           </a>
         ) : (
           <span
-            class="col rounded px-2 py-1.5 text-txt-light dark:text-darkmode-txt-light"
+            class="col rounded px-3 py-2.5 sm:px-3 sm:py-2 min-w-[44px] min-h-[44px] flex items-center justify-center text-txt-light dark:text-darkmode-txt-light"
             aria-label="Previous"
           >
             <FaArrowLeft className="inline-block" />
@@ -82,7 +82,7 @@ if (pageIndex < pageCount) {
         {pageIDs ? (
           <div
             aria-current="page"
-            class="col rounded px-4 py-2 text-txt-p  dark:text-darkmode-txt-p"
+            class="col rounded px-3 py-2.5 sm:px-4 sm:py-2 min-w-[44px] min-h-[44px] flex items-center justify-center text-txt-p dark:text-darkmode-txt-p"
           >
             {pageIndex + 1}
           </div>
@@ -91,7 +91,7 @@ if (pageIndex < pageCount) {
             pagination === pageIndex ? (
               <span
                 aria-current="page"
-                class="col rounded px-4 py-2 font-semibold text-txt-p dark:text-darkmode-txt-p border border-txt-light dark:border-darkmode-txt-light"
+                class="col rounded px-3 py-2.5 sm:px-4 sm:py-2 min-w-[44px] min-h-[44px] flex items-center justify-center font-semibold text-txt-p dark:text-darkmode-txt-p border border-txt-light dark:border-darkmode-txt-light"
               >
                 {pagination}
               </span>
@@ -99,7 +99,7 @@ if (pageIndex < pageCount) {
               <a
                 href={getPageLink(pagination)}
                 aria-current="page"
-                class="col rounded px-4 py-2 font-semibold text-txt-p dark:text-darkmode-txt-p"
+                class="col rounded px-3 py-2.5 sm:px-4 sm:py-2 min-w-[44px] min-h-[44px] flex items-center justify-center font-semibold text-txt-p dark:text-darkmode-txt-p"
               >
                 {pagination}
               </a>
@@ -111,14 +111,14 @@ if (pageIndex < pageCount) {
         {nextPage ? (
           <a
             href={nextPage}
-            class="col rounded px-2 py-1.5 text-txt-p dark:text-darkmode-txt-p"
+            class="col rounded px-3 py-2.5 sm:px-3 sm:py-2 min-w-[44px] min-h-[44px] flex items-center justify-center text-txt-p dark:text-darkmode-txt-p"
             aria-label="Next"
           >
             <FaArrowRight className="inline-block" />
           </a>
         ) : (
           <span
-            class="col rounded px-2 py-1.5 text-txt-light dark:text-darkmode-txt-light"
+            class="col rounded px-3 py-2.5 sm:px-3 sm:py-2 min-w-[44px] min-h-[44px] flex items-center justify-center text-txt-light dark:text-darkmode-txt-light"
             aria-label="Next"
           >
             <FaArrowRight className="inline-block" />

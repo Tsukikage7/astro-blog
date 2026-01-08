@@ -98,13 +98,13 @@ a.under {
   @apply mt-4;
 }
 
-// Container
+// Container - 移动端优化
 .container {
-  @apply mx-auto max-w-[1300px] px-4;
+  @apply mx-auto max-w-[1300px] px-3 sm:px-4;
 }
 
 .container-l {
-  @apply mx-auto max-w-[1300px] px-2;
+  @apply mx-auto max-w-[1300px] px-2 sm:px-3;
 }
 
 /* Chrome, Safari, Edge, Opera */
