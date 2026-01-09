@@ -765,8 +765,8 @@ const themeColor = MUSIC_PLAYER_CONFIG.THEME_COLOR;
     padding: 0.5rem;
   }
 
-  /* 歌曲项 */
-  .song-item {
+  /* 歌曲项 - 使用 :global 因为是 JS 动态生成的 */
+  :global(.song-item) {
     display: grid;
     grid-template-columns: 28px 44px 1fr;
     align-items: center;
@@ -777,48 +777,50 @@ const themeColor = MUSIC_PLAYER_CONFIG.THEME_COLOR;
     transition: all 0.2s;
   }
 
-  .song-item:hover {
+  :global(.song-item:hover) {
     background: hsl(var(--muted) / 0.5);
   }
 
-  :global(.dark) .song-item:hover {
+  :global(.dark .song-item:hover) {
     background: rgba(255, 255, 255, 0.08);
   }
 
-  .song-item.active {
+  :global(.song-item.active) {
     background: hsl(var(--primary) / 0.1);
   }
 
-  :global(.dark) .song-item.active {
+  :global(.dark .song-item.active) {
     background: rgba(255, 255, 255, 0.12);
   }
 
-  .song-index {
+  :global(.song-index) {
     font-size: 0.75rem;
     font-weight: 600;
     color: hsl(var(--muted-foreground));
     text-align: center;
   }
 
-  .song-item.active .song-index {
+  :global(.song-item.active .song-index) {
     color: var(--themeColor);
   }
 
-  .song-cover {
+  :global(.song-cover) {
     position: relative;
     width: 44px;
     height: 44px;
     border-radius: 6px;
     overflow: hidden;
+    flex-shrink: 0;
   }
 
-  .song-cover img {
+  :global(.song-cover img) {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
   }
 
-  .song-play-icon {
+  :global(.song-play-icon) {
     position: absolute;
     inset: 0;
     background: rgba(0, 0, 0, 0.5);
@@ -829,21 +831,22 @@ const themeColor = MUSIC_PLAYER_CONFIG.THEME_COLOR;
     transition: opacity 0.2s;
   }
 
-  .song-item:hover .song-play-icon {
+  :global(.song-item:hover .song-play-icon) {
     opacity: 1;
   }
 
-  .song-play-icon svg {
+  :global(.song-play-icon svg) {
     width: 18px;
     height: 18px;
     color: white;
   }
 
-  .song-details {
+  :global(.song-details) {
     min-width: 0;
+    overflow: hidden;
   }
 
-  .song-name {
+  :global(.song-name) {
     font-size: 0.875rem;
     font-weight: 500;
     color: hsl(var(--foreground));
@@ -852,17 +855,29 @@ const themeColor = MUSIC_PLAYER_CONFIG.THEME_COLOR;
     text-overflow: ellipsis;
   }
 
-  .song-item.active .song-name {
+  :global(.song-item.active .song-name) {
     color: var(--themeColor);
   }
 
-  .song-singer {
+  :global(.song-singer) {
     font-size: 0.75rem;
     color: hsl(var(--muted-foreground));
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     margin-top: 2px;
+  }
+
+  :global(.dark .song-name) {
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  :global(.dark .song-singer) {
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  :global(.dark .song-index) {
+    color: rgba(255, 255, 255, 0.4);
   }
 
   /* 底部播放栏 */
