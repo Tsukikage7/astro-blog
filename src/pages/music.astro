@@ -57,15 +57,15 @@ const themeColor = MUSIC_PLAYER_CONFIG.THEME_COLOR;
         <!-- 控制按钮 -->
         <div class="controls">
           <button class="ctrl-btn ctrl-mode" id="mode-btn" title="播放模式">
-            <FaRandom id="icon-random" />
-            <FaRedo id="icon-loop" class="hidden" />
+            <span id="icon-random"><FaRandom /></span>
+            <span id="icon-loop" class="hidden"><FaRedo /></span>
           </button>
           <button class="ctrl-btn" id="prev-btn" title="上一首">
             <FaStepBackward />
           </button>
           <button class="ctrl-btn ctrl-main" id="play-btn" title="播放/暂停">
-            <FaPlay id="icon-play" />
-            <FaPause id="icon-pause" class="hidden" />
+            <span id="icon-play"><FaPlay /></span>
+            <span id="icon-pause" class="hidden"><FaPause /></span>
           </button>
           <button class="ctrl-btn" id="next-btn" title="下一首">
             <FaStepForward />
