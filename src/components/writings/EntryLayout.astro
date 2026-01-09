@@ -225,3 +225,118 @@ const currentGenre = genre ? genreConfig[genre] : null;
     )}
   </section>
 </BaseLayout>
+
+<script>
+  // 代码块收起/展开功能（使用 grid 动画，参考内容导航）
+  function setupCodeCollapse() {
+    const codeBlocks = document.querySelectorAll('.markdown-content pre.astro-code');
+
+    codeBlocks.forEach((pre) => {
+      // 避免重复处理
+      if (pre.closest('.code-collapse-wrapper')) return;
+
+      const code = pre.querySelector('code');
+      const lines = code ? code.querySelectorAll('.line').length : 0;
+      const language = pre.getAttribute('data-language') || 'code';
+
+      // 创建包装器
+      const wrapper = document.createElement('div');
+      wrapper.className = 'code-collapse-wrapper';
+
+      // 创建头部
+      const header = document.createElement('div');
+      header.className = 'code-collapse-header';
+      header.setAttribute('aria-expanded', 'false');
+      header.innerHTML = `
+        <div class="code-collapse-title">
+          <svg class="code-collapse-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+          <span class="code-collapse-text">${language.toUpperCase()}</span>
+          ${lines > 0 ? `<span class="code-collapse-count">${lines} 行</span>` : ''}
+        </div>
+        <div class="code-collapse-actions">
+          <button class="code-collapse-copy-btn" type="button" title="复制代码">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            <span class="code-collapse-action-text">复制</span>
+          </button>
+          <button class="code-collapse-btn" type="button">
+            <span class="code-collapse-action-text">展开</span>
+          </button>
+        </div>
+      `;
+
+      // 创建内容容器（用于 grid 动画）
+      const content = document.createElement('div');
+      content.className = 'code-collapse-content'; // 默认收起
+
+      // 创建内部包装器
+      const inner = document.createElement('div');
+      inner.className = 'code-collapse-inner';
+
+      // 组装 DOM 结构
+      pre.parentNode?.insertBefore(wrapper, pre);
+      inner.appendChild(pre);
+      content.appendChild(inner);
+      wrapper.appendChild(header);
+      wrapper.appendChild(content);
+
+      // 收起/展开点击事件
+      const toggleBtn = header.querySelector('.code-collapse-btn');
+      const toggleAction = () => {
+        const isExpanded = header.getAttribute('aria-expanded') === 'true';
+        header.setAttribute('aria-expanded', String(!isExpanded));
+        content.classList.toggle('code-collapse-content--expanded', !isExpanded);
+
+        const icon = header.querySelector('.code-collapse-icon') as HTMLElement;
+        const btnText = toggleBtn?.querySelector('.code-collapse-action-text');
+
+        if (icon) {
+          icon.style.transform = !isExpanded ? 'rotate(180deg)' : 'rotate(0deg)';
+        }
+        if (btnText) {
+          btnText.textContent = !isExpanded ? '收起' : '展开';
+        }
+      };
+
+      toggleBtn?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleAction();
+      });
+
+      // 点击头部也可以展开/收起
+      header.addEventListener('click', (e) => {
+        if ((e.target as HTMLElement).closest('.code-collapse-copy-btn')) return;
+        if ((e.target as HTMLElement).closest('.code-collapse-btn')) return;
+        toggleAction();
+      });
+
+      // 复制功能
+      const copyBtn = header.querySelector('.code-collapse-copy-btn');
+      copyBtn?.addEventListener('click', async (e) => {
+        e.stopPropagation();
+        const codeText = code?.textContent || '';
+
+        try {
+          await navigator.clipboard.writeText(codeText);
+          const copyText = copyBtn.querySelector('.code-collapse-action-text');
+          if (copyText) {
+            copyText.textContent = '已复制';
+            setTimeout(() => {
+              copyText.textContent = '复制';
+            }, 2000);
+          }
+        } catch (err) {
+          console.error('复制失败:', err);
+        }
+      });
+    });
+  }
+
+  // 初始化
+  document.addEventListener('DOMContentLoaded', setupCodeCollapse);
+  document.addEventListener('astro:page-load', setupCodeCollapse);
+</script>

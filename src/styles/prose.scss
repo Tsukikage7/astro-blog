@@ -19,11 +19,13 @@
   @apply prose-blockquote:bg-muted prose-blockquote:border-border prose-blockquote:text-muted-foreground;
   @apply prose-blockquote:prose-p:m-0;
   // Table - 移动端优化 padding
-  @apply prose-table:relative prose-table:overflow-hidden prose-table:rounded-lg prose-table:before:rounded-lg prose-table:before:absolute prose-table:before:left-0 prose-table:before:top-0 prose-table:before:h-full prose-table:before:w-full prose-table:before:border prose-table:before:content-[""] prose-table:before:border-border;
-  @apply prose-thead:border-border prose-thead:bg-muted;
-  @apply prose-th:relative prose-th:z-10 prose-th:px-2 sm:prose-th:px-4 prose-th:py-2 prose-th:text-foreground;
-  @apply prose-tr:border-border;
-  @apply prose-td:relative prose-td:z-10 prose-td:px-2 sm:prose-td:px-3 prose-td:py-2 prose-td:text-foreground;
+  @apply prose-table:w-full prose-table:border-collapse prose-table:rounded-lg prose-table:overflow-hidden;
+  @apply prose-table:border prose-table:border-border;
+  @apply prose-table:bg-background;
+  @apply prose-thead:bg-muted/50;
+  @apply prose-th:px-2 sm:prose-th:px-4 prose-th:py-2 sm:prose-th:py-3 prose-th:text-foreground prose-th:font-semibold prose-th:text-left prose-th:border-b prose-th:border-border;
+  @apply prose-tr:border-b prose-tr:border-border/50;
+  @apply prose-td:px-2 sm:prose-td:px-3 prose-td:py-2 sm:prose-td:py-3 prose-td:text-foreground prose-td:text-left prose-th:text-xs sm:prose-th:text-sm md:prose-th:text-base;
   // Lists
   @apply prose-li:text-foreground;
   @apply prose-li:marker:text-primary prose-li:marker:inset-2;

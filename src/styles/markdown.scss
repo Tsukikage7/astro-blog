@@ -22,7 +22,7 @@
 }
 
 .markdown-content,
-.markdown-content>*,
+.markdown-content > *,
 .astro-content,
 .tk-comment {
   // shadcn/ui 风格代码块样式
@@ -49,6 +49,101 @@
         @apply pl-0;
       }
     }
+  }
+
+  // 代码块收起/展开功能
+  .code-collapse-wrapper {
+    @apply relative mb-4;
+    @apply border border-border rounded-xl overflow-hidden;
+
+    // 包装器内的代码块不需要自己的 border 和 margin
+    .astro-code {
+      @apply border-0 rounded-none my-0;
+    }
+  }
+
+  .code-collapse-header {
+    @apply flex items-center justify-between px-3 py-2;
+    @apply bg-muted/50;
+    @apply cursor-pointer transition-all duration-150;
+    @apply select-none;
+
+    &:hover {
+      @apply bg-muted/70;
+    }
+
+    &:active {
+      @apply bg-muted/80;
+    }
+  }
+
+  // 使用 grid 实现平滑展开/收起动画（参考内容导航）
+  .code-collapse-content {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.25s ease;
+    overflow: hidden;
+  }
+
+  .code-collapse-content--expanded {
+    grid-template-rows: 1fr;
+  }
+
+  .code-collapse-inner {
+    min-height: 0;
+    overflow: hidden;
+
+    .astro-code {
+      max-height: 500px;
+      overflow-y: auto;
+    }
+  }
+
+  .code-collapse-title {
+    @apply flex items-center gap-2;
+  }
+
+  .code-collapse-icon {
+    @apply text-muted-foreground;
+    @apply transition-transform duration-200;
+  }
+
+  .code-collapse-text {
+    @apply text-sm font-medium text-muted-foreground;
+  }
+
+  .code-collapse-count {
+    @apply text-xs text-muted-foreground/60;
+    @apply bg-muted/80 px-2 py-0.5 rounded;
+  }
+
+  .code-collapse-actions {
+    @apply flex items-center gap-2;
+  }
+
+  .code-collapse-btn,
+  .code-collapse-copy-btn {
+    @apply flex items-center gap-1.5 px-2.5 py-1 rounded-md;
+    @apply text-xs font-medium text-foreground;
+    @apply bg-background border border-border;
+    @apply transition-all duration-150;
+    @apply select-none;
+
+    &:hover {
+      @apply bg-accent text-accent-foreground;
+    }
+
+    &:active {
+      @apply transform scale-95;
+    }
+
+    svg {
+      @apply transition-transform duration-200;
+    }
+  }
+
+  .code-collapse-action-text {
+    @apply text-xs;
   }
 
   // shadcn/ui 风格行内代码
@@ -175,51 +270,56 @@
     @apply border-l-4 pl-4 italic my-4 text-muted-foreground;
   }
 
-
   // 表格样式 - 直接应用到 table 元素
   table {
     @apply w-full border-collapse mb-4 sm:mb-6 rounded-lg overflow-hidden text-sm sm:text-base;
-    border: 1px solid #e5e7eb;
-    display: block;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+    @apply border border-border;
+    @apply bg-background;
 
-    .dark & {
-      border-color: #374151;
-    }
+    thead {
+      @apply bg-muted/50;
 
-    th,
-    td {
-      @apply px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 md:py-3 text-left border-b;
-      border-color: #e5e7eb;
-      white-space: nowrap;
-
-      .dark & {
-        border-color: #374151;
+      tr {
+        th {
+          @apply px-3 sm:px-4 py-2 sm:py-3 text-left font-semibold text-foreground;
+          @apply border-b border-border;
+          @apply text-xs sm:text-sm md:text-base;
+          @apply whitespace-nowrap;
+        }
       }
     }
 
-    th {
-      @apply bg-gray-50 font-semibold text-gray-900 text-xs sm:text-sm md:text-base;
+    tbody {
+      tr {
+        @apply border-b border-border/50;
+        @apply transition-colors duration-150;
 
-      .dark & {
-        @apply bg-gray-800 text-gray-100;
+        &:hover {
+          @apply bg-muted/30;
+        }
+
+        &:last-child {
+          @apply border-b-0;
+        }
+
+        td {
+          @apply px-3 sm:px-4 py-2 sm:py-3 text-left text-foreground;
+          @apply text-xs sm:text-sm md:text-base;
+          word-wrap: break-word;
+          min-width: 100px;
+        }
       }
     }
 
-    td {
-      @apply text-gray-700 text-xs sm:text-sm md:text-base;
+    tfoot {
+      @apply bg-muted/30;
 
-      .dark & {
-        @apply text-gray-300;
-      }
-    }
-
-    tr:hover {
-      @apply bg-gray-50;
-
-      .dark & {
-        @apply bg-gray-800;
+      tr {
+        td {
+          @apply px-3 sm:px-4 py-2 sm:py-3 text-left text-muted-foreground;
+          @apply text-xs sm:text-sm md:text-base;
+          @apply font-medium;
+        }
       }
     }
   }
@@ -246,50 +346,47 @@
     @apply my-8 border-0 border-t border-border;
   }
 
-
   // 保留原有的包装器样式以兼容
   .table-wrapper {
     @apply overflow-x-auto mb-6 rounded-lg;
-    border: 1px solid #e5e7eb;
-
-    .dark & {
-      border-color: #374151;
-    }
+    @apply border border-border;
 
     .markdown-table {
       @apply w-full border-collapse;
+      @apply bg-background;
 
-      th,
-      td {
-        @apply px-4 py-3 text-left border-b;
-        border-color: #e5e7eb;
+      thead {
+        @apply bg-muted/50;
 
-        .dark & {
-          border-color: #374151;
+        tr {
+          th {
+            @apply px-3 sm:px-4 py-2 sm:py-3 text-left font-semibold text-foreground;
+            @apply border-b border-border;
+            @apply text-xs sm:text-sm md:text-base;
+            @apply whitespace-nowrap;
+          }
         }
       }
 
-      th {
-        @apply bg-gray-50 font-semibold text-gray-900;
+      tbody {
+        tr {
+          @apply border-b border-border/50;
+          @apply transition-colors duration-150;
 
-        .dark & {
-          @apply bg-gray-800 text-gray-100;
-        }
-      }
+          &:hover {
+            @apply bg-muted/30;
+          }
 
-      td {
-        @apply text-gray-700;
+          &:last-child {
+            @apply border-b-0;
+          }
 
-        .dark & {
-          @apply text-gray-300;
-        }
-      }
-
-      tr:hover {
-        @apply bg-gray-50;
-
-        .dark & {
-          @apply bg-gray-800;
+          td {
+            @apply px-3 sm:px-4 py-2 sm:py-3 text-left text-foreground;
+            @apply text-xs sm:text-sm md:text-base;
+            word-wrap: break-word;
+            min-width: 100px;
+          }
         }
       }
     }
@@ -454,7 +551,9 @@
     @apply text-muted-foreground;
     @apply bg-muted border border-border;
     border-left: 4px solid hsl(var(--primary));
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    box-shadow:
+      0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06);
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
@@ -474,7 +573,9 @@
     // 悬停效果
     &:hover {
       transform: translateY(-2px);
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      box-shadow:
+        0 10px 15px -3px rgba(0, 0, 0, 0.1),
+        0 4px 6px -2px rgba(0, 0, 0, 0.05);
       border-left-color: hsl(var(--primary) / 0.8);
     }
 
@@ -514,7 +615,7 @@
   h5,
   h6 {
     &:hover .anchor-link::before {
-      content: '#';
+      content: "#";
       @apply absolute -ml-6 text-gray-400 font-normal;
 
       .dark & {
@@ -549,11 +650,8 @@
     }
   }
 
-
-
   // 响应式设计 - 优化移动端体验
   @media (max-width: 768px) {
-
     // 代码块移动端优化
     // .code-block-wrapper {
     //   @apply mb-4 rounded-lg;
@@ -635,10 +733,10 @@
       @apply text-sm;
 
       .markdown-table {
-
         th,
         td {
           @apply px-2 py-2 text-xs;
+          min-width: 80px;
         }
       }
     }
@@ -646,40 +744,54 @@
     table {
       @apply text-sm;
 
-      th,
-      td {
+      thead th,
+      tbody td,
+      tfoot td {
         @apply px-2 py-2 text-xs;
+        min-width: 80px;
       }
     }
   }
 
-  // 超小屏幕优化
-  @media (max-width: 480px) {
-    // .code-block-wrapper {
-    //   .code-block-header {
-    //     @apply px-2 py-1.5;
+  table {
+    @apply text-sm;
 
-    //     .copy-code-btn {
-    //       @apply px-1.5 py-0.5;
-    //     }
-    //   }
-
-    //   pre {
-    //     @apply p-3;
-    //   }
-    // }
-
-    // pre:not(.code-block-wrapper pre) {
-    //   @apply p-3;
-    // }
-
-    .markdown-blockquote,
-    blockquote {
-      @apply px-3 py-2;
-
-      &::after {
-        display: none;
-      }
+    thead th,
+    tbody td,
+    tfoot td {
+      @apply px-2 py-2 text-xs;
+      min-width: 80px;
     }
   }
+}
+
+// 超小屏幕优化
+@media (max-width: 480px) {
+  // .code-block-wrapper {
+  //   .code-block-header {
+  //     @apply px-2 py-1.5;
+
+  //     .copy-code-btn {
+  //       @apply px-1.5 py-0.5;
+  //     }
+  //   }
+
+  //   pre {
+  //     @apply p-3;
+  //   }
+  // }
+
+  // pre:not(.code-block-wrapper pre) {
+  //   @apply p-3;
+  // }
+
+  .markdown-blockquote,
+  blockquote {
+    @apply px-3 py-2;
+
+    &::after {
+      display: none;
+    }
+  }
+
 }

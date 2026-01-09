@@ -9,6 +9,7 @@ import Background from "@/components/base/Background.astro";
 import { Tooltips } from "astro-tooltips";
 import { SITE_INFO, MUSIC_PLAYER_CONFIG } from "@lib/config";
 import { isDevelopment } from "@lib/env";
+import MermaidClient from "@components/common/MermaidClient";
 
 export interface Props {
   title?: string;
@@ -423,6 +424,7 @@ const customFooterCode = customSettings?.custom_footer_code || "";
     </main>
     <Footer />
     {MUSIC_PLAYER_CONFIG.ENABLED && !isMusicPage && <MusicPlayer />}
+    <MermaidClient client:load />
     
     
     <script>
