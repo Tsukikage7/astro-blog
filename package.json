@@ -34,7 +34,7 @@
   "dependencies": {
     "@astrojs/mdx": "^4.3.12",
     "@astrojs/node": "^9.5.1",
-    "@astrojs/react": "^4.4.2",
+    "@astrojs/react": "5.0.0-alpha.0",
     "@astrojs/rss": "^4.0.14",
     "@astrojs/sitemap": "^3.6.0",
     "@codemirror/lang-markdown": "^6.3.3",
@@ -64,8 +64,8 @@
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.7.1",
     "prop-types": "^15.8.1",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
     "react-icons": "^5.5.0",
     "react-lite-youtube-embed": "^3.3.2",
     "rehype-external-links": "^3.0.0",
@@ -77,6 +77,12 @@
     "swiper": "^12.0.3",
     "tailwind-merge": "^3.4.0",
     "unist-util-visit": "^5.0.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "react": "^19.2.3",
+      "react-dom": "^19.2.3"
+    }
   },
   "devDependencies": {
     "@astrojs/tailwind": "^6.0.2",

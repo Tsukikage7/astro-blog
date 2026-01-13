@@ -71,6 +71,7 @@ export default defineConfig({
     mdx(),
   ],
   markdown: {
+    smartypants: false, // 禁用自动引号转换，避免中文引号被转为 HTML 实体
     remarkPlugins: [
       remarkMermaid,
       remarkToc,
