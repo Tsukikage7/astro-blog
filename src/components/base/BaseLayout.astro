@@ -10,6 +10,7 @@ import { Tooltips } from "astro-tooltips";
 import { SITE_INFO, MUSIC_PLAYER_CONFIG } from "@lib/config";
 import { isDevelopment } from "@lib/env";
 import MermaidClient from "@components/common/MermaidClient";
+import { SEO } from "astro-seo";
 
 export interface Props {
   title?: string;
@@ -18,9 +19,29 @@ export interface Props {
   noindex?: boolean;
   canonical?: string;
   keywords?: string;
+  // 文章 SEO 属性
+  articleType?: boolean;
+  publishedTime?: Date | string;
+  modifiedTime?: Date | string;
+  author?: string;
+  tags?: string[];
+  section?: string;
 }
 
-const { title, description, image, noindex, canonical, keywords } = Astro.props;
+const {
+  title,
+  description,
+  image,
+  noindex,
+  canonical,
+  keywords,
+  articleType = false,
+  publishedTime,
+  modifiedTime,
+  author,
+  tags,
+  section,
+} = Astro.props;
 
 // Check if current page is music page (to hide floating player)
 const isMusicPage = Astro.url.pathname === '/music' || Astro.url.pathname === '/music/';
@@ -44,10 +65,22 @@ const baiduAnalyticsId = SITE_INFO.BAIDU_ANALYTICS_ID || "";
 
 const customHeaderCode = customSettings?.custom_header_code || "";
 const customFooterCode = customSettings?.custom_footer_code || "";
+
+// SEO 相关变量
+const pageTitle = title ? `${plainify(title)} | ${siteTitle}` : `${siteTitle} | ${siteSubTitle}`;
+const pageDescription = plainify(description || metaDescription);
+const pageImage = image ? `${baseUrl}${image}` : `${baseUrl}${siteImage}`;
+const pageUrl = `${baseUrl}${Astro.url.pathname}`;
+
+// 格式化日期
+const formatDate = (date: Date | string | undefined) => {
+  if (!date) return undefined;
+  return date instanceof Date ? date.toISOString() : new Date(date).toISOString();
+};
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
   <head>
     
     <link
@@ -92,49 +125,51 @@ const customFooterCode = customSettings?.custom_footer_code || "";
       content="width=device-width, initial-scale=1, maximum-scale=5"
     />
 
-    <title>
-      {title ? plainify(title) + " | " : ""}{siteTitle + " | " + siteSubTitle}
-    </title>
-
-    {canonical && <link rel="canonical" href={canonical} item-prop="url" />}
-
-    <meta
-      name="description"
-      content={plainify(description ? description : metaDescription)}
+    <!-- SEO 组件 -->
+    <SEO
+      title={pageTitle}
+      description={pageDescription}
+      canonical={canonical || pageUrl}
+      noindex={noindex}
+      openGraph={{
+        basic: {
+          title: title ? plainify(title) : siteTitle,
+          type: articleType ? "article" : "website",
+          image: pageImage,
+          url: pageUrl,
+        },
+        optional: {
+          description: pageDescription,
+          siteName: siteTitle,
+          locale: "zh_CN",
+        },
+        image: {
+          url: pageImage,
+          alt: title ? plainify(title) : siteTitle,
+          type: "image/png",
+        },
+        article: articleType ? {
+          publishedTime: formatDate(publishedTime),
+          modifiedTime: formatDate(modifiedTime),
+          authors: author ? [author] : [SITE_INFO.AUTHOR || siteTitle],
+          section: section,
+          tags: tags,
+        } : undefined,
+      }}
+      twitter={{
+        card: "summary_large_image",
+        title: title ? plainify(title) : siteTitle,
+        description: pageDescription,
+        image: pageImage,
+        imageAlt: title ? plainify(title) : siteTitle,
+      }}
+      extend={{
+        meta: [
+          { name: "keywords", content: metaKeywords },
+          { name: "author", content: author || SITE_INFO.AUTHOR || siteTitle },
+        ],
+      }}
     />
-    {metaKeywords && <meta name="keywords" content={metaKeywords} />}
-
-    <meta
-      property="og:title"
-      content={`${plainify(metaTitle + " " + siteTagline)}`}
-    />
-    <meta
-      property="og:description"
-      content={plainify(description ? description : metaDescription)}
-    />
-    <meta property="og:type" content="website" />
-    <meta
-      property="og:url"
-      content={`${baseUrl}/${Astro.url.pathname.replace("/", "")}`}
-    />
-    <meta
-      property="og:image"
-      content={`${baseUrl}${image ? image : siteImage}`}
-    />
-
-    <meta
-      name="twitter:title"
-      content={`${plainify(metaTitle + " " + siteTagline)}`}
-    />
-    <meta
-      name="twitter:description"
-      content={plainify(description ? description : metaDescription)}
-    />
-    <meta
-      name="twitter:image"
-      content={`${baseUrl}${image ? image : siteImage}`}
-    />
-    <meta name="twitter:card" content="summary_large_image" />
 
     
     

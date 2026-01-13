@@ -87,7 +87,17 @@ const recommendedPosts = allBlogPosts
   .map((item) => item.post);
 ---
 
-<BaseLayout title={title} description={entryDescription} image={image?.src}>
+<BaseLayout
+  title={title}
+  description={entryDescription}
+  image={image?.src}
+  articleType={true}
+  publishedTime={entry.data.created}
+  modifiedTime={entry.data.updated}
+  author={SITE_INFO.AUTHOR}
+  tags={entry.data.tags}
+  section={entry.data.categories?.[0]}
+>
   <section class="flex container px-3 sm:px-4 lg:px-8">
     <div class:list={[articleClass]}>
       <article>
